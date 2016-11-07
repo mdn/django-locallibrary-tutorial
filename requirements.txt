@@ -1,0 +1,6 @@
+dj-database-url==0.4.1
+Django==1.10.2
+gunicorn==19.6.0
+psycopg2==2.6.2
+wheel==0.24.0
+whitenoise==3.2.2
