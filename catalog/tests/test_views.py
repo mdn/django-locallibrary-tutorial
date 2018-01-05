@@ -67,7 +67,7 @@ class LoanedBookInstancesByUserListViewTest(TestCase):
         test_book = Book.objects.create(title='Book Title', summary = 'My book summary', isbn='ABCDEFG', author=test_author, language=test_language,)
         # Create genre as a post-step
         genre_objects_for_book = Genre.objects.all()
-        test_book.genre=genre_objects_for_book
+        test_book.genre.set(genre_objects_for_book)
         test_book.save()
 
         #Create 30 BookInstance objects
@@ -199,7 +199,7 @@ class RenewBookInstancesViewTest(TestCase):
         test_book = Book.objects.create(title='Book Title', summary = 'My book summary', isbn='ABCDEFG', author=test_author, language=test_language,)
         # Create genre as a post-step
         genre_objects_for_book = Genre.objects.all()
-        test_book.genre=genre_objects_for_book
+        test_book.genre.set(genre_objects_for_book)
         test_book.save()
 
         #Create a BookInstance object for test_user1
