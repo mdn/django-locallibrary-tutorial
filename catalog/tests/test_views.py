@@ -330,10 +330,10 @@ class AuthorCreateViewTest(TestCase):
         login = self.client.login(username='testuser2', password='12345')
         resp = self.client.get(reverse('author_create') )
         self.assertEqual( resp.status_code,200)
-        
-        expected_initial_date = datetime.date(2016, 12, 10)
+
+        expected_initial_date = datetime.date(2018, 1, 5)
         response_date=resp.context['form'].initial['date_of_death']
-        response_date=datetime.datetime.strptime(response_date, "%Y-%m-%d").date()
+        response_date=datetime.datetime.strptime(response_date, "%d/%m/%Y").date()
         self.assertEqual(response_date, expected_initial_date )
         
     def test_redirects_to_detail_view_on_success(self):

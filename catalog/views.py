@@ -135,7 +135,7 @@ from .models import Author
 class AuthorCreate(PermissionRequiredMixin, CreateView):
     model = Author
     fields = '__all__'
-    initial={'date_of_death':'12/10/2016',}
+    initial={'date_of_death':'05/01/2018',}
     permission_required = 'catalog.can_mark_returned'
 
 class AuthorUpdate(PermissionRequiredMixin, UpdateView):
@@ -153,7 +153,6 @@ class AuthorDelete(PermissionRequiredMixin, DeleteView):
 class BookCreate(PermissionRequiredMixin, CreateView):
     model = Book
     fields = '__all__'
-    initial={'date_of_death':'12/10/2016',}
     permission_required = 'catalog.can_mark_returned'
 
 class BookUpdate(PermissionRequiredMixin, UpdateView):
