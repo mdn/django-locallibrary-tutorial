@@ -43,7 +43,9 @@ class AuthorModelTest(TestCase):
         
     def test_object_name_is_last_name_comma_first_name(self):
         author=Author.objects.get(id=1)
-        expected_object_name = '%s, %s' % (author.last_name, author.first_name)
+        #expected_object_name = '%s, %s' % (author.last_name, author.first_name)
+        expected_object_name = '{0}, {1}'.format(author.last_name,author.first_name)
+
         self.assertEquals(expected_object_name,str(author))
         
     def test_get_absolute_url(self):
