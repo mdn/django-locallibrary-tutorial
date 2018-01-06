@@ -4,7 +4,7 @@ from django.test import TestCase
 
 
 from catalog.models import Author
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
 class AuthorListViewTest(TestCase):
 
@@ -13,7 +13,8 @@ class AuthorListViewTest(TestCase):
         #Create authors for pagination tests
         number_of_authors = 13
         for author_num in range(number_of_authors):
-           Author.objects.create(first_name='Christian %s' % author_num, last_name = 'Surname %s' % author_num,)
+           #Author.objects.create(first_name='Christian %s' % author_num, last_name = 'Surname %s' % author_num,)
+           Author.objects.create(first_name='Christian {0}'.format(author_num), last_name = 'Surname {0}'.format(author_num) )
            
     def test_view_url_exists_at_desired_location(self): 
         resp = self.client.get('/catalog/authors/') 
@@ -66,7 +67,7 @@ class LoanedBookInstancesByUserListViewTest(TestCase):
         test_book = Book.objects.create(title='Book Title', summary = 'My book summary', isbn='ABCDEFG', author=test_author, language=test_language,)
         # Create genre as a post-step
         genre_objects_for_book = Genre.objects.all()
-        test_book.genre=genre_objects_for_book
+        test_book.genre.set(genre_objects_for_book)
         test_book.save()
 
         #Create 30 BookInstance objects
@@ -198,7 +199,7 @@ class RenewBookInstancesViewTest(TestCase):
         test_book = Book.objects.create(title='Book Title', summary = 'My book summary', isbn='ABCDEFG', author=test_author, language=test_language,)
         # Create genre as a post-step
         genre_objects_for_book = Genre.objects.all()
-        test_book.genre=genre_objects_for_book
+        test_book.genre.set(genre_objects_for_book)
         test_book.save()
 
         #Create a BookInstance object for test_user1
@@ -329,10 +330,10 @@ class AuthorCreateViewTest(TestCase):
         login = self.client.login(username='testuser2', password='12345')
         resp = self.client.get(reverse('author_create') )
         self.assertEqual( resp.status_code,200)
-        
-        expected_initial_date = datetime.date(2016, 12, 10)
+
+        expected_initial_date = datetime.date(2018, 1, 5)
         response_date=resp.context['form'].initial['date_of_death']
-        response_date=datetime.datetime.strptime(response_date, "%Y-%m-%d").date()
+        response_date=datetime.datetime.strptime(response_date, "%d/%m/%Y").date()
         self.assertEqual(response_date, expected_initial_date )
         
     def test_redirects_to_detail_view_on_success(self):

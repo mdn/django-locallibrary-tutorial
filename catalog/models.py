@@ -106,7 +106,8 @@ class BookInstance(models.Model):
         """
         String for representing the Model object.
         """
-        return '%s (%s)' % (self.id,self.book.title)
+        #return '%s (%s)' % (self.id,self.book.title)
+        return '{0} ({1})'.format(self.id,self.book.title)
         
 
 class Author(models.Model):
@@ -117,6 +118,9 @@ class Author(models.Model):
     last_name = models.CharField(max_length=100)
     date_of_birth = models.DateField(null=True, blank=True)
     date_of_death = models.DateField('died', null=True, blank=True)
+
+    class Meta:
+        ordering = ["last_name","first_name"]
     
     def get_absolute_url(self):
         """
@@ -129,4 +133,4 @@ class Author(models.Model):
         """
         String for representing the Model object.
         """
-        return '%s, %s' % (self.last_name, self.first_name)
+        return '{0}, {1}'.format(self.last_name,self.first_name)
