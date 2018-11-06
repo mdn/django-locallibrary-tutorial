@@ -72,12 +72,12 @@ class LoanedBookInstancesByUserListViewTest(TestCase):
         # Create 30 BookInstance objects
         number_of_book_copies = 30
         for book_copy in range(number_of_book_copies):
-            return_date= timezone.now() + datetime.timedelta(days=book_copy%5)
+            return_date = timezone.now() + datetime.timedelta(days=book_copy%5)
             if book_copy % 2:
-                the_borrower=test_user1
+                the_borrower = test_user1
             else:
-                the_borrower=test_user2
-            status='m'
+                the_borrower = test_user2
+            status = 'm'
             BookInstance.objects.create(book=test_book,imprint='Unlikely Imprint, 2016', due_back=return_date, borrower=the_borrower, status=status)
         
     def test_redirect_if_not_logged_in(self):
@@ -113,7 +113,7 @@ class LoanedBookInstancesByUserListViewTest(TestCase):
         get_ten_books = BookInstance.objects.all()[:10]
 
         for copy in get_ten_books:
-            copy.status='o'
+            copy.status = 'o'
             copy.save()
         
         # Check that now we have borrowed books in the list
@@ -135,7 +135,7 @@ class LoanedBookInstancesByUserListViewTest(TestCase):
         # Change all books to be on loan.
         # This should make 15 test user ones.
         for copy in BookInstance.objects.all():
-            copy.status='o'
+            copy.status = 'o'
             copy.save()
             
         login = self.client.login(username='testuser1', password='12345')
@@ -153,7 +153,7 @@ class LoanedBookInstancesByUserListViewTest(TestCase):
     
         # Change all books to be on loan
         for copy in BookInstance.objects.all():
-            copy.status='o'
+            copy.status = 'o'
             copy.save()
             
         login = self.client.login(username='testuser1', password='12345')
@@ -167,10 +167,10 @@ class LoanedBookInstancesByUserListViewTest(TestCase):
         # Confirm that of the items, only 10 are displayed due to pagination.
         self.assertEqual( len(resp.context['bookinstance_list']),10)
         
-        last_date=0
+        last_date = 0
         for copy in resp.context['bookinstance_list']:
-            if last_date==0:
-                last_date=copy.due_back
+            if last_date == 0:
+                last_date = copy.due_back
             else:
                 self.assertTrue(last_date <= copy.due_back)
                 
@@ -202,12 +202,12 @@ class RenewBookInstancesViewTest(TestCase):
         test_book.save()
 
         # Create a BookInstance object for test_user1
-        return_date= datetime.date.today() + datetime.timedelta(days=5)
-        self.test_bookinstance1=BookInstance.objects.create(book=test_book,imprint='Unlikely Imprint, 2016', due_back=return_date, borrower=test_user1, status='o')
+        return_date = datetime.date.today() + datetime.timedelta(days=5)
+        self.test_bookinstance1 = BookInstance.objects.create(book=test_book,imprint='Unlikely Imprint, 2016', due_back=return_date, borrower=test_user1, status='o')
         
         # Create a BookInstance object for test_user2
-        return_date= datetime.date.today() + datetime.timedelta(days=5)
-        self.test_bookinstance2=BookInstance.objects.create(book=test_book,imprint='Unlikely Imprint, 2016', due_back=return_date, borrower=test_user2, status='o')
+        return_date = datetime.date.today() + datetime.timedelta(days=5)
+        self.test_bookinstance2 = BookInstance.objects.create(book=test_book,imprint='Unlikely Imprint, 2016', due_back=return_date, borrower=test_user2, status='o')
         
     def test_redirect_if_not_logged_in(self):
         resp = self.client.get(reverse('renew-book-librarian', kwargs={'pk':self.test_bookinstance1.pk,}) )
@@ -329,8 +329,8 @@ class AuthorCreateViewTest(TestCase):
         self.assertEqual( resp.status_code,200)
 
         expected_initial_date = datetime.date(2018, 1, 5)
-        response_date=resp.context['form'].initial['date_of_death']
-        response_date=datetime.datetime.strptime(response_date, "%d/%m/%Y").date()
+        response_date = resp.context['form'].initial['date_of_death']
+        response_date = datetime.datetime.strptime(response_date, "%d/%m/%Y").date()
         self.assertEqual(response_date, expected_initial_date )
         
     def test_redirects_to_detail_view_on_success(self):

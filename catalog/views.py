@@ -7,14 +7,14 @@ from .models import Book, Author, BookInstance, Genre
 def index(request):
     """View function for home page of site."""
     # Generate counts of some of the main objects
-    num_books=Book.objects.all().count()
-    num_instances=BookInstance.objects.all().count()
+    num_books = Book.objects.all().count()
+    num_instances = BookInstance.objects.all().count()
     # Available copies of books
-    num_instances_available=BookInstance.objects.filter(status__exact='a').count()
-    num_authors=Author.objects.count()  # The 'all()' is implied by default.
+    num_instances_available = BookInstance.objects.filter(status__exact='a').count()
+    num_authors = Author.objects.count()  # The 'all()' is implied by default.
 
     # Number of visits to this view, as counted in the session variable.
-    num_visits=request.session.get('num_visits', 0)
+    num_visits = request.session.get('num_visits', 0)
     request.session['num_visits'] = num_visits+1
     
     # Render the HTML template index.html with the data in the context variable.
@@ -85,7 +85,7 @@ from .forms import RenewBookForm
 @permission_required('catalog.can_mark_returned')
 def renew_book_librarian(request, pk):
     """View function for renewing a specific BookInstance by librarian."""
-    book_inst=get_object_or_404(BookInstance, pk = pk)
+    book_inst = get_object_or_404(BookInstance, pk = pk)
 
     # If this is a POST request then process the Form data
     if request.method == 'POST':
@@ -119,7 +119,7 @@ from .models import Author
 class AuthorCreate(PermissionRequiredMixin, CreateView):
     model = Author
     fields = '__all__'
-    initial={'date_of_death':'05/01/2018',}
+    initial = {'date_of_death':'05/01/2018',}
     permission_required = 'catalog.can_mark_returned'
 
 class AuthorUpdate(PermissionRequiredMixin, UpdateView):
