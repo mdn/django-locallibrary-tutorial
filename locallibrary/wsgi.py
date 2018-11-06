@@ -1,5 +1,4 @@
-"""
-WSGI config for locallibrary project.
+"""WSGI config for locallibrary project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 

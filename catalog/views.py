@@ -5,9 +5,7 @@ from django.shortcuts import render
 from .models import Book, Author, BookInstance, Genre
 
 def index(request):
-    """
-    View function for home page of site.
-    """
+    """View function for home page of site."""
     # Generate counts of some of the main objects
     num_books=Book.objects.all().count()
     num_instances=BookInstance.objects.all().count()
@@ -31,39 +29,29 @@ from django.views import generic
 
 
 class BookListView(generic.ListView):
-    """
-    Generic class-based view for a list of books.
-    """
+    """Generic class-based view for a list of books."""
     model = Book
     paginate_by = 10
     
 class BookDetailView(generic.DetailView):
-    """
-    Generic class-based detail view for a book.
-    """
+    """Generic class-based detail view for a book."""
     model = Book
 
 class AuthorListView(generic.ListView):
-    """
-    Generic class-based list view for a list of authors.
-    """
+    """Generic class-based list view for a list of authors."""
     model = Author
     paginate_by = 10 
 
 
 class AuthorDetailView(generic.DetailView):
-    """
-    Generic class-based detail view for an author.
-    """
+    """Generic class-based detail view for an author."""
     model = Author
 
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 class LoanedBooksByUserListView(LoginRequiredMixin,generic.ListView):
-    """
-    Generic class-based view listing books on loan to current user. 
-    """
+    """Generic class-based view listing books on loan to current user."""
     model = BookInstance
     template_name ='catalog/bookinstance_list_borrowed_user.html'
     paginate_by = 10
@@ -76,9 +64,7 @@ class LoanedBooksByUserListView(LoginRequiredMixin,generic.ListView):
 from django.contrib.auth.mixins import PermissionRequiredMixin
 
 class LoanedBooksAllListView(PermissionRequiredMixin,generic.ListView):
-    """
-    Generic class-based view listing all books on loan. Only visible to users with can_mark_returned permission.
-    """
+    """Generic class-based view listing all books on loan. Only visible to users with can_mark_returned permission."""
     model = BookInstance
     permission_required = 'catalog.can_mark_returned'
     template_name ='catalog/bookinstance_list_borrowed_all.html'
@@ -98,9 +84,7 @@ from .forms import RenewBookForm
 
 @permission_required('catalog.can_mark_returned')
 def renew_book_librarian(request, pk):
-    """
-    View function for renewing a specific BookInstance by librarian
-    """
+    """View function for renewing a specific BookInstance by librarian."""
     book_inst=get_object_or_404(BookInstance, pk = pk)
 
     # If this is a POST request then process the Form data

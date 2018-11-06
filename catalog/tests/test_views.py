@@ -287,9 +287,7 @@ class RenewBookInstancesViewTest(TestCase):
         
 
 class AuthorCreateViewTest(TestCase):
-    """
-    Test case for the AuthorCreate view (Created as Challenge!)
-    """
+    """Test case for the AuthorCreate view (Created as Challenge)."""
 
     def setUp(self):
         #Create a user
