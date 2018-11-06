@@ -133,7 +133,7 @@ class AuthorDelete(PermissionRequiredMixin, DeleteView):
     permission_required = 'catalog.can_mark_returned'
     
 
-#Classes created for the forms challenge
+# Classes created for the forms challenge
 class BookCreate(PermissionRequiredMixin, CreateView):
     model = Book
     fields = '__all__'

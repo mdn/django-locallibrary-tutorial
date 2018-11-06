@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 
-from django.urls import reverse #Used to generate urls by reversing the URL patterns
+from django.urls import reverse  # Used to generate urls by reversing the URL patterns
 
 
 class Genre(models.Model):
@@ -54,7 +54,7 @@ class Book(models.Model):
 import uuid # Required for unique book instances
 from datetime import date
 
-from django.contrib.auth.models import User #Required to assign User as a borrower
+from django.contrib.auth.models import User  # Required to assign User as a borrower
 
 class BookInstance(models.Model):
     """Model representing a specific copy of a book (i.e. that can be borrowed from the library)."""
@@ -81,7 +81,7 @@ class BookInstance(models.Model):
     status= models.CharField(max_length=1, choices=LOAN_STATUS, blank=True, default='d', help_text='Book availability')
 
     class Meta:
-        ordering = ["due_back"]
+        ordering = ['due_back']
         permissions = (("can_mark_returned", "Set book as returned"),)   
 
     def __str__(self):
@@ -98,7 +98,7 @@ class Author(models.Model):
     date_of_death = models.DateField('died', null=True, blank=True)
 
     class Meta:
-        ordering = ["last_name","first_name"]
+        ordering = ['last_name','first_name']
     
     def get_absolute_url(self):
         """Returns the url to access a particular author instance."""
