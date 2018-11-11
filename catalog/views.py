@@ -80,12 +80,13 @@ from django.urls import reverse
 import datetime
 from django.contrib.auth.decorators import permission_required
 
-from .forms import RenewBookForm
+#from .forms import RenewBookForm
+from catalog.forms import RenewBookForm
 
 @permission_required('catalog.can_mark_returned')
 def renew_book_librarian(request, pk):
     """View function for renewing a specific BookInstance by librarian."""
-    book_inst = get_object_or_404(BookInstance, pk = pk)
+    book_instance = get_object_or_404(BookInstance, pk = pk)
 
     # If this is a POST request then process the Form data
     if request.method == 'POST':
@@ -96,8 +97,8 @@ def renew_book_librarian(request, pk):
         # Check if the form is valid:
         if form.is_valid():
             # process the data in form.cleaned_data as required (here we just write it to the model due_back field)
-            book_inst.due_back = form.cleaned_data['renewal_date']
-            book_inst.save()
+            book_instance.due_back = form.cleaned_data['renewal_date']
+            book_instance.save()
 
             # redirect to a new URL:
             return HttpResponseRedirect(reverse('all-borrowed') )
@@ -107,7 +108,12 @@ def renew_book_librarian(request, pk):
         proposed_renewal_date = datetime.date.today() + datetime.timedelta(weeks=3)
         form = RenewBookForm(initial={'renewal_date': proposed_renewal_date,})
 
-    return render(request, 'catalog/book_renew_librarian.html', {'form': form, 'bookinst':book_inst})
+    context = {
+        'form': form,
+        'book_instance': book_instance,
+    }
+
+    return render(request, 'catalog/book_renew_librarian.html', context)
     
     
     
