@@ -5,18 +5,16 @@ from django.shortcuts import render
 from .models import Book, Author, BookInstance, Genre
 
 def index(request):
-    """
-    View function for home page of site.
-    """
+    """View function for home page of site."""
     # Generate counts of some of the main objects
-    num_books=Book.objects.all().count()
-    num_instances=BookInstance.objects.all().count()
+    num_books = Book.objects.all().count()
+    num_instances = BookInstance.objects.all().count()
     # Available copies of books
-    num_instances_available=BookInstance.objects.filter(status__exact='a').count()
-    num_authors=Author.objects.count()  # The 'all()' is implied by default.
+    num_instances_available = BookInstance.objects.filter(status__exact='a').count()
+    num_authors = Author.objects.count()  # The 'all()' is implied by default.
 
     # Number of visits to this view, as counted in the session variable.
-    num_visits=request.session.get('num_visits', 0)
+    num_visits = request.session.get('num_visits', 0)
     request.session['num_visits'] = num_visits+1
     
     # Render the HTML template index.html with the data in the context variable.
@@ -31,39 +29,29 @@ from django.views import generic
 
 
 class BookListView(generic.ListView):
-    """
-    Generic class-based view for a list of books.
-    """
+    """Generic class-based view for a list of books."""
     model = Book
     paginate_by = 10
     
 class BookDetailView(generic.DetailView):
-    """
-    Generic class-based detail view for a book.
-    """
+    """Generic class-based detail view for a book."""
     model = Book
 
 class AuthorListView(generic.ListView):
-    """
-    Generic class-based list view for a list of authors.
-    """
+    """Generic class-based list view for a list of authors."""
     model = Author
     paginate_by = 10 
 
 
 class AuthorDetailView(generic.DetailView):
-    """
-    Generic class-based detail view for an author.
-    """
+    """Generic class-based detail view for an author."""
     model = Author
 
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 class LoanedBooksByUserListView(LoginRequiredMixin,generic.ListView):
-    """
-    Generic class-based view listing books on loan to current user. 
-    """
+    """Generic class-based view listing books on loan to current user."""
     model = BookInstance
     template_name ='catalog/bookinstance_list_borrowed_user.html'
     paginate_by = 10
@@ -76,9 +64,7 @@ class LoanedBooksByUserListView(LoginRequiredMixin,generic.ListView):
 from django.contrib.auth.mixins import PermissionRequiredMixin
 
 class LoanedBooksAllListView(PermissionRequiredMixin,generic.ListView):
-    """
-    Generic class-based view listing all books on loan. Only visible to users with can_mark_returned permission.
-    """
+    """Generic class-based view listing all books on loan. Only visible to users with can_mark_returned permission."""
     model = BookInstance
     permission_required = 'catalog.can_mark_returned'
     template_name ='catalog/bookinstance_list_borrowed_all.html'
@@ -94,14 +80,13 @@ from django.urls import reverse
 import datetime
 from django.contrib.auth.decorators import permission_required
 
-from .forms import RenewBookForm
+#from .forms import RenewBookForm
+from catalog.forms import RenewBookForm
 
 @permission_required('catalog.can_mark_returned')
 def renew_book_librarian(request, pk):
-    """
-    View function for renewing a specific BookInstance by librarian
-    """
-    book_inst=get_object_or_404(BookInstance, pk = pk)
+    """View function for renewing a specific BookInstance by librarian."""
+    book_instance = get_object_or_404(BookInstance, pk = pk)
 
     # If this is a POST request then process the Form data
     if request.method == 'POST':
@@ -112,8 +97,8 @@ def renew_book_librarian(request, pk):
         # Check if the form is valid:
         if form.is_valid():
             # process the data in form.cleaned_data as required (here we just write it to the model due_back field)
-            book_inst.due_back = form.cleaned_data['renewal_date']
-            book_inst.save()
+            book_instance.due_back = form.cleaned_data['renewal_date']
+            book_instance.save()
 
             # redirect to a new URL:
             return HttpResponseRedirect(reverse('all-borrowed') )
@@ -123,7 +108,12 @@ def renew_book_librarian(request, pk):
         proposed_renewal_date = datetime.date.today() + datetime.timedelta(weeks=3)
         form = RenewBookForm(initial={'renewal_date': proposed_renewal_date,})
 
-    return render(request, 'catalog/book_renew_librarian.html', {'form': form, 'bookinst':book_inst})
+    context = {
+        'form': form,
+        'book_instance': book_instance,
+    }
+
+    return render(request, 'catalog/book_renew_librarian.html', context)
     
     
     
@@ -135,7 +125,7 @@ from .models import Author
 class AuthorCreate(PermissionRequiredMixin, CreateView):
     model = Author
     fields = '__all__'
-    initial={'date_of_death':'05/01/2018',}
+    initial = {'date_of_death':'05/01/2018',}
     permission_required = 'catalog.can_mark_returned'
 
 class AuthorUpdate(PermissionRequiredMixin, UpdateView):
@@ -149,7 +139,7 @@ class AuthorDelete(PermissionRequiredMixin, DeleteView):
     permission_required = 'catalog.can_mark_returned'
     
 
-#Classes created for the forms challenge
+# Classes created for the forms challenge
 class BookCreate(PermissionRequiredMixin, CreateView):
     model = Book
     fields = '__all__'
