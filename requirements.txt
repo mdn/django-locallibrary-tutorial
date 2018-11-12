@@ -1,6 +1,6 @@
 dj-database-url==0.4.2
 Django==2.0.2
-gunicorn==19.7.1
+gunicorn==19.9.0
 psycopg2-binary==2.7.6
 wheel==0.30.0
 whitenoise==4.1
