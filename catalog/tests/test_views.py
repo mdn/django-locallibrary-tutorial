@@ -310,7 +310,6 @@ class AuthorCreateViewTest(TestCase):
         # Create a book
         test_author = Author.objects.create(first_name='John', last_name='Smith')
 
-        
     def test_redirect_if_not_logged_in(self):
         response = self.client.get(reverse('author_create') )
         self.assertRedirects(response, '/accounts/login/?next=/catalog/author/create/' )
@@ -318,7 +317,7 @@ class AuthorCreateViewTest(TestCase):
     def test_redirect_if_logged_in_but_not_correct_permission(self):
         login = self.client.login(username='testuser1', password='1X<ISRUkw+tuK')
         response = self.client.get(reverse('author_create') )
-        self.assertRedirects(response, '/accounts/login/?next=/catalog/author/create/' )
+        self.assertEqual(response.status_code, 403)
 
     def test_logged_in_with_permission(self):
         login = self.client.login(username='testuser2', password='2HJ1vRV0Z&3iD')
