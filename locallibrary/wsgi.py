@@ -13,11 +13,3 @@ from django.core.wsgi import get_wsgi_application
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'locallibrary.settings')
 
 application = get_wsgi_application()
-
-
-# Add static serving using whitenoise
-from django.core.wsgi import get_wsgi_application
-from whitenoise.django import DjangoWhiteNoise
-
-application = get_wsgi_application()
-application = DjangoWhiteNoise(application)
