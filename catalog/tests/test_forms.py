@@ -28,7 +28,7 @@ class RenewBookFormTest(TestCase):
         
     def test_renew_form_date_max(self):
         """Test form is valid if renewal_date is within 4 weeks."""
-        date = timezone.now() + datetime.timedelta(weeks=4)
+        date = datetime.date.today() + datetime.timedelta(weeks=4)
         form = RenewBookForm(data={'renewal_date': date})
         self.assertTrue(form.is_valid())
         
