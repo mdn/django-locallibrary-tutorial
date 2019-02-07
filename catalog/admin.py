@@ -15,6 +15,7 @@ admin.site.register(Language)
 admin.site.register(Genre)
 admin.site.register(Language)
 
+
 class BooksInline(admin.TabularInline):
     """Defines format of inline book insertion (used in AuthorAdmin)"""
     model = Book
@@ -37,6 +38,7 @@ class BooksInstanceInline(admin.TabularInline):
     """Defines format of inline book instance insertion (used in BookAdmin)"""
     model = BookInstance
 
+
 class BookAdmin(admin.ModelAdmin):
     """Administration object for Book models. 
     Defines:
@@ -45,6 +47,7 @@ class BookAdmin(admin.ModelAdmin):
     """
     list_display = ('title', 'author', 'display_genre')
     inlines = [BooksInstanceInline]
+
 
 admin.site.register(Book, BookAdmin)
 
@@ -57,14 +60,14 @@ class BookInstanceAdmin(admin.ModelAdmin):
      - filters that will be displayed in sidebar (list_filter)
      - grouping of fields into sections (fieldsets)
     """
-    list_display = ('book', 'status', 'borrower','due_back', 'id')
+    list_display = ('book', 'status', 'borrower', 'due_back', 'id')
     list_filter = ('status', 'due_back')
     
     fieldsets = (
         (None, {
-            'fields': ('book','imprint', 'id')
+            'fields': ('book', 'imprint', 'id')
         }),
         ('Availability', {
-            'fields': ('status', 'due_back','borrower')
+            'fields': ('status', 'due_back', 'borrower')
         }),
     )
