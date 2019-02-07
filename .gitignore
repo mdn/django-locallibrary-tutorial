@@ -92,3 +92,7 @@ ENV/
 # Spyder project settings
 .spyderproject
 
+# VladyslavHnatchenko virtual env and PyCharm dependencies
+.idea
+venv/
+staticfiles/

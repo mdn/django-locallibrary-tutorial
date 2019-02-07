@@ -1,8 +1,18 @@
+import datetime
+
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+from django.urls import reverse_lazy
 from django.shortcuts import render
+from django.shortcuts import get_object_or_404
+from django.views import generic
 
-# Create your views here.
-
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import permission_required
 from .models import Book, Author, BookInstance, Genre
+from catalog.forms import RenewBookForm
 
 
 def index(request):
@@ -27,8 +37,6 @@ def index(request):
                  'num_visits': num_visits},
     )
 
-from django.views import generic
-
 
 class BookListView(generic.ListView):
     """Generic class-based view for a list of books."""
@@ -52,10 +60,7 @@ class AuthorDetailView(generic.DetailView):
     model = Author
 
 
-from django.contrib.auth.mixins import LoginRequiredMixin
-
-
-class LoanedBooksByUserListView(LoginRequiredMixin,generic.ListView):
+class LoanedBooksByUserListView(LoginRequiredMixin, generic.ListView):
     """Generic class-based view listing books on loan to current user."""
     model = BookInstance
     template_name = 'catalog/bookinstance_list_borrowed_user.html'
@@ -63,11 +68,9 @@ class LoanedBooksByUserListView(LoginRequiredMixin,generic.ListView):
     
     def get_queryset(self):
         return BookInstance.objects.filter(borrower=self.request.user).filter(status__exact='o').order_by('due_back')
-        
+
 
 # Added as part of challenge!
-from django.contrib.auth.mixins import PermissionRequiredMixin
-
 class LoanedBooksAllListView(PermissionRequiredMixin, generic.ListView):
     """Generic class-based view listing all books on loan. Only visible to users with can_mark_returned permission."""
     model = BookInstance
@@ -77,16 +80,6 @@ class LoanedBooksAllListView(PermissionRequiredMixin, generic.ListView):
     
     def get_queryset(self):
         return BookInstance.objects.filter(status__exact='o').order_by('due_back')  
-
-
-from django.shortcuts import get_object_or_404
-from django.http import HttpResponseRedirect
-from django.urls import reverse
-import datetime
-from django.contrib.auth.decorators import permission_required
-
-# from .forms import RenewBookForm
-from catalog.forms import RenewBookForm
 
 
 @permission_required('catalog.can_mark_returned')
@@ -120,11 +113,6 @@ def renew_book_librarian(request, pk):
     }
 
     return render(request, 'catalog/book_renew_librarian.html', context)
-    
-
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.urls import reverse_lazy
-from .models import Author
 
 
 class AuthorCreate(PermissionRequiredMixin, CreateView):
