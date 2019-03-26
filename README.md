@@ -15,7 +15,7 @@ The main features that have currently been implemented are:
 * Admin users can create and manage models. The admin has been optimised (the basic registration is present in admin.py, but commented out).
 * Librarians can renew reserved books
 
-![Local Library Model](https://github.com/mdn/django-locallibrary-tutorial/blob/master/catalog/static/images/local_library_model_uml.png)
+![Local Library Model](https://raw.githubusercontent.com/mdn/django-locallibrary-tutorial/master/catalog/static/images/local_library_model_uml.png)
 
 
 ## Quick Start
@@ -30,7 +30,7 @@ To get this project up and running locally on your computer:
    python3 manage.py migrate
    python3 manage.py collectstatic
    python3 manage.py test # Run the standard tests. These should all pass.
-   python3 manage.py createsuperuser # Create a superuser 
+   python3 manage.py createsuperuser # Create a superuser
    python3 manage.py runserver
    ```
 1. Open a browser to `http://127.0.0.1:8000/admin/` to open the admin site
