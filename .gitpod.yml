@@ -11,5 +11,5 @@ tasks:
     export DJANGO_SETTINGS_MODULE=locallibrary.local_settings &&
     python3 manage.py runserver 0.0.0.0:8080
 github:
-  prebuilds:
-    pullRequestsFromForks: true
+    prebuilds:
+        pullRequestsFromForks: true
