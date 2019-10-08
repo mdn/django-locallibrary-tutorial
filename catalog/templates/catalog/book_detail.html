@@ -8,7 +8,7 @@
 <p><strong>Summary:</strong> {{ book.summary }}</p>
 <p><strong>ISBN:</strong> {{ book.isbn }}</p> 
 <p><strong>Language:</strong> {{ book.language }}</p>  
-<p><strong>Genre:</strong> {% for genre in book.genre.all %}{{genre}}{% if not forloop.last %}, {% endif %}{% endfor %}</p>  
+<p><strong>Genre:</strong> {{ book.genre.all|join:", " }}</p>
 
 <div style="margin-left:20px;margin-top:20px">
 <h4>Copies</h4>
