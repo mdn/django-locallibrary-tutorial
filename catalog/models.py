@@ -58,7 +58,7 @@ class Book(models.Model):
 
 
 import uuid  # Required for unique book instances
-from datetime import date
+import datetime
 
 from django.contrib.auth.models import User  # Required to assign User as a borrower
 
@@ -69,12 +69,12 @@ class BookInstance(models.Model):
                           help_text="Unique ID for this particular book across whole library")
     book = models.ForeignKey('Book', on_delete=models.SET_NULL, null=True)
     imprint = models.CharField(max_length=200)
-    due_back = models.DateField(null=True, blank=True)
+    due_back = models.DateTimeField(null=True, blank=True)
     borrower = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 
     @property
     def is_overdue(self):
-        if self.due_back and date.today() > self.due_back:
+        if self.due_back and datetime.datetime.now() > self.due_back:
             return True
         return False
 
