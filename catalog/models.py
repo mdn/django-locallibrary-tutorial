@@ -30,6 +30,8 @@ class Language(models.Model):
 class Book(models.Model):
     """Model representing a book (but not a specific copy of a book)."""
     title = models.CharField(max_length=200)
+    week_target_description = models.CharField(max_length=1000, default='')
+    week_target_comment = models.CharField(max_length=2000, default='')
     author = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True)
     # Foreign Key used because book can only have one author, but authors can have multiple books
     # Author as a string rather than object because it hasn't been declared yet in file.
@@ -59,6 +61,9 @@ class Book(models.Model):
 
 import uuid  # Required for unique book instances
 import datetime
+import pytz
+
+utc=pytz.UTC
 
 from django.contrib.auth.models import User  # Required to assign User as a borrower
 
@@ -74,7 +79,7 @@ class BookInstance(models.Model):
 
     @property
     def is_overdue(self):
-        if self.due_back and datetime.datetime.now() > self.due_back:
+        if self.due_back and datetime.datetime.now().replace(tzinfo=utc) > self.due_back.replace(tzinfo=utc):
             return True
         return False
 
