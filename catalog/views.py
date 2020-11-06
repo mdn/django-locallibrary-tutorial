@@ -131,7 +131,7 @@ from .models import Author
 
 class AuthorCreate(PermissionRequiredMixin, CreateView):
     model = Author
-    fields = '__all__'
+    fields = '__all__' # Use of __all__ is potential security issue if more fields added
     initial = {'date_of_death': '11/06/2020'}
     permission_required = 'catalog.can_mark_returned'
 
