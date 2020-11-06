@@ -131,14 +131,14 @@ from .models import Author
 
 class AuthorCreate(PermissionRequiredMixin, CreateView):
     model = Author
-    fields = '__all__' # Use of __all__ is potential security issue if more fields added
+    fields = ['first_name', 'last_name', 'date_of_birth', 'date_of_death']
     initial = {'date_of_death': '11/06/2020'}
     permission_required = 'catalog.can_mark_returned'
 
 
 class AuthorUpdate(PermissionRequiredMixin, UpdateView):
     model = Author
-    fields = ['first_name', 'last_name', 'date_of_birth', 'date_of_death']
+    fields = '__all__' # Not recommended (potential security issue if more fields added)
     permission_required = 'catalog.can_mark_returned'
 
 
