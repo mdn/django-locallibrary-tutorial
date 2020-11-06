@@ -231,13 +231,11 @@ class RenewBookInstancesViewTest(TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertTrue(response.url.startswith('/accounts/login/'))
 
-    def test_redirect_if_logged_in_but_not_correct_permission(self):
+    def test_forbidden_if_logged_in_but_not_correct_permission(self):
         login = self.client.login(username='testuser1', password='1X<ISRUkw+tuK')
         response = self.client.get(reverse('renew-book-librarian', kwargs={'pk': self.test_bookinstance1.pk}))
+        self.assertEqual(response.status_code, 403)
 
-        # Manually check redirect (Can't use assertRedirect, because the redirect URL is unpredictable)
-        self.assertEqual(response.status_code, 302)
-        self.assertTrue(response.url.startswith('/accounts/login/'))
 
     def test_logged_in_with_permission_borrowed_book(self):
         login = self.client.login(username='testuser2', password='2HJ1vRV0Z&3iD')
@@ -324,7 +322,7 @@ class AuthorCreateViewTest(TestCase):
         response = self.client.get(reverse('author_create'))
         self.assertRedirects(response, '/accounts/login/?next=/catalog/author/create/')
 
-    def test_redirect_if_logged_in_but_not_correct_permission(self):
+    def test_forbidden_if_logged_in_but_not_correct_permission(self):
         login = self.client.login(username='testuser1', password='1X<ISRUkw+tuK')
         response = self.client.get(reverse('author_create'))
         self.assertEqual(response.status_code, 403)
@@ -345,7 +343,7 @@ class AuthorCreateViewTest(TestCase):
         response = self.client.get(reverse('author_create'))
         self.assertEqual(response.status_code, 200)
 
-        expected_initial_date = datetime.date(2018, 1, 5)
+        expected_initial_date = datetime.date(2020, 6, 11)
         response_date = response.context['form'].initial['date_of_death']
         response_date = datetime.datetime.strptime(response_date, "%d/%m/%Y").date()
         self.assertEqual(response_date, expected_initial_date)
