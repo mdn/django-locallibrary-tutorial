@@ -3,10 +3,8 @@
 {% block content %}
 
 <p>Title: {{ book.title }}</p>
-<a>Week target:</a>
-<h1> {{ book.week_target_description }}</h1>
-<p>Week target comment:</p>
-<p> {{ book.week_target_comment }}</p>
+<h1>Work package (vorher: Book-Detail)</h1>
+<a> {{ book.week_target_description }}</a>
 
 <p><strong>Author:</strong> <a href="{% url 'author-detail' book.author.pk %}">{{ book.author }}</a></p>
 <p><strong>Summary:</strong> {{ book.summary }}</p>
