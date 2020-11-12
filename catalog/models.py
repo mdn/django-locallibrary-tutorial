@@ -76,6 +76,8 @@ class BookInstance(models.Model):
     imprint = models.CharField(max_length=200)
     due_back = models.DateTimeField(null=True, blank=True)
     borrower = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    target_group_question = models.CharField(max_length=1000, default='')
+    memorizable_workpackage_relevantinformation_tobememorized = models.CharField(max_length=1000, default='')
 
     @property
     def is_overdue(self):
