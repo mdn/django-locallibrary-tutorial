@@ -34,6 +34,8 @@ class Book(models.Model):
     filepath_for_readiness_enhancement = models.CharField(max_length=2000, default='')
     hyperlink_for_readiness_enhancement = models.CharField(max_length=2000, default='')
     is_shown_at_next_time_measurement_stop = models.IntegerField(null=True, default=None, max_length=19)
+    plan_duration_mins = models.IntegerField(null=True, default=None)
+
     author = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True)
     # Foreign Key used because book can only have one author, but authors can have multiple books
     # Author as a string rather than object because it hasn't been declared yet in file.
