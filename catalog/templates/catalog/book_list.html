@@ -1,15 +1,14 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-    <a>Book List</a>
-    <h1>Week target List</h1>
+    <h1>Work package list (vorher: Book List)</h1>
 
     {% if book_list %}
     <ul>
 
       {% for book in book_list %}
       <li>
-        <a href="{{ book.get_absolute_url }}">{{ book.title }}</a> {{book.week_target_description}} ({{book.author}})
+        <a href="{{ book.get_absolute_url }}">{{ book.title }}</a> {{book.associated_email_received_account}} ({{book.author}})
       </li>
       {% endfor %}
 

@@ -21,8 +21,8 @@
 {% if copy.status != 'a' %}<p><strong>Due to be returned:</strong> {{copy.due_back}}</p>{% endif %}
 <p><strong>Imprint:</strong> {{copy.imprint}}</p>
 <p class="text-muted"><strong>Id:</strong> {{copy.id}}</p>
-<p>Frage: {{copy.target_group_question}}</p>
-<p>Antwort: {{copy.memorizable_workpackage_relevantinformation_tobememorized}}</p>
+<p><strong>Frage:</strong> {{copy.target_group_question}}</p>
+<p><strong>Antwort:</strong> {{copy.memorizable_workpackage_relevantinformation_tobememorized}}</p>
 
 {% endfor %}
 </div>
