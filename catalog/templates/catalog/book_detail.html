@@ -11,6 +11,7 @@
 <p><strong>Hyperlink for readiness enhancement:</strong> {{ book.hyperlink_for_readiness_enhancement }}</p> 
 <p><strong>Is shown at next time measurement stop:</strong> {{ book.is_shown_at_next_time_measurement_stop }}</p> 
 <p><strong>Plandauer:</strong> {{ book.plan_duration_mins }} Minuten </p>
+<p><strong>Due Date:</strong> {{ book.due_datetime }} </p>
 
 <p><strong>ToDelete:</strong></p>
 <p><strong>Author:</strong> <a href="{% url 'author-detail' book.author.pk %}">{{ book.author }}</a></p>
