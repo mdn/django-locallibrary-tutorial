@@ -3,9 +3,11 @@
 {% block content %}
 
 <p>Title: {{ book.title }}</p>
-<h1>Work package (vorher: Book-Detail)</h1>
+<h1>Work package detail (vorher: Book-Detail)</h1>
 <a> {{ book.week_target_description }}</a>
 
+<p><strong>Filepath for readiness enhancement:</strong> {{ book.filepath_for_readiness_enhancement }}</p> 
+<p><strong>Associated email received account:</strong> {{ book.associated_email_received_account }}</p> 
 <p><strong>Author:</strong> <a href="{% url 'author-detail' book.author.pk %}">{{ book.author }}</a></p>
 <p><strong>Summary:</strong> {{ book.summary }}</p>
 <p><strong>ISBN:</strong> {{ book.isbn }}</p> 
@@ -22,7 +24,7 @@
 <p><strong>Imprint:</strong> {{copy.imprint}}</p>
 <p class="text-muted"><strong>Id:</strong> {{copy.id}}</p>
 <p><strong>Frage:</strong> {{copy.target_group_question}}</p>
-<p><strong>Antwort:</strong> {{copy.memorizable_workpackage_relevantinformation_tobememorized}}</p>
+<p><strong>Memorizable:</strong> {{copy.memorizable_workpackage_relevantinformation_tobememorized}}</p>
 
 {% endfor %}
 </div>
