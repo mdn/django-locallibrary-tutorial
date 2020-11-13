@@ -121,6 +121,15 @@ class BookInstance(models.Model):
 
 class Author(models.Model):
     """Model representing an author."""
+    # t_memorization_package_memory_palace_technique_id = models.ForeignKey('T_Memorization_Package_Memory_Palace_Technique', on_delete=models.SET_NULL, null=True)
+    # t_memory_palace_type_location_number_id = models.ForeignKey('T_Memory_Palace_Type_Location_Number', on_delete=models.SET_NULL, null=True)
+    date_frame_from_weekday = models.DateField(null=True, blank=True)
+    date_frame_to_weekday = models.DateField(null=True, blank=True)
+    phase_week_target_is_excluded_from_wt_mp_assignment_until = models.DateField(null=True, blank=True)
+    phase_week_target_is_excluded_from_wt_mp_assignment_cause = models.CharField(max_length=255, default='')
+    phase_week_target_is_excluded_from_wt_mp_assignment_wish = models.CharField(max_length=255, default='')
+#HIER WEITER
+
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     date_of_birth = models.DateField(null=True, blank=True)
