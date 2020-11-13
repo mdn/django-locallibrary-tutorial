@@ -6,10 +6,12 @@
 <h1>Work package detail (vorher: Book-Detail)</h1>
 <a> {{ book.week_target_description }}</a>
 
-<p><strong>Associated email received account:</strong> {{ book.associated_email_received_account }}</p> 
-<p><strong>Filepath for readiness enhancement:</strong> {{ book.filepath_for_readiness_enhancement }}</p> 
-<p><strong>Hyperlink for readiness enhancement:</strong> {{ book.hyperlink_for_readiness_enhancement }}</p> 
-<p><strong>Is shown at next time measurement stop:</strong> {{ book.is_shown_at_next_time_measurement_stop }}</p> 
+<p><strong>Email Betreff:</strong> {{ book.associated_email_subject }} </p>
+<p><strong>Email erhalten am:</strong> {{ book.associated_email_received_datetime }} </p>
+<p><strong>Email Account:</strong> {{ book.associated_email_received_account }}</p> 
+<p><strong>Dateipfad für Work Readiness Enhancement:</strong> {{ book.filepath_for_readiness_enhancement }}</p> 
+<p><strong>Hyperlink für Work Readiness Enhancement:</strong> {{ book.hyperlink_for_readiness_enhancement }}</p> 
+<p><strong>Wird bei nächstem Zeitmessung Stop angezeigt:</strong> {{ book.is_shown_at_next_time_measurement_stop }}</p> 
 <p><strong>Plandauer:</strong> {{ book.plan_duration_mins }} Minuten </p>
 <p><strong>Due Date:</strong> {{ book.due_datetime }} </p>
 

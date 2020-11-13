@@ -30,6 +30,7 @@ class Language(models.Model):
 class Book(models.Model):
     """Model representing a book (but not a specific copy of a book)."""
     associated_email_subject = models.CharField(max_length=1000, default='')
+    associated_email_received_datetime = models.DateTimeField(null=True, blank=True)
     associated_email_received_account = models.CharField(max_length=1000, default='')
     filepath_for_readiness_enhancement = models.CharField(max_length=2000, default='')
     hyperlink_for_readiness_enhancement = models.CharField(max_length=2000, default='')
