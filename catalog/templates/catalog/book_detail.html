@@ -6,8 +6,9 @@
 <h1>Work package detail (vorher: Book-Detail)</h1>
 <a> {{ book.week_target_description }}</a>
 
-<p><strong>Filepath for readiness enhancement:</strong> {{ book.filepath_for_readiness_enhancement }}</p> 
 <p><strong>Associated email received account:</strong> {{ book.associated_email_received_account }}</p> 
+<p><strong>Filepath for readiness enhancement:</strong> {{ book.filepath_for_readiness_enhancement }}</p> 
+<p><strong>Hyperlink for readiness enhancement:</strong> {{ book.hyperlink_for_readiness_enhancement }}</p> 
 <p><strong>Author:</strong> <a href="{% url 'author-detail' book.author.pk %}">{{ book.author }}</a></p>
 <p><strong>Summary:</strong> {{ book.summary }}</p>
 <p><strong>ISBN:</strong> {{ book.isbn }}</p> 
