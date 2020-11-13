@@ -26,9 +26,13 @@ class Language(models.Model):
         """String for representing the Model object (in Admin site etc.)"""
         return self.name
 
-
+# class T_Workpackage(models.Model):
 class Book(models.Model):
     """Model representing a book (but not a specific copy of a book)."""
+    author = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True)
+    # Foreign Key used because book can only have one author, but authors can have multiple books
+    # Author as a string rather than object because it hasn't been declared yet in file.
+    # t_calendar_id = ForeignKey('t_calendar', on_delete=models.SET_NULL, null=True)
     associated_email_subject = models.CharField(max_length=1000, default='')
     associated_email_received_datetime = models.DateTimeField(null=True, blank=True)
     associated_email_received_account = models.CharField(max_length=1000, default='')
@@ -39,9 +43,6 @@ class Book(models.Model):
     due_datetime = models.DateTimeField(null=True, blank=True)
     datetime_is_done = models.DateTimeField(null=True, blank=True)
 
-    author = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True)
-    # Foreign Key used because book can only have one author, but authors can have multiple books
-    # Author as a string rather than object because it hasn't been declared yet in file.
     title = models.CharField(max_length=200)
     summary = models.TextField(max_length=1000, help_text="Enter a brief description of the book")
     isbn = models.CharField('ISBN', max_length=13,
@@ -66,6 +67,8 @@ class Book(models.Model):
         """String for representing the Model object."""
         return self.title
 
+    class Meta:
+        db_table = 't_workpackage'
 
 import uuid  # Required for unique book instances
 import datetime
