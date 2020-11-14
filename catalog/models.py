@@ -177,4 +177,18 @@ class BookInstance(models.Model):
         return '{0} ({1})'.format(self.id, self.book.title)
 
 
+class T_Information_Item_Tobeoperationalized(models.Model):
+#    t_memorization_package_memory_cards_technique_id = models.ForeignKey('t_memorization_package_memory_cards_technique', on_delete=models.SET_NULL, null=True)
+#    t_memorization_package_memory_palace_technique_id = models.ForeignKey('t_memorization_package_memory_palace_technique', on_delete=models.SET_NULL, null=True)
+#    t_memory_palace_type_location_number_id = models.ForeignKey('t_memory_palace_type_location_number', on_delete=models.SET_NULL, null=True)
+    created_datetime = models.DateTimeField(null=True, blank=True)
+    updated_datetime = models.DateTimeField(null=True, blank=True)
+    target_group_question = models.CharField(max_length=1000, default='')
+    memorizable_information_item_tobeoperationalized = models.CharField(max_length=1000, default='')
+    memorization_sequence_memory_cards_technique = models.IntegerField(null=True, default=None)
+    memorization_sequence_memory_palace_technique = models.IntegerField(null=True, default=None)
+    memorization_sequence_mem_pal_tec_is_fixed_because_memorized = models.IntegerField(null=True, default=None)
+    is_information_item_tobeoperationalized = models.IntegerField(null=True, default=None)
 
+    class Meta:
+        db_table = 't_information_item_tobeoperationalized'
