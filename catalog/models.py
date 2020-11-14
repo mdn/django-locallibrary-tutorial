@@ -192,3 +192,21 @@ class T_Information_Item_Tobeoperationalized(models.Model):
 
     class Meta:
         db_table = 't_information_item_tobeoperationalized'
+
+
+class T_Calendar(models.Model):
+#   t_workpackage_id = models.ForeignKey('t_workpackage_id', on_delete=models.SET_NULL, null=True)
+#   t_calendar_conflict_related_association_id = models.ForeignKey('t_calendar_conflict_related_association_id', on_delete=models.SET_NULL, null=True)
+#   t_memorization_package_memory_palace_technique_id = models.ForeignKey('t_memorization_package_memory_palace_technique_id', on_delete=models.SET_NULL, null=True)
+#   t_memory_palace_type_location_daytime_id = models.ForeignKey('t_memory_palace_type_location_daytime_id', on_delete=models.SET_NULL, null=True)
+    created_datetime = models.DateTimeField(null=True, blank=True)
+    updated_datetime = models.DateTimeField(null=True, blank=True)
+    datetime_start = models.DateTimeField(null=True, blank=True)
+    datetime_end = models.DateTimeField(null=True, blank=True)
+    subject_description = models.CharField(max_length=1000, default='')
+    location_description = models.CharField(max_length=1000, default='')
+    series_frequency_in_days = models.IntegerField(null=True, default=None)
+
+    class Meta:
+        db_table = 't_calendar'
+
