@@ -78,7 +78,7 @@ utc=pytz.UTC
 
 from django.contrib.auth.models import User  # Required to assign User as a borrower
 
-
+# class T_Workpackage_Relevantinformation_Tobememorized(models.Model):
 class BookInstance(models.Model):
     """Model representing a specific copy of a book (i.e. that can be borrowed from the library)."""
     id = models.UUIDField(primary_key=True, default=uuid.uuid4,
@@ -113,12 +113,14 @@ class BookInstance(models.Model):
     class Meta:
         ordering = ['due_back']
         permissions = (("can_mark_returned", "Set book as returned"),)
+        db_table = 't_workpackage_relevantinformation_tobememorized'
 
     def __str__(self):
         """String for representing the Model object."""
         return '{0} ({1})'.format(self.id, self.book.title)
 
 
+# class T_Week_Target(models.Model):
 class Author(models.Model):
     """Model representing an author."""
     # t_memorization_package_memory_palace_technique_id = models.ForeignKey('T_Memorization_Package_Memory_Palace_Technique', on_delete=models.SET_NULL, null=True)
@@ -148,6 +150,7 @@ class Author(models.Model):
 
     class Meta:
         ordering = ['last_name', 'first_name']
+        db_table = 't_week_target'
 
     def get_absolute_url(self):
         """Returns the url to access a particular author instance."""
