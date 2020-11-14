@@ -87,6 +87,7 @@ class Book(models.Model):
     due_datetime = models.DateTimeField(null=True, blank=True)
     datetime_is_done = models.DateTimeField(null=True, blank=True)
 
+#Weitere zum Löschen:
     title = models.CharField(max_length=200)
     summary = models.TextField(max_length=1000, help_text="Enter a brief description of the book")
     isbn = models.CharField('ISBN', max_length=13,
@@ -129,11 +130,22 @@ class BookInstance(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4,
                           help_text="Unique ID for this particular book across whole library")
     book = models.ForeignKey('Book', on_delete=models.SET_NULL, null=True)
+#    t_information_item_tobeoperationalized_id = models.ForeignKey('t_information_item_tobeoperationalized', on_delete=models.SET_NULL, null=True)
+#    t_memorization_package_memory_palace_technique_id = models.ForeignKey('t_memorization_package_memory_palace_technique', on_delete=models.SET_NULL, null=True)
+#    t_memory_palace_type_location_number_id = models.ForeignKey('t_memory_palace_type_location_number', on_delete=models.SET_NULL, null=True)
+    created_datetime = models.DateTimeField(null=True, blank=True)
+    updated_datetime = models.DateTimeField(null=True, blank=True)
+    target_group_question = models.CharField(max_length=1000, default='')
+    memorizable_workpackage_relevantinformation_tobememorized = models.CharField(max_length=1000, default='')
+    relevantinformation_comment = models.CharField(max_length=2000, default='')
+    memorization_sequence = models.IntegerField(null=True, default=None)
+    memorization_sequence_is_fixed_because_memorized = models.IntegerField(null=True, default=None)
+    is_workpackage = models.IntegerField(null=True, default=None)
+
+#Weitere zum Löschen:
     imprint = models.CharField(max_length=200)
     due_back = models.DateTimeField(null=True, blank=True)
     borrower = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
-    target_group_question = models.CharField(max_length=1000, default='')
-    memorizable_workpackage_relevantinformation_tobememorized = models.CharField(max_length=1000, default='')
 
     @property
     def is_overdue(self):
