@@ -82,7 +82,7 @@ class Book(models.Model):
     associated_email_received_account = models.CharField(max_length=1000, default='')
     filepath_for_readiness_enhancement = models.CharField(max_length=2000, default='')
     hyperlink_for_readiness_enhancement = models.CharField(max_length=2000, default='')
-    is_shown_at_next_time_measurement_stop = models.IntegerField(null=True, default=None, max_length=19)
+    is_shown_at_next_time_measurement_stop = models.IntegerField(null=True, default=None)
     plan_duration_mins = models.IntegerField(null=True, default=None)
     due_datetime = models.DateTimeField(null=True, blank=True)
     datetime_is_done = models.DateTimeField(null=True, blank=True)
@@ -210,3 +210,13 @@ class T_Calendar(models.Model):
     class Meta:
         db_table = 't_calendar'
 
+
+
+class T_Conflict(models.Model):
+    priorization_conflict_workpackage_id_one = models.ForeignKey('Book', on_delete=models.SET_NULL, null=True)
+#    priorization_conflict_workpackage_id_two = models.ForeignKey('Book', on_delete=models.SET_NULL, null=True)
+    general_conflict_konfliktgegenstand_titel = models.CharField(max_length=255, default='')
+    general_conflict_konfliktgegenstand_mein_ziel_description = models.CharField(max_length=255, default='')
+
+    class Meta:
+        db_table = 't_conflict'
