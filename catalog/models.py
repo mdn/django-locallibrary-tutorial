@@ -128,8 +128,16 @@ class Author(models.Model):
     phase_week_target_is_excluded_from_wt_mp_assignment_until = models.DateField(null=True, blank=True)
     phase_week_target_is_excluded_from_wt_mp_assignment_cause = models.CharField(max_length=255, default='')
     phase_week_target_is_excluded_from_wt_mp_assignment_wish = models.CharField(max_length=255, default='')
-#HIER WEITER
+    is_not_during_working_hours = models.IntegerField(null=True, default=None)
+    week_target_manual_sorting_category_indistinguishable = models.CharField(max_length=255, default='')
+    recurrence_period_weeks = models.IntegerField(null=True, default=None)
+    due_datetime = models.DateTimeField(null=True, blank=True)
+    is_done_datetime = models.DateTimeField(null=True, blank=True)
+    workpackages_relevantinformation_is_separate_memory_palace = models.IntegerField(null=True, default=None)
+    memorization_sequence = models.IntegerField(null=True, default=None)
+    memorization_sequence_is_fixed_because_memorized = models.IntegerField(null=True, default=None)
 
+#Weitere zum Löschen:
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     date_of_birth = models.DateField(null=True, blank=True)
