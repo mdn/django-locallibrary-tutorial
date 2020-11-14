@@ -237,3 +237,14 @@ class T_Memorization_Package_Memory_Palace_Technique(models.Model):
 
     class Meta:
         db_table = 't_memorization_package_memory_palace_technique'
+
+
+
+class T_Memorization_Package_Memory_Cards_Technique(models.Model):
+    created_datetime = models.DateTimeField(null=True, blank=True)
+    updated_datetime = models.DateTimeField(null=True, blank=True)
+    memorization_package_title = models.CharField(max_length=255, default='')
+    memorization_package_is_active = models.IntegerField(null=True, default=None)
+
+    class Meta:
+        db_table = 't_memorization_package_memory_cards_technique'
