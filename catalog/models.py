@@ -26,6 +26,50 @@ class Language(models.Model):
         """String for representing the Model object (in Admin site etc.)"""
         return self.name
 
+
+
+# class T_Week_Target(models.Model):
+class Author(models.Model):
+    """Model representing an author."""
+    # t_memorization_package_memory_palace_technique_id = models.ForeignKey('T_Memorization_Package_Memory_Palace_Technique', on_delete=models.SET_NULL, null=True)
+    # t_memory_palace_type_location_number_id = models.ForeignKey('T_Memory_Palace_Type_Location_Number', on_delete=models.SET_NULL, null=True)
+    date_frame_from_weekday = models.DateField(null=True, blank=True)
+    date_frame_to_weekday = models.DateField(null=True, blank=True)
+    phase_week_target_is_excluded_from_wt_mp_assignment_until = models.DateField(null=True, blank=True)
+    phase_week_target_is_excluded_from_wt_mp_assignment_cause = models.CharField(max_length=255, default='')
+    phase_week_target_is_excluded_from_wt_mp_assignment_wish = models.CharField(max_length=255, default='')
+    is_not_during_working_hours = models.IntegerField(null=True, default=None)
+    week_target_manual_sorting_category_indistinguishable = models.CharField(max_length=255, default='')
+    recurrence_period_weeks = models.IntegerField(null=True, default=None)
+    due_datetime = models.DateTimeField(null=True, blank=True)
+    is_done_datetime = models.DateTimeField(null=True, blank=True)
+    workpackages_relevantinformation_is_separate_memory_palace = models.IntegerField(null=True, default=None)
+    memorization_sequence = models.IntegerField(null=True, default=None)
+    memorization_sequence_is_fixed_because_memorized = models.IntegerField(null=True, default=None)
+
+#Weitere zum Löschen:
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    date_of_birth = models.DateField(null=True, blank=True)
+    date_of_death = models.DateField('died', null=True, blank=True)
+    memorizable_week_target = models.CharField(max_length=4000, default='')
+    week_target_comment = models.CharField(max_length=4000, default='')
+    
+
+    class Meta:
+        ordering = ['last_name', 'first_name']
+        db_table = 't_week_target'
+
+    def get_absolute_url(self):
+        """Returns the url to access a particular author instance."""
+        return reverse('author-detail', args=[str(self.id)])
+
+    def __str__(self):
+        """String for representing the Model object."""
+        return '{0}, {1}'.format(self.last_name, self.first_name)
+
+
+
 # class T_Workpackage(models.Model):
 class Book(models.Model):
     """Model representing a book (but not a specific copy of a book)."""
@@ -69,6 +113,7 @@ class Book(models.Model):
 
     class Meta:
         db_table = 't_workpackage'
+
 
 import uuid  # Required for unique book instances
 import datetime
@@ -120,42 +165,4 @@ class BookInstance(models.Model):
         return '{0} ({1})'.format(self.id, self.book.title)
 
 
-# class T_Week_Target(models.Model):
-class Author(models.Model):
-    """Model representing an author."""
-    # t_memorization_package_memory_palace_technique_id = models.ForeignKey('T_Memorization_Package_Memory_Palace_Technique', on_delete=models.SET_NULL, null=True)
-    # t_memory_palace_type_location_number_id = models.ForeignKey('T_Memory_Palace_Type_Location_Number', on_delete=models.SET_NULL, null=True)
-    date_frame_from_weekday = models.DateField(null=True, blank=True)
-    date_frame_to_weekday = models.DateField(null=True, blank=True)
-    phase_week_target_is_excluded_from_wt_mp_assignment_until = models.DateField(null=True, blank=True)
-    phase_week_target_is_excluded_from_wt_mp_assignment_cause = models.CharField(max_length=255, default='')
-    phase_week_target_is_excluded_from_wt_mp_assignment_wish = models.CharField(max_length=255, default='')
-    is_not_during_working_hours = models.IntegerField(null=True, default=None)
-    week_target_manual_sorting_category_indistinguishable = models.CharField(max_length=255, default='')
-    recurrence_period_weeks = models.IntegerField(null=True, default=None)
-    due_datetime = models.DateTimeField(null=True, blank=True)
-    is_done_datetime = models.DateTimeField(null=True, blank=True)
-    workpackages_relevantinformation_is_separate_memory_palace = models.IntegerField(null=True, default=None)
-    memorization_sequence = models.IntegerField(null=True, default=None)
-    memorization_sequence_is_fixed_because_memorized = models.IntegerField(null=True, default=None)
 
-#Weitere zum Löschen:
-    first_name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=100)
-    date_of_birth = models.DateField(null=True, blank=True)
-    date_of_death = models.DateField('died', null=True, blank=True)
-    memorizable_week_target = models.CharField(max_length=4000, default='')
-    week_target_comment = models.CharField(max_length=4000, default='')
-    
-
-    class Meta:
-        ordering = ['last_name', 'first_name']
-        db_table = 't_week_target'
-
-    def get_absolute_url(self):
-        """Returns the url to access a particular author instance."""
-        return reverse('author-detail', args=[str(self.id)])
-
-    def __str__(self):
-        """String for representing the Model object."""
-        return '{0}, {1}'.format(self.last_name, self.first_name)
