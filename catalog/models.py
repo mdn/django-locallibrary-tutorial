@@ -275,3 +275,34 @@ class T_Memory_Palace_Type_Location_Packageassignment_Timeseries(models.Model):
 
     class Meta:
         db_table = 't_memory_palace_type_location_packageassignment_timeseries'
+
+
+class T_Memory_Palace_Type_Location_Number(models.Model):
+    t_memory_palace_type_location_id = models.ForeignKey('T_Memory_Palace_Type_Location', on_delete=models.SET_NULL, null=True)
+    memory_palace_number = models.IntegerField(null=True, default=None)
+    memory_palace_datapoint_description = models.CharField(max_length=255, default='')
+    memory_palace_datapoint_lastuse_date = models.DateTimeField(null=True, blank=True)
+    memory_palace_datapoint_is_inactive = models.IntegerField(null=True, default=None)
+
+    class Meta:
+        db_table = 't_memory_palace_type_location_number'
+
+
+class T_Memory_Palace_Type_Location_Daytime(models.Model):
+    t_memory_palace_type_location_id = models.ForeignKey('T_Memory_Palace_Type_Location', on_delete=models.SET_NULL, null=True)
+    memory_palace_daytime = models.DateTimeField(null=True, blank=True)
+    memory_palace_daytime_datapoint_description = models.CharField(max_length=255, default='')
+
+    class Meta:
+        db_table = 't_memory_palace_type_location_daytime'
+
+
+class T_Memorization_Package_Memory_Cards_Technique(models.Model):
+    created_datetime = models.DateTimeField(null=True, blank=True)
+    updated_datetime = models.DateTimeField(null=True, blank=True)
+    memorization_package_title = models.CharField(max_length=255, default='')
+    memorization_package_is_active = models.IntegerField(null=True, default=None)
+
+    class Meta:
+        db_table = 't_memorization_package_memory_cards_technique'
+
