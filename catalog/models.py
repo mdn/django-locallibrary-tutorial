@@ -246,6 +246,13 @@ class T_Ausatemmuskulatur_Isnot_Entspannt_Dueto_Strategyrefinemt(models.Model):
         db_table = 't_ausatemmuskulatur_isnot_entspannt_dueto_strategyrefinemt'
 
 
+class T_Ausatemmuskulatur_Strategyrefinement_Conflict_Phase(models.Model):
+    conflict_phase_name = models.CharField(max_length=255, default='')
+
+    class Meta:
+        db_table = 't_ausatemmuskulatur_strategyrefinement_conflict_phase'
+
+
 class T_Memorization_Package_Memory_Palace_Technique(models.Model):
 #    t_memory_palace_type_id = models.ForeignKey('T_Memory_Palace_Type', on_delete=models.SET_NULL, null=True)
     t_week_target_id = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True)
