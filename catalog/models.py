@@ -117,7 +117,7 @@ class Book(models.Model):
     author = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True)
     # Foreign Key used because book can only have one author, but authors can have multiple books
     # Author as a string rather than object because it hasn't been declared yet in file.
-    # t_calendar_id = ForeignKey('T_Calendar', on_delete=models.SET_NULL, null=True)
+    t_calendar = models.ForeignKey('T_Calendar', on_delete=models.SET_NULL, null=True)
     associated_email_subject = models.CharField(max_length=1000, default='')
     associated_email_received_datetime = models.DateTimeField(null=True, blank=True)
     associated_email_received_account = models.CharField(max_length=1000, default='')
