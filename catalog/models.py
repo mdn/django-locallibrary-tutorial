@@ -70,13 +70,54 @@ class Author(models.Model):
 
 
 
+class T_Memory_Palace_Memorization_Timeseries(models.Model):
+    t_week_target_id = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True)
+    t_workpackage_relevantinformation_tobememorized_id = models.ForeignKey('BookInstance', on_delete=models.SET_NULL, null=True)
+    t_information_item_tobeoperationalized_id = models.ForeignKey('T_Information_Item_Tobeoperationalized', on_delete=models.SET_NULL, null=True) 
+    t_conflict_strategy_category_measure_id = models.ForeignKey('T_Conflict_Strategy_Category_Measure', on_delete=models.SET_NULL, null=True)
+#    t_calendar_id = ForeignKey('T_Calendar', on_delete=models.SET_NULL, null=True)
+#    t_memory_palace_memorization_timeseries_action_id = ForeignKey('T_Memory_Palace_Memorization_Timeseries_Action', on_delete=models.SET_NULL, null=True)
+    action_datetime = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        db_table = 't_memory_palace_memorization_timeseries'
+
+
+
+class T_Memory_Palace_Memorization_Timeseries_Action(models.Model):
+    action_description = models.CharField(max_length=255, default='')   #--1: memory palace datapoint description shown, 2. corresponding memorizable known, 3: decided to repeat memory palace datapoint description
+
+    class Meta:
+        db_table = 't_memory_palace_memorization_timeseries_action'
+
+
+
+#HIER WEITER nach istgleich
+class T_Day_Target_Sequence_Timeseries(models.Model):
+    sequence_proposed_for_day_target_memory_palace = models.IntegerField(null=True, default=None)
+    sequence_memorized_in_day_target_memory_palace = models.IntegerField(null=True, default=None)
+
+    class Meta:
+        db_table = 't_day_target_sequence_timeseries'
+
+
+
+class T_Week_Target_Is_Excluded_From_Dt_Mp_Assignment_On_Weekday(models.Model):
+    t_week_target_id = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True)
+    week_target_isnot_potential_day_target_on_weekday_date = models.DateField(null=True, blank=True)
+
+    class Meta:
+        db_table = 't_week_target_is_excluded_from_dt_mp_assignment_on_weekday'
+
+
+
 # class T_Workpackage(models.Model):
 class Book(models.Model):
     """Model representing a book (but not a specific copy of a book)."""
     author = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True)
     # Foreign Key used because book can only have one author, but authors can have multiple books
     # Author as a string rather than object because it hasn't been declared yet in file.
-    # t_calendar_id = ForeignKey('t_calendar', on_delete=models.SET_NULL, null=True)
+    # t_calendar_id = ForeignKey('T_Calendar', on_delete=models.SET_NULL, null=True)
     associated_email_subject = models.CharField(max_length=1000, default='')
     associated_email_received_datetime = models.DateTimeField(null=True, blank=True)
     associated_email_received_account = models.CharField(max_length=1000, default='')
