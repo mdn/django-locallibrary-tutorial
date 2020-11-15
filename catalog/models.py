@@ -59,6 +59,7 @@ class Author(models.Model):
     class Meta:
         ordering = ['last_name', 'first_name']
         db_table = 't_week_target'
+#        verbose_name = 'T_Week_Target'
 
     def get_absolute_url(self):
         """Returns the url to access a particular author instance."""
@@ -92,7 +93,6 @@ class T_Memory_Palace_Memorization_Timeseries_Action(models.Model):
 
 
 
-#HIER WEITER nach istgleich
 class T_Day_Target_Sequence_Timeseries(models.Model):
     sequence_proposed_for_day_target_memory_palace = models.IntegerField(null=True, default=None)
     sequence_memorized_in_day_target_memory_palace = models.IntegerField(null=True, default=None)
@@ -240,6 +240,19 @@ class BookInstance(models.Model):
     def __str__(self):
         """String for representing the Model object."""
         return '{0} ({1})'.format(self.id, self.book.title)
+
+
+
+class T_Week_Target_Or_Workpackage_Or_Relevinf_Timeseries(models.Model):
+    t_week_target = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True)
+    t_workpackage = models.ForeignKey('Book', on_delete=models.SET_NULL, null=True)
+    t_workpackage_relevantinformation_tobememorized = models.ForeignKey('BookInstance', on_delete=models.SET_NULL, null=True)
+    action_datetime = models.DateTimeField(null=True, blank=True)
+    action_description_create_read_update_delete = models.CharField(max_length=255, default='')
+
+    class Meta:
+        db_table = 't_week_target_or_workpackage_or_relevinf_timeseries'
+
 
 
 class T_Information_Item_Tobeoperationalized(models.Model):
