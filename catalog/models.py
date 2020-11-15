@@ -362,7 +362,7 @@ class T_Calendar_Conflict_Related_Association(models.Model):
 class T_Ausatemmuskulatur_Isnot_Entspannt_Dueto_Strategyrefinemt(models.Model):
     t_conflict_id = models.ForeignKey('T_Conflict', on_delete=models.SET_NULL, null=True)
     t_calendar_conflict_related_association_id = models.ForeignKey('T_Calendar_Conflict_Related_Association', on_delete=models.SET_NULL, null=True)
-#    t_ausatemmuskulatur_strategyrefinement_conflict_phase_id = models.ForeignKey('T_Ausatemmuskulatur_Strategyrefinement_Conflict_Phase', on_delete=models.SET_NULL, null=True)
+    t_ausatemmuskulatur_strategyrefinement_conflict_phase = models.ForeignKey('T_Ausatemmuskulatur_Strategyrefinement_Conflict_Phase', on_delete=models.SET_NULL, null=True)
     created_datetime = models.DateTimeField(null=True, blank=True)
     memorized_unit_is_gone_through_mentally = models.IntegerField(null=True, default=None)
     memory_palace_is_enhanced_or_complete = models.IntegerField(null=True, default=None)
