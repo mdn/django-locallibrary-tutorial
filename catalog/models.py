@@ -253,6 +253,29 @@ class T_Ausatemmuskulatur_Strategyrefinement_Conflict_Phase(models.Model):
         db_table = 't_ausatemmuskulatur_strategyrefinement_conflict_phase'
 
 
+class T_Conflict_Strategy_Category(models.Model):
+    conflict_strategy_category_verb = models.CharField(max_length=255, default='')
+    conflict_strategy_category_mywish = models.CharField(max_length=255, default='')
+
+    class Meta:
+        db_table = 't_conflict_strategy_category'
+
+
+class T_Conflict_Strategy_Category_Measure(models.Model):
+    t_conflict_strategy_category_id =  models.ForeignKey('T_Conflict_Strategy_Category', on_delete=models.SET_NULL, null=True)
+    t_memorization_package_memory_palace_technique_id =  models.ForeignKey('T_Memorization_Package_Memory_Palace_Technique', on_delete=models.SET_NULL, null=True)
+    t_memory_palace_type_location_number_id =  models.ForeignKey('T_Memory_Palace_Type_Location_Number', on_delete=models.SET_NULL, null=True)
+    created_datetime = models.DateTimeField(null=True, blank=True)
+    updated_datetime = models.DateTimeField(null=True, blank=True)
+    conflict_strategy_category_measure_description = models.CharField(max_length=255, default='')
+    memorization_sequence = models.IntegerField(null=True, default=None)
+    memorization_sequence_is_fixed_because_memorized = models.IntegerField(null=True, default=None)
+
+    class Meta:
+        db_table = 't_conflict_strategy_category_measure'
+
+
+
 class T_Memorization_Package_Memory_Palace_Technique(models.Model):
 #    t_memory_palace_type_id = models.ForeignKey('T_Memory_Palace_Type', on_delete=models.SET_NULL, null=True)
     t_week_target_id = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True)
