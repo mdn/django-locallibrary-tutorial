@@ -320,10 +320,10 @@ class t_category_table_entry(models.Model):
 
 
 class T_Calendar(models.Model):
-#   t_workpackage_id = models.ForeignKey('t_workpackage_id', on_delete=models.SET_NULL, null=True)
-#   t_calendar_conflict_related_association_id = models.ForeignKey('t_calendar_conflict_related_association_id', on_delete=models.SET_NULL, null=True)
-#   t_memorization_package_memory_palace_technique_id = models.ForeignKey('t_memorization_package_memory_palace_technique_id', on_delete=models.SET_NULL, null=True)
-#   t_memory_palace_type_location_daytime_id = models.ForeignKey('t_memory_palace_type_location_daytime_id', on_delete=models.SET_NULL, null=True)
+    t_workpackage = models.ForeignKey('Book', related_name = 'Book_Related_Name', on_delete=models.SET_NULL, null=True)
+    t_calendar_conflict_related_association_foreignkey = models.ForeignKey('T_Calendar_Conflict_Related_Association', on_delete=models.SET_NULL, null=True)
+    t_memorization_package_memory_palace_technique_foreignkey4 = models.ForeignKey('T_Memorization_Package_Memory_Palace_Technique', on_delete=models.SET_NULL, null=True)
+    t_memory_palace_type_location_daytime = models.ForeignKey('T_Memory_Palace_Type_Location_Daytime', on_delete=models.SET_NULL, null=True)
     created_datetime = models.DateTimeField(null=True, blank=True)
     updated_datetime = models.DateTimeField(null=True, blank=True)
     datetime_start = models.DateTimeField(null=True, blank=True)
