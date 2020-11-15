@@ -195,9 +195,9 @@ class BookInstance(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4,
                           help_text="Unique ID for this particular book across whole library")
     book = models.ForeignKey('Book', on_delete=models.SET_NULL, null=True)
-#    t_information_item_tobeoperationalized_id = models.ForeignKey('t_information_item_tobeoperationalized', on_delete=models.SET_NULL, null=True)
-#    t_memorization_package_memory_palace_technique_id = models.ForeignKey('t_memorization_package_memory_palace_technique', on_delete=models.SET_NULL, null=True)
-#    t_memory_palace_type_location_number_id = models.ForeignKey('t_memory_palace_type_location_number', on_delete=models.SET_NULL, null=True)
+    t_information_item_tobeoperationalized = models.ForeignKey('T_Information_Item_Tobeoperationalized', on_delete=models.SET_NULL, null=True)
+    t_memorization_package_memory_palace_technique_foreignkey2 = models.ForeignKey('T_Memorization_Package_Memory_Palace_Technique', on_delete=models.SET_NULL, null=True)
+    t_memory_palace_type_location_number = models.ForeignKey('T_Memory_Palace_Type_Location_Number', on_delete=models.SET_NULL, null=True)
     created_datetime = models.DateTimeField(null=True, blank=True)
     updated_datetime = models.DateTimeField(null=True, blank=True)
     target_group_question = models.CharField(max_length=1000, default='')
