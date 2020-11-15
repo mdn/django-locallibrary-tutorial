@@ -168,16 +168,16 @@ class T_Workpackage_Actual_Duration_Timeseries(models.Model):
 
 
 
-#class T_Wt_Or_Wp_Or_Infotbo_Category_Timeseries(models.Model):
-#    t_week_target_id = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True)
-#    t_workpackage_id = models.ForeignKey('Book', on_delete=models.SET_NULL, null=True)
-#    t_information_item_tobeoperationalized_id = models.ForeignKey('T_Information_Item_Tobeoperationalized', on_delete=models.SET_NULL, null=True)
-#    t_category_table_id = models.ForeignKey('T_Category_Table', on_delete=models.SET_NULL, null=True)
-#    t_category_table_entry_id = models.ForeignKey('T_Category_Table_Entry', on_delete=models.SET_NULL, null=True)
-#    created_datetime = models.DateTimeField(null=True, blank=True)
+class T_Wt_Or_Wp_Or_Infotbo_Category_Timeseries(models.Model):
+    t_week_target_id = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True)
+    t_workpackage_id = models.ForeignKey('Book', on_delete=models.SET_NULL, null=True)
+    t_information_item_tobeoperationalized_id = models.ForeignKey('T_Information_Item_Tobeoperationalized', on_delete=models.SET_NULL, null=True)
+    t_category_table_id = models.ForeignKey('T_Category_Table', on_delete=models.SET_NULL, null=True)
+    t_category_table_entry_id = models.ForeignKey('T_Category_Table_Entry', on_delete=models.SET_NULL, null=True)
+    created_datetime = models.DateTimeField(null=True, blank=True)
 
-#    class Meta:
-#        db_table = 't_wt_or_wp_or_infotbo_category_timeseries'
+    class Meta:
+        db_table = 't_wt_or_wp_or_infotbo_category_timeseries'
 
 
 
@@ -296,7 +296,7 @@ class T_Category_Table_Predicate_Asverb(models.Model):
 
 
 
-class t_category_table_entry(models.Model):
+class T_Category_Table_Entry(models.Model):
     t_category_table_id = models.ForeignKey('T_Category_Table', on_delete=models.SET_NULL, null=True)
     category_name = models.CharField(max_length=255, default='')
 
