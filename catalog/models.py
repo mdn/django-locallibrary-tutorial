@@ -350,7 +350,7 @@ class T_Conflict(models.Model):
 class T_Calendar_Conflict_Related_Association(models.Model):
     t_calendar_id = models.ForeignKey('T_Calendar', on_delete=models.SET_NULL, null=True)
     t_conflict_id = models.ForeignKey('T_Conflict', on_delete=models.SET_NULL, null=True)
-#    t_client_id = models.ForeignKey('T_Client', on_delete=models.SET_NULL, null=True)
+    t_category_table_entry = models.ForeignKey('T_Category_Table_Entry', on_delete=models.SET_NULL, null=True)  #t_client_id = Konfliktpartner
     t_memorization_package_memory_palace_technique_id = models.ForeignKey('T_Memorization_Package_Memory_Palace_Technique', on_delete=models.SET_NULL, null=True)
     hypothetic_appointment_datetime = models.DateTimeField(null=True, blank=True)
     hypothetic_appointment_association_description = models.CharField(max_length=255, default='')
