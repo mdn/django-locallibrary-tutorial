@@ -339,7 +339,7 @@ class T_Calendar(models.Model):
 
 class T_Conflict(models.Model):
     priorization_conflict_workpackage_id_one = models.ForeignKey('Book', on_delete=models.SET_NULL, null=True)
-#    priorization_conflict_workpackage_id_two = models.ForeignKey('Book', on_delete=models.SET_NULL, null=True)
+    priorization_conflict_workpackage_id_two = models.ForeignKey('Book', related_name = 'Book_Related_Name2', on_delete=models.SET_NULL, null=True)
     general_conflict_konfliktgegenstand_titel = models.CharField(max_length=255, default='')
     general_conflict_konfliktgegenstand_mein_ziel_description = models.CharField(max_length=255, default='')
 
