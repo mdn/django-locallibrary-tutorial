@@ -76,8 +76,8 @@ class T_Memory_Palace_Memorization_Timeseries(models.Model):
     t_workpackage_relevantinformation_tobememorized_id = models.ForeignKey('BookInstance', on_delete=models.SET_NULL, null=True)
     t_information_item_tobeoperationalized_id = models.ForeignKey('T_Information_Item_Tobeoperationalized', on_delete=models.SET_NULL, null=True) 
     t_conflict_strategy_category_measure_id = models.ForeignKey('T_Conflict_Strategy_Category_Measure', on_delete=models.SET_NULL, null=True)
-#    t_calendar_id = ForeignKey('T_Calendar', on_delete=models.SET_NULL, null=True)
-#    t_memory_palace_memorization_timeseries_action_id = ForeignKey('T_Memory_Palace_Memorization_Timeseries_Action', on_delete=models.SET_NULL, null=True)
+    t_calendar = models.ForeignKey('T_Calendar', on_delete=models.SET_NULL, null=True)
+    t_memory_palace_memorization_timeseries_action = models.ForeignKey('T_Memory_Palace_Memorization_Timeseries_Action', on_delete=models.SET_NULL, null=True)
     action_datetime = models.DateTimeField(null=True, blank=True)
 
     class Meta:
