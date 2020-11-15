@@ -296,12 +296,13 @@ class T_Category_Table_Predicate_Asverb(models.Model):
 
 
 
-class T_Category_Table_Entry(models.Model):
+class t_category_table_entry(models.Model):
     t_category_table_id = models.ForeignKey('T_Category_Table', on_delete=models.SET_NULL, null=True)
     category_name = models.CharField(max_length=255, default='')
 
     class Meta:
         db_table = 't_category_table_entry'
+        verbose_name = 'T_Category_Table_Entry'
 
 
 
