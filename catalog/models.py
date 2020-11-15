@@ -194,6 +194,52 @@ class T_Information_Item_Tobeoperationalized(models.Model):
         db_table = 't_information_item_tobeoperationalized'
 
 
+
+class T_Information_Item_Tobeoperationalized_Memor_Timeseries(models.Model):
+    t_information_item_tobeoperationalized_id = models.ForeignKey('T_Information_Item_Tobeoperationalized', on_delete=models.SET_NULL, null=True)
+#    t_information_item_tobeoperationalized_memor_timeseries_act_id = models.ForeignKey('T_Information_Item_Tobeoperationalized_Memor_Timeseries_Act', on_delete=models.SET_NULL, null=True)
+    action_datetime = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        db_table = 't_information_item_tobeoperationalized_memor_timeseries'
+
+
+
+class T_Information_Item_Tobeoperationalized_Memor_Timeseries_Act(models.Model):
+    action_description = models.CharField(max_length=255, default='')
+
+    class Meta:
+        db_table = 't_information_item_tobeoperationalized_memor_timeseries_act'
+
+
+
+class t_category_table(models.Model):
+    category_table_name = models.CharField(max_length=255, default='')
+
+    class Meta:
+        db_table = 't_category_table'
+
+
+
+class T_Category_Table_Predicate_Asverb(models.Model):
+    t_category_table_id_subject = models.ForeignKey('T_Category_Table', on_delete=models.SET_NULL, null=True)
+#    t_category_table_id_object = models.ForeignKey('T_Category_Table', on_delete=models.SET_NULL, null=True)
+    predicate_asverb = models.CharField(max_length=255, default='')
+
+    class Meta:
+        db_table = 't_category_table_predicate_asverb'
+
+
+
+class t_category_table_entry(models.Model):
+    t_category_table_id = models.ForeignKey('T_Category_Table', on_delete=models.SET_NULL, null=True)
+    category_name = models.CharField(max_length=255, default='')
+
+    class Meta:
+        db_table = 't_category_table_entry'
+
+
+
 class T_Calendar(models.Model):
 #   t_workpackage_id = models.ForeignKey('t_workpackage_id', on_delete=models.SET_NULL, null=True)
 #   t_calendar_conflict_related_association_id = models.ForeignKey('t_calendar_conflict_related_association_id', on_delete=models.SET_NULL, null=True)
