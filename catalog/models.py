@@ -222,6 +222,17 @@ class T_Conflict(models.Model):
         db_table = 't_conflict'
 
 
+class T_Calendar_Conflict_Related_Association(models.Model):
+    t_calendar_id = models.ForeignKey('T_Calendar', on_delete=models.SET_NULL, null=True)
+    t_conflict_id = models.ForeignKey('T_Conflict', on_delete=models.SET_NULL, null=True)
+#    t_client_id = models.ForeignKey('T_Client', on_delete=models.SET_NULL, null=True)
+    t_memorization_package_memory_palace_technique_id = models.ForeignKey('T_Memorization_Package_Memory_Palace_Technique', on_delete=models.SET_NULL, null=True)
+    hypothetic_appointment_datetime = models.DateTimeField(null=True, blank=True)
+    hypothetic_appointment_association_description = models.CharField(max_length=255, default='')
+
+    class Meta:
+        db_table = 't_calendar_conflict_related_association'
+    
 
 class T_Memorization_Package_Memory_Palace_Technique(models.Model):
 #    t_memory_palace_type_id = models.ForeignKey('T_Memory_Palace_Type', on_delete=models.SET_NULL, null=True)
@@ -237,17 +248,6 @@ class T_Memorization_Package_Memory_Palace_Technique(models.Model):
 
     class Meta:
         db_table = 't_memorization_package_memory_palace_technique'
-
-
-
-class T_Memorization_Package_Memory_Cards_Technique(models.Model):
-    created_datetime = models.DateTimeField(null=True, blank=True)
-    updated_datetime = models.DateTimeField(null=True, blank=True)
-    memorization_package_title = models.CharField(max_length=255, default='')
-    memorization_package_is_active = models.IntegerField(null=True, default=None)
-
-    class Meta:
-        db_table = 't_memorization_package_memory_cards_technique'
 
 
 class T_Memory_Palace_Type(models.Model):
