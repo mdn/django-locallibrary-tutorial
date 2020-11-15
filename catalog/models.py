@@ -157,6 +157,30 @@ class Book(models.Model):
         db_table = 't_workpackage'
 
 
+
+class T_Workpackage_Actual_Duration_Timeseries(models.Model):
+    t_workpackage_id = models.ForeignKey('Book', on_delete=models.SET_NULL, null=True)
+    measurement_datetime = models.DateTimeField(null=True, blank=True)
+    measurement_type_start_or_stop = models.CharField(max_length=255, default='')
+
+    class Meta:
+        db_table = 't_workpackage_actual_duration_timeseries'
+
+
+
+#class T_Wt_Or_Wp_Or_Infotbo_Category_Timeseries(models.Model):
+#    t_week_target_id = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True)
+#    t_workpackage_id = models.ForeignKey('Book', on_delete=models.SET_NULL, null=True)
+#    t_information_item_tobeoperationalized_id = models.ForeignKey('T_Information_Item_Tobeoperationalized', on_delete=models.SET_NULL, null=True)
+#    t_category_table_id = models.ForeignKey('T_Category_Table', on_delete=models.SET_NULL, null=True)
+#    t_category_table_entry_id = models.ForeignKey('T_Category_Table_Entry', on_delete=models.SET_NULL, null=True)
+#    created_datetime = models.DateTimeField(null=True, blank=True)
+
+#    class Meta:
+#        db_table = 't_wt_or_wp_or_infotbo_category_timeseries'
+
+
+
 import uuid  # Required for unique book instances
 import datetime
 import pytz
