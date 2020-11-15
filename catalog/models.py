@@ -301,7 +301,7 @@ class t_category_table(models.Model):
 
 class T_Category_Table_Predicate_Asverb(models.Model):
     t_category_table_id_subject = models.ForeignKey('T_Category_Table', on_delete=models.SET_NULL, null=True)
-#    t_category_table_id_object = models.ForeignKey('T_Category_Table', on_delete=models.SET_NULL, null=True)
+    t_category_table_id_object = models.ForeignKey('T_Category_Table', related_name = 'T_Category_Table_Related_Name', on_delete=models.SET_NULL, null=True)
     predicate_asverb = models.CharField(max_length=255, default='')
 
     class Meta:
