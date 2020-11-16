@@ -2,13 +2,14 @@
 
 {% block content %}
 
-<h1>Week target detail (voher: Author): {{ author.memorizable_week_target }} </h1>
-<p> Memorizable: {{ author.memorizable_week_target }} </p>
+<h1>Wochenziel Details</h1>  <!-- voher: Author -->
+<p> {{ author.memorizable_week_target }} </p>
 <p> Kommentar: {{ author.week_target_comment }} </p>
+<!--
 <p> {{author.date_of_birth}} - {% if author.date_of_death %}{{author.date_of_death}}{% endif %}</p>
-
+-->
 <div style="margin-left:20px;margin-top:20px">
-<h4>Work package (voher: Books):</h4>
+<h4>Arbeitspakete</h4>  <!-- voher: Books -->
 
 <dl>
 {% for book in author.book_set.all %}

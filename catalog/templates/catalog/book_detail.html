@@ -2,26 +2,30 @@
 
 {% block content %}
 
+<!--
 <p>Title: {{ book.title }}</p>
-<h1>Work package detail (vorher: Book-Detail)</h1>
-<a> {{ book.week_target_description }}</a>
-
-<p><strong>Email Betreff:</strong> {{ book.associated_email_subject }} </p>
-<p><strong>Email erhalten am:</strong> {{ book.associated_email_received_datetime }} </p>
-<p><strong>Email Account:</strong> {{ book.associated_email_received_account }}</p> 
-<p><strong>Dateipfad für Work Readiness Enhancement:</strong> {{ book.filepath_for_readiness_enhancement }}</p> 
-<p><strong>Hyperlink für Work Readiness Enhancement:</strong> {{ book.hyperlink_for_readiness_enhancement }}</p> 
-<p><strong>Wird bei nächstem Zeitmessung Stop angezeigt:</strong> {{ book.is_shown_at_next_time_measurement_stop }}</p> 
+-->
+<h1>Arbeitspaket Detail</h1>   <!-- vorher: Book-Detail -->
 <p><strong>Plandauer:</strong> {{ book.plan_duration_mins }} Minuten </p>
 <p><strong>Due Date:</strong> {{ book.due_datetime }} </p>
 
+<p><strong>Work Readiness</strong></p>
+<p>Dateipfad: {{ book.filepath_for_readiness_enhancement }}</p> 
+<p>Hyperlink: {{ book.hyperlink_for_readiness_enhancement }}</p> 
+
+<p><strong>Email</strong></p>
+<p>Betreff: {{ book.associated_email_subject }} </p>
+<p>Erhalten am: {{ book.associated_email_received_datetime }} </p>
+<p>Account: {{ book.associated_email_received_account }}</p>
+
 <p><strong>ToDelete:</strong></p>
-<p><strong>Author:</strong> <a href="{% url 'author-detail' book.author.pk %}">{{ book.author }}</a></p>
+<p><strong>Wochenziel:</strong> <a href="{% url 'author-detail' book.author.pk %}">{{ book.author }}</a></p>
+<!--
 <p><strong>Summary:</strong> {{ book.summary }}</p>
 <p><strong>ISBN:</strong> {{ book.isbn }}</p> 
 <p><strong>Language:</strong> {{ book.language }}</p>  
 <p><strong>Genre:</strong> {{ book.genre.all|join:", " }}</p>
-
+-->
 <div style="margin-left:20px;margin-top:20px">
 <h4>Copies</h4>
 
