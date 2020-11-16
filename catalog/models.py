@@ -193,6 +193,7 @@ from django.contrib.auth.models import User  # Required to assign User as a borr
 # class T_Workpackage_Relevantinformation_Tobememorized(models.Model):
 class BookInstance(models.Model):
     """Model representing a specific copy of a book (i.e. that can be borrowed from the library)."""
+    id_asinteger = models.IntegerField(primary_key=False, default=None)
     id = models.UUIDField(primary_key=True, default=uuid.uuid4,
                           help_text="Unique ID for this particular book across whole library")
     book = models.ForeignKey('Book', on_delete=models.SET_NULL, null=True)
