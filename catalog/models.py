@@ -59,7 +59,7 @@ class Author(models.Model):
     class Meta:
         ordering = ['last_name', 'first_name']
         db_table = 't_week_target'
-#        verbose_name = 'T_Week_Target'
+        verbose_name = 'T_Week_Target'
 
     def get_absolute_url(self):
         """Returns the url to access a particular author instance."""
@@ -155,6 +155,7 @@ class Book(models.Model):
 
     class Meta:
         db_table = 't_workpackage'
+        verbose_name = 'T_Workpackage'
 
 
 
@@ -236,6 +237,7 @@ class BookInstance(models.Model):
         ordering = ['due_back']
         permissions = (("can_mark_returned", "Set book as returned"),)
         db_table = 't_workpackage_relevantinformation_tobememorized'
+        verbose_name = 'T_Workpackage_Relevantinformation_Tobememorized'
 
     def __str__(self):
         """String for representing the Model object."""
