@@ -72,10 +72,10 @@ class Author(models.Model):
 
 
 class T_Memory_Palace_Memorization_Timeseries(models.Model):
-    t_week_target_id = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True)
-    t_workpackage_relevantinformation_tobememorized_id = models.ForeignKey('BookInstance', on_delete=models.SET_NULL, null=True)
-    t_information_item_tobeoperationalized_id = models.ForeignKey('T_Information_Item_Tobeoperationalized', on_delete=models.SET_NULL, null=True) 
-    t_conflict_strategy_category_measure_id = models.ForeignKey('T_Conflict_Strategy_Category_Measure', on_delete=models.SET_NULL, null=True)
+    t_week_target = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True)
+    t_workpackage_relevantinformation_tobememorized = models.ForeignKey('BookInstance', on_delete=models.SET_NULL, null=True)
+    t_information_item_tobeoperationalized = models.ForeignKey('T_Information_Item_Tobeoperationalized', on_delete=models.SET_NULL, null=True) 
+    t_conflict_strategy_category_measure = models.ForeignKey('T_Conflict_Strategy_Category_Measure', on_delete=models.SET_NULL, null=True)
     t_calendar = models.ForeignKey('T_Calendar', on_delete=models.SET_NULL, null=True)
     t_memory_palace_memorization_timeseries_action = models.ForeignKey('T_Memory_Palace_Memorization_Timeseries_Action', on_delete=models.SET_NULL, null=True)
     action_datetime = models.DateTimeField(null=True, blank=True)
@@ -103,7 +103,7 @@ class T_Day_Target_Sequence_Timeseries(models.Model):
 
 
 class T_Week_Target_Is_Excluded_From_Dt_Mp_Assignment_On_Weekday(models.Model):
-    t_week_target_id = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True)
+    t_week_target = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True)
     week_target_isnot_potential_day_target_on_weekday_date = models.DateField(null=True, blank=True)
 
     class Meta:
@@ -159,7 +159,7 @@ class Book(models.Model):
 
 
 class T_Workpackage_Actual_Duration_Timeseries(models.Model):
-    t_workpackage_id = models.ForeignKey('Book', on_delete=models.SET_NULL, null=True)
+    t_workpackage = models.ForeignKey('Book', on_delete=models.SET_NULL, null=True)
     measurement_datetime = models.DateTimeField(null=True, blank=True)
     measurement_type_start_or_stop = models.CharField(max_length=255, default='')
 
@@ -169,11 +169,11 @@ class T_Workpackage_Actual_Duration_Timeseries(models.Model):
 
 
 class T_Wt_Or_Wp_Or_Infotbo_Category_Timeseries(models.Model):
-    t_week_target_id = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True)
-    t_workpackage_id = models.ForeignKey('Book', on_delete=models.SET_NULL, null=True)
-    t_information_item_tobeoperationalized_id = models.ForeignKey('T_Information_Item_Tobeoperationalized', on_delete=models.SET_NULL, null=True)
-    t_category_table_id = models.ForeignKey('T_Category_Table', on_delete=models.SET_NULL, null=True)
-    t_category_table_entry_id = models.ForeignKey('T_Category_Table_Entry', on_delete=models.SET_NULL, null=True)
+    t_week_target = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True)
+    t_workpackage = models.ForeignKey('Book', on_delete=models.SET_NULL, null=True)
+    t_information_item_tobeoperationalized = models.ForeignKey('T_Information_Item_Tobeoperationalized', on_delete=models.SET_NULL, null=True)
+    t_category_table = models.ForeignKey('T_Category_Table', on_delete=models.SET_NULL, null=True)
+    t_category_table_entry = models.ForeignKey('T_Category_Table_Entry', on_delete=models.SET_NULL, null=True)
     created_datetime = models.DateTimeField(null=True, blank=True)
 
     class Meta:
@@ -274,7 +274,7 @@ class T_Information_Item_Tobeoperationalized(models.Model):
 
 
 class T_Information_Item_Tobeoperationalized_Memor_Timeseries(models.Model):
-    t_information_item_tobeoperationalized_id = models.ForeignKey('T_Information_Item_Tobeoperationalized', on_delete=models.SET_NULL, null=True)
+    t_information_item_tobeoperationalized = models.ForeignKey('T_Information_Item_Tobeoperationalized', on_delete=models.SET_NULL, null=True)
     t_information_item_tobeoperationalized_memor_timeseries_act = models.ForeignKey('T_Information_Item_Tobeoperationalized_Memor_Timeseries_Act', on_delete=models.SET_NULL, null=True)
     action_datetime = models.DateTimeField(null=True, blank=True)
 
@@ -300,8 +300,8 @@ class t_category_table(models.Model):
 
 
 class T_Category_Table_Predicate_Asverb(models.Model):
-    t_category_table_id_subject = models.ForeignKey('T_Category_Table', on_delete=models.SET_NULL, null=True)
-    t_category_table_id_object = models.ForeignKey('T_Category_Table', related_name = 'T_Category_Table_Related_Name', on_delete=models.SET_NULL, null=True)
+    t_category_table_subject = models.ForeignKey('T_Category_Table', on_delete=models.SET_NULL, null=True)
+    t_category_table_object = models.ForeignKey('T_Category_Table', related_name = 'T_Category_Table_Related_Name', on_delete=models.SET_NULL, null=True)
     predicate_asverb = models.CharField(max_length=255, default='')
 
     class Meta:
@@ -310,7 +310,7 @@ class T_Category_Table_Predicate_Asverb(models.Model):
 
 
 class t_category_table_entry(models.Model):
-    t_category_table_id = models.ForeignKey('T_Category_Table', on_delete=models.SET_NULL, null=True)
+    t_category_table = models.ForeignKey('T_Category_Table', on_delete=models.SET_NULL, null=True)
     category_name = models.CharField(max_length=255, default='')
 
     class Meta:
@@ -338,8 +338,8 @@ class T_Calendar(models.Model):
 
 
 class T_Conflict(models.Model):
-    priorization_conflict_workpackage_id_one = models.ForeignKey('Book', on_delete=models.SET_NULL, null=True)
-    priorization_conflict_workpackage_id_two = models.ForeignKey('Book', related_name = 'Book_Related_Name2', on_delete=models.SET_NULL, null=True)
+    priorization_conflict_workpackage_one = models.ForeignKey('Book', on_delete=models.SET_NULL, null=True)
+    priorization_conflict_workpackage_two = models.ForeignKey('Book', related_name = 'Book_Related_Name2', on_delete=models.SET_NULL, null=True)
     general_conflict_konfliktgegenstand_titel = models.CharField(max_length=255, default='')
     general_conflict_konfliktgegenstand_mein_ziel_description = models.CharField(max_length=255, default='')
 
@@ -348,10 +348,10 @@ class T_Conflict(models.Model):
 
 
 class T_Calendar_Conflict_Related_Association(models.Model):
-    t_calendar_id = models.ForeignKey('T_Calendar', on_delete=models.SET_NULL, null=True)
-    t_conflict_id = models.ForeignKey('T_Conflict', on_delete=models.SET_NULL, null=True)
+    t_calendar_foreignkey = models.ForeignKey('T_Calendar', on_delete=models.SET_NULL, null=True)
+    t_conflict = models.ForeignKey('T_Conflict', on_delete=models.SET_NULL, null=True)
     t_category_table_entry = models.ForeignKey('T_Category_Table_Entry', on_delete=models.SET_NULL, null=True)  #t_client_id = Konfliktpartner
-    t_memorization_package_memory_palace_technique_id = models.ForeignKey('T_Memorization_Package_Memory_Palace_Technique', on_delete=models.SET_NULL, null=True)
+    t_memorization_package_memory_palace_technique = models.ForeignKey('T_Memorization_Package_Memory_Palace_Technique', on_delete=models.SET_NULL, null=True)
     hypothetic_appointment_datetime = models.DateTimeField(null=True, blank=True)
     hypothetic_appointment_association_description = models.CharField(max_length=255, default='')
 
@@ -360,8 +360,8 @@ class T_Calendar_Conflict_Related_Association(models.Model):
 
 
 class T_Ausatemmuskulatur_Isnot_Entspannt_Dueto_Strategyrefinemt(models.Model):
-    t_conflict_id = models.ForeignKey('T_Conflict', on_delete=models.SET_NULL, null=True)
-    t_calendar_conflict_related_association_id = models.ForeignKey('T_Calendar_Conflict_Related_Association', on_delete=models.SET_NULL, null=True)
+    t_conflict = models.ForeignKey('T_Conflict', on_delete=models.SET_NULL, null=True)
+    t_calendar_conflict_related_association = models.ForeignKey('T_Calendar_Conflict_Related_Association', on_delete=models.SET_NULL, null=True)
     t_ausatemmuskulatur_strategyrefinement_conflict_phase = models.ForeignKey('T_Ausatemmuskulatur_Strategyrefinement_Conflict_Phase', on_delete=models.SET_NULL, null=True)
     created_datetime = models.DateTimeField(null=True, blank=True)
     memorized_unit_is_gone_through_mentally = models.IntegerField(null=True, default=None)
@@ -387,9 +387,9 @@ class T_Conflict_Strategy_Category(models.Model):
 
 
 class T_Conflict_Strategy_Category_Measure(models.Model):
-    t_conflict_strategy_category_id =  models.ForeignKey('T_Conflict_Strategy_Category', on_delete=models.SET_NULL, null=True)
-    t_memorization_package_memory_palace_technique_id =  models.ForeignKey('T_Memorization_Package_Memory_Palace_Technique', on_delete=models.SET_NULL, null=True)
-    t_memory_palace_type_location_number_id =  models.ForeignKey('T_Memory_Palace_Type_Location_Number', on_delete=models.SET_NULL, null=True)
+    t_conflict_strategy_category =  models.ForeignKey('T_Conflict_Strategy_Category', on_delete=models.SET_NULL, null=True)
+    t_memorization_package_memory_palace_technique_foreignkey5 =  models.ForeignKey('T_Memorization_Package_Memory_Palace_Technique', on_delete=models.SET_NULL, null=True)
+    t_memory_palace_type_location_number =  models.ForeignKey('T_Memory_Palace_Type_Location_Number', on_delete=models.SET_NULL, null=True)
     created_datetime = models.DateTimeField(null=True, blank=True)
     updated_datetime = models.DateTimeField(null=True, blank=True)
     conflict_strategy_category_measure_description = models.CharField(max_length=255, default='')
@@ -403,11 +403,11 @@ class T_Conflict_Strategy_Category_Measure(models.Model):
 
 class T_Memorization_Package_Memory_Palace_Technique(models.Model):
     t_memory_palace_type = models.ForeignKey('T_Memory_Palace_Type', on_delete=models.SET_NULL, null=True)
-    t_week_target_id = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True)
-    t_workpackage_relevantinformation_tobememorized_id = models.ForeignKey('BookInstance', on_delete=models.SET_NULL, null=True)
-    t_information_item_tobeoperationalized_id = models.ForeignKey('T_Information_Item_Tobeoperationalized', on_delete=models.SET_NULL, null=True)
+    t_week_target = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True)
+    t_workpackage_relevantinformation_tobememorized = models.ForeignKey('BookInstance', on_delete=models.SET_NULL, null=True)
+    t_information_item_tobeoperationalized_foreignkey = models.ForeignKey('T_Information_Item_Tobeoperationalized', on_delete=models.SET_NULL, null=True)
     t_conflict_strategy_category_measure_foreignkey = models.ForeignKey('T_Conflict_Strategy_Category_Measure', on_delete=models.SET_NULL, null=True)
-    t_calendar_id = models.ForeignKey('T_Calendar', on_delete=models.SET_NULL, null=True)
+    t_calendar_foreignkey2 = models.ForeignKey('T_Calendar', on_delete=models.SET_NULL, null=True)
     created_datetime = models.DateTimeField(null=True, blank=True)
     updated_datetime = models.DateTimeField(null=True, blank=True)
     memorization_package_title = models.CharField(max_length=255, default='')
@@ -425,8 +425,8 @@ class T_Memory_Palace_Type(models.Model):
 
 
 class T_Memory_Palace_Type_Location(models.Model):
-    t_memorization_package_memory_palace_technique_id = models.ForeignKey('T_Memorization_Package_Memory_Palace_Technique', on_delete=models.SET_NULL, null=True)
-    t_memory_palace_type_id = models.ForeignKey('T_Memory_Palace_Type', on_delete=models.SET_NULL, null=True)
+    t_memorization_package_memory_palace_technique = models.ForeignKey('T_Memorization_Package_Memory_Palace_Technique', on_delete=models.SET_NULL, null=True)
+    t_memory_palace_type = models.ForeignKey('T_Memory_Palace_Type', on_delete=models.SET_NULL, null=True)
     sequence_proposed_for_new_memorization_package = models.IntegerField(null=True, default=None)
     memory_palace_type_location = models.CharField(max_length=255, default='')
     memory_palace_type_location_is_inactive = models.IntegerField(null=True, default=None)
@@ -436,8 +436,8 @@ class T_Memory_Palace_Type_Location(models.Model):
 
 
 class T_Memory_Palace_Type_Location_Packageassignment_Timeseries(models.Model):
-    t_memory_palace_type_location_id = models.ForeignKey('T_Memory_Palace_Type_Location', on_delete=models.SET_NULL, null=True)
-    t_memorization_package_memory_palace_technique_id = models.ForeignKey('T_Memorization_Package_Memory_Palace_Technique', on_delete=models.SET_NULL, null=True)
+    t_memory_palace_type_location = models.ForeignKey('T_Memory_Palace_Type_Location', on_delete=models.SET_NULL, null=True)
+    t_memorization_package_memory_palace_technique = models.ForeignKey('T_Memorization_Package_Memory_Palace_Technique', on_delete=models.SET_NULL, null=True)
     assignment_to_memorization_package_datetime = models.DateTimeField(null=True, blank=True)
 
     class Meta:
@@ -445,7 +445,7 @@ class T_Memory_Palace_Type_Location_Packageassignment_Timeseries(models.Model):
 
 
 class T_Memory_Palace_Type_Location_Number(models.Model):
-    t_memory_palace_type_location_id = models.ForeignKey('T_Memory_Palace_Type_Location', on_delete=models.SET_NULL, null=True)
+    t_memory_palace_type_location = models.ForeignKey('T_Memory_Palace_Type_Location', on_delete=models.SET_NULL, null=True)
     memory_palace_number = models.IntegerField(null=True, default=None)
     memory_palace_datapoint_description = models.CharField(max_length=255, default='')
     memory_palace_datapoint_lastuse_date = models.DateTimeField(null=True, blank=True)
@@ -456,7 +456,7 @@ class T_Memory_Palace_Type_Location_Number(models.Model):
 
 
 class T_Memory_Palace_Type_Location_Daytime(models.Model):
-    t_memory_palace_type_location_id = models.ForeignKey('T_Memory_Palace_Type_Location', on_delete=models.SET_NULL, null=True)
+    t_memory_palace_type_location = models.ForeignKey('T_Memory_Palace_Type_Location', on_delete=models.SET_NULL, null=True)
     memory_palace_daytime = models.DateTimeField(null=True, blank=True)
     memory_palace_daytime_datapoint_description = models.CharField(max_length=255, default='')
 
