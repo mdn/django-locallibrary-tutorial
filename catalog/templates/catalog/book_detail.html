@@ -7,7 +7,7 @@
 -->
 <h1>Arbeitspaket Detail</h1>   <!-- vorher: Book-Detail -->
 <p><strong>Plandauer:</strong> {{ book.plan_duration_mins }} Minuten </p>
-<p><strong>Due Date:</strong> {{ book.due_datetime }} </p>
+<p><strong>Due:</strong> {{ book.due_datetime }} </p>
 
 <p><strong>Work Readiness</strong></p>
 <p>Dateipfad: {{ book.filepath_for_readiness_enhancement }}</p> 
@@ -17,8 +17,6 @@
 <p>Betreff: {{ book.associated_email_subject }} </p>
 <p>Erhalten am: {{ book.associated_email_received_datetime }} </p>
 <p>Account: {{ book.associated_email_received_account }}</p>
-
-<p><strong>ToDelete:</strong></p>
 <p><strong>Wochenziel:</strong> <a href="{% url 'author-detail' book.author.pk %}">{{ book.author }}</a></p>
 <!--
 <p><strong>Summary:</strong> {{ book.summary }}</p>

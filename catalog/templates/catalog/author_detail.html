@@ -13,8 +13,8 @@
 
 <dl>
 {% for book in author.book_set.all %}
-  <dt>Work package: <a href="{% url 'book-detail' book.pk %}">{{book.associated_email_received_account}}</a> ({{book.bookinstance_set.all.count}})</dt>
-  <dd>{{book.summary}}</dd>
+  <dt><a href="{% url 'book-detail' book.pk %}">{{book.associated_email_received_account}}</a> ({{book.bookinstance_set.all.count}})</dt>
+  <dd>Due: {{book.due_datetime}}</dd>
 {% endfor %}
 </dl>
 
