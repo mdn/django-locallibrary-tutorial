@@ -1,0 +1,21 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Termine</h1>
+
+    {% if t_calendar_list %}
+    <ul>
+
+      {% for t_calendar in t_calendar_list %}
+      <li>
+        <a href="{{ t_calendar.get_absolute_url }}">{{ t_calendar.location_description }}</a> {{book.associated_email_received_account}} ({{book.author}})
+      </li>
+      {% endfor %}
+
+    </ul>
+
+    {% else %}
+      <p>There are no t_calendars.</p>
+    {% endif %}       
+{% endblock %}
+

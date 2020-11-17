@@ -10,7 +10,9 @@ urlpatterns = [
     path('authors/', views.AuthorListView.as_view(), name='authors'),
     path('author/<int:pk>',
          views.AuthorDetailView.as_view(), name='author-detail'),
-]
+    path('t_calendars/', views.T_CalendarListView.as_view(), name='t_calendars'),
+    path('t_calendar/<int:pk>', views.T_CalendarDetailView.as_view(), name='t_calendar-detail'),
+ ]
 
 
 urlpatterns += [

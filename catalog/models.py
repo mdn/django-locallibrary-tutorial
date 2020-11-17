@@ -339,6 +339,9 @@ class T_Calendar(models.Model):
     class Meta:
         db_table = 't_calendar'
 
+    def __str__(self):
+        """String for representing the Model object."""
+        return self.subject_description
 
 
 class T_Conflict(models.Model):
