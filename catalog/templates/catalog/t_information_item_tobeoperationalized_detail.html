@@ -2,10 +2,10 @@
 
 {% block content %}
 
-<h1>Konflikt Detail</h1>
+<h1>Zu operationalisierende Informationseinheit - Detail</h1>
 <p></p>
-<p><strong>{{ t_conflict.general_conflict_konfliktgegenstand_titel }}</strong></p>
-<p> {{t_conflict.general_conflict_konfliktgegenstand_mein_ziel_description}} </p>
-<p> Konflikt zwischen Arbeitspaket Nr. {{t_conflict.priorization_conflict_workpackage_one_id}} und {{t_conflict.priorization_conflict_workpackage_two_id}} </p>
+<p><strong>{{ t_information_item_tobeoperationalized.target_group_question }}?</strong></p>
+<p> {{t_information_item_tobeoperationalized.memorizable_information_item_tobeoperationalized}} </p>
+<p> Erstelldatum: {{t_information_item_tobeoperationalized.created_datetime}} </p>
 
 {% endblock %}

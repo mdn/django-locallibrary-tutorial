@@ -275,6 +275,13 @@ class T_Information_Item_Tobeoperationalized(models.Model):
     class Meta:
         db_table = 't_information_item_tobeoperationalized'
 
+    def get_absolute_url(self):
+        """Returns the url to access a particular t_information_item_tobeoperationalized instance."""
+        return reverse('t_information_item_tobeoperationalized-detail', args=[str(self.id)])
+
+    def __str__(self):
+        """String for representing the Model object."""
+        return self.memorizable_information_item_tobeoperationalized
 
 
 class T_Information_Item_Tobeoperationalized_Memor_Timeseries(models.Model):

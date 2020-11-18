@@ -1,22 +1,22 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-    <h1>Konflikte</h1>
+    <h1>Zu operationalisierende Informationseinheiten</h1>
 
-    {% if t_conflict_list %}
+    {% if t_information_item_tobeoperationalized_list %}
     <ul>
 
-      {% for t_conflict in t_conflict_list %}
+      {% for t_information_item_tobeoperationalized in t_information_item_tobeoperationalized_list %}
       <li>
-        <a href="{{ t_conflict.get_absolute_url }}">{{ t_conflict.general_conflict_konfliktgegenstand_titel }}</a>
-        <p class="text-muted">{{ t_conflict.general_conflict_konfliktgegenstand_mein_ziel_description }}</p>
+        <a class="text-muted">{{ t_information_item_tobeoperationalized.target_group_question }}?</a>
+        <a href="{{ t_information_item_tobeoperationalized.get_absolute_url }}">{{ t_information_item_tobeoperationalized.memorizable_information_item_tobeoperationalized }}</a>
       </li>
       {% endfor %}
 
     </ul>
 
     {% else %}
-      <p>Es liegen keine Konflikte vor.</p>
+      <p>Es liegen keine zu operationalisierende Informationseinheiten vor.</p>
     {% endif %}       
 {% endblock %}
 

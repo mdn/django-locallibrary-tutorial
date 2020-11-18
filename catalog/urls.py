@@ -14,6 +14,8 @@ urlpatterns = [
     path('t_calendar/<int:pk>', views.T_CalendarDetailView.as_view(), name='t_calendar-detail'),
     path('t_conflicts/', views.T_ConflictListView.as_view(), name='t_conflicts'),
     path('t_conflict/<int:pk>', views.T_ConflictDetailView.as_view(), name='t_conflict-detail'),
+    path('t_information_items_tobeoperationalized/', views.T_Information_Item_TobeoperationalizedListView.as_view(), name='t_information_items_tobeoperationalized'),
+    path('t_information_item_tobeoperationalized/<int:pk>', views.T_Information_Item_TobeoperationalizedDetailView.as_view(), name='t_information_item_tobeoperationalized-detail'),
 ]
 
 
