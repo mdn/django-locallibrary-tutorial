@@ -12,7 +12,9 @@ urlpatterns = [
          views.AuthorDetailView.as_view(), name='author-detail'),
     path('t_calendars/', views.T_CalendarListView.as_view(), name='t_calendars'),
     path('t_calendar/<int:pk>', views.T_CalendarDetailView.as_view(), name='t_calendar-detail'),
- ]
+    path('t_conflicts/', views.T_ConflictListView.as_view(), name='t_conflicts'),
+    path('t_conflict/<int:pk>', views.T_ConflictDetailView.as_view(), name='t_conflict-detail'),
+]
 
 
 urlpatterns += [

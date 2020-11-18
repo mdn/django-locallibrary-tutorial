@@ -1,0 +1,22 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Konflikte</h1>
+
+    {% if t_conflict_list %}
+    <ul>
+
+      {% for t_conflict in t_conflict_list %}
+      <li>
+        <a href="{{ t_conflict.get_absolute_url }}">{{ t_conflict.general_conflict_konfliktgegenstand_titel }}</a>
+        <p class="text-muted">{{ t_conflict.general_conflict_konfliktgegenstand_mein_ziel_description }}</p>
+      </li>
+      {% endfor %}
+
+    </ul>
+
+    {% else %}
+      <p>Es liegen keine Konflikte vor.</p>
+    {% endif %}       
+{% endblock %}
+

@@ -357,6 +357,14 @@ class T_Conflict(models.Model):
     class Meta:
         db_table = 't_conflict'
 
+    def get_absolute_url(self):
+        """Returns the url to access a particular t_conflict instance."""
+        return reverse('t_conflict-detail', args=[str(self.id)])
+
+    def __str__(self):
+        """String for representing the Model object."""
+        return self.general_conflict_konfliktgegenstand_titel
+
 
 class T_Calendar_Conflict_Related_Association(models.Model):
     t_calendar_foreignkey = models.ForeignKey('T_Calendar', on_delete=models.SET_NULL, null=True)

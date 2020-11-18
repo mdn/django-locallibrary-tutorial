@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 # Create your views here.
 
-from .models import Book, Author, BookInstance, Genre, T_Calendar
+from .models import Book, Author, BookInstance, Genre, T_Calendar, T_Conflict
 
 
 def index(request):
@@ -62,6 +62,18 @@ class T_CalendarListView(generic.ListView):
 class T_CalendarDetailView(generic.DetailView):
     """Generic class-based detail view for a t_calendar."""
     model = T_Calendar
+
+
+class T_ConflictListView(generic.ListView):
+    """Generic class-based view for a list of t_conflicts."""
+    model = T_Conflict
+    paginate_by = 10
+
+
+class T_ConflictDetailView(generic.DetailView):
+    """Generic class-based detail view for a t_conflict."""
+    model = T_Conflict
+
 
 
 from django.contrib.auth.mixins import LoginRequiredMixin

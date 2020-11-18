@@ -1,0 +1,11 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+<h1>Konflikt Detail</h1>
+<p></p>
+<p><strong>{{ t_conflict.general_conflict_konfliktgegenstand_titel }}</strong></p>
+<p> {{t_conflict.general_conflict_konfliktgegenstand_mein_ziel_description}} </p>
+<p> Konflikt zwischen Arbeitspaket Nr. {{t_conflict.priorization_conflict_workpackage_one_id}} und {{t_conflict.priorization_conflict_workpackage_two_id}} </p>
+
+{% endblock %}
