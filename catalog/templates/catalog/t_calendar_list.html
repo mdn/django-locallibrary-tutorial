@@ -8,7 +8,8 @@
 
       {% for t_calendar in t_calendar_list %}
       <li>
-        <a href="{{ t_calendar.get_absolute_url }}">{{ t_calendar.location_description }}</a> {{book.associated_email_received_account}} ({{book.author}})
+        <a href="{{ t_calendar.get_absolute_url }}">{{ t_calendar.subject_description }}</a>
+        <p class="text-muted">{{t_calendar.datetime_start}} - {{t_calendar.datetime_end}}, Ort: {{t_calendar.location_description}}</p>
       </li>
       {% endfor %}
 
