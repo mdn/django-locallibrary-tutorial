@@ -3,6 +3,9 @@
 {% block content %}
 
 <h1>Termin Detail</h1>   <!-- vorher: Book-Detail -->
-<p><strong>Subject:</strong> {{ t_calendar.subject_description }} </p>
+<p></p>
+<p><strong>{{ t_calendar.subject_description }}</strong></p>
+<p> {{t_calendar.datetime_start}} - {{t_calendar.datetime_end}} </p>
+<p> Ort: {{t_calendar.location_description}} </p>
 
 {% endblock %}

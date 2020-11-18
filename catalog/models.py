@@ -339,6 +339,10 @@ class T_Calendar(models.Model):
     class Meta:
         db_table = 't_calendar'
 
+    def get_absolute_url(self):
+        """Returns the url to access a particular t_calendar instance."""
+        return reverse('t_calendar-detail', args=[str(self.id)])
+
     def __str__(self):
         """String for representing the Model object."""
         return self.subject_description
