@@ -31,7 +31,7 @@ class Language(models.Model):
 # class T_Week_Target(models.Model):
 class Author(models.Model):
     """Model representing an author."""
-    t_memorization_package_memory_palace_technique_foreignkey = models.ForeignKey('T_Memorization_Package_Memory_Palace_Technique', on_delete=models.SET_NULL, null=True)
+    t_memorization_package_memory_palace_or_cards_technique_fk = models.ForeignKey('T_Memorization_Package_Memory_Palace_Or_Cards_Technique', on_delete=models.SET_NULL, null=True)
     t_memory_palace_type_location_number = models.ForeignKey('T_Memory_Palace_Type_Location_Number', on_delete=models.SET_NULL, null=True)
     date_frame_from_weekday = models.DateField(null=True, blank=True)
     date_frame_to_weekday = models.DateField(null=True, blank=True)
@@ -199,7 +199,7 @@ class BookInstance(models.Model):
                           help_text="Unique ID for this particular book across whole library")
     book = models.ForeignKey('Book', on_delete=models.SET_NULL, null=True)
     t_information_item_tobeoperationalized = models.ForeignKey('T_Information_Item_Tobeoperationalized', on_delete=models.SET_NULL, null=True)
-    t_memorization_package_memory_palace_technique_foreignkey2 = models.ForeignKey('T_Memorization_Package_Memory_Palace_Technique', on_delete=models.SET_NULL, null=True)
+    t_memorization_package_memory_palace_or_cards_technique_fk2 = models.ForeignKey('T_Memorization_Package_Memory_Palace_Or_Cards_Technique', on_delete=models.SET_NULL, null=True)
     t_memory_palace_type_location_number = models.ForeignKey('T_Memory_Palace_Type_Location_Number', on_delete=models.SET_NULL, null=True)
     created_datetime = models.DateTimeField(null=True, blank=True)
     updated_datetime = models.DateTimeField(null=True, blank=True)
@@ -260,8 +260,7 @@ class T_Week_Target_Or_Workpackage_Or_Relevinf_Timeseries(models.Model):
 
 
 class T_Information_Item_Tobeoperationalized(models.Model):
-    t_memorization_package_memory_cards_technique = models.ForeignKey('T_Memorization_Package_Memory_Cards_Technique', on_delete=models.SET_NULL, null=True)
-    t_memorization_package_memory_palace_technique_foreignkey3 = models.ForeignKey('T_Memorization_Package_Memory_Palace_Technique', on_delete=models.SET_NULL, null=True)
+    t_memorization_package_memory_palace_or_cards_technique = models.ForeignKey('T_Memorization_Package_Memory_Palace_Or_Cards_Technique', on_delete=models.SET_NULL, null=True)
     t_memory_palace_type_location_number = models.ForeignKey('T_Memory_Palace_Type_Location_Number', on_delete=models.SET_NULL, null=True)
     created_datetime = models.DateTimeField(null=True, blank=True)
     updated_datetime = models.DateTimeField(null=True, blank=True)
@@ -333,7 +332,7 @@ class t_category_table_entry(models.Model):
 class T_Calendar(models.Model):
     t_workpackage = models.ForeignKey('Book', related_name = 'Book_Related_Name', on_delete=models.SET_NULL, null=True)
     t_calendar_conflict_related_association_foreignkey = models.ForeignKey('T_Calendar_Conflict_Related_Association', on_delete=models.SET_NULL, null=True)
-    t_memorization_package_memory_palace_technique_foreignkey4 = models.ForeignKey('T_Memorization_Package_Memory_Palace_Technique', on_delete=models.SET_NULL, null=True)
+    t_memorization_package_memory_palace_or_cards_technique_fk4 = models.ForeignKey('T_Memorization_Package_Memory_Palace_Or_Cards_Technique', on_delete=models.SET_NULL, null=True)
     t_memory_palace_type_location_daytime = models.ForeignKey('T_Memory_Palace_Type_Location_Daytime', on_delete=models.SET_NULL, null=True)
     created_datetime = models.DateTimeField(null=True, blank=True)
     updated_datetime = models.DateTimeField(null=True, blank=True)
@@ -377,7 +376,7 @@ class T_Calendar_Conflict_Related_Association(models.Model):
     t_calendar_foreignkey = models.ForeignKey('T_Calendar', on_delete=models.SET_NULL, null=True)
     t_conflict = models.ForeignKey('T_Conflict', on_delete=models.SET_NULL, null=True)
     t_category_table_entry = models.ForeignKey('T_Category_Table_Entry', on_delete=models.SET_NULL, null=True)  #t_client_id = Konfliktpartner
-    t_memorization_package_memory_palace_technique = models.ForeignKey('T_Memorization_Package_Memory_Palace_Technique', on_delete=models.SET_NULL, null=True)
+    t_memorization_package_memory_palace_or_cards_technique = models.ForeignKey('T_Memorization_Package_Memory_Palace_Or_Cards_Technique', on_delete=models.SET_NULL, null=True)
     hypothetic_appointment_datetime = models.DateTimeField(null=True, blank=True)
     hypothetic_appointment_association_description = models.CharField(max_length=255, default='')
 
@@ -414,7 +413,7 @@ class T_Conflict_Strategy_Category(models.Model):
 
 class T_Conflict_Strategy_Category_Measure(models.Model):
     t_conflict_strategy_category =  models.ForeignKey('T_Conflict_Strategy_Category', on_delete=models.SET_NULL, null=True)
-    t_memorization_package_memory_palace_technique_foreignkey5 =  models.ForeignKey('T_Memorization_Package_Memory_Palace_Technique', on_delete=models.SET_NULL, null=True)
+    t_memorization_package_memory_palace_or_cards_technique_fk5 =  models.ForeignKey('T_Memorization_Package_Memory_Palace_Or_Cards_Technique', on_delete=models.SET_NULL, null=True)
     t_memory_palace_type_location_number =  models.ForeignKey('T_Memory_Palace_Type_Location_Number', on_delete=models.SET_NULL, null=True)
     created_datetime = models.DateTimeField(null=True, blank=True)
     updated_datetime = models.DateTimeField(null=True, blank=True)
@@ -427,20 +426,20 @@ class T_Conflict_Strategy_Category_Measure(models.Model):
 
 
 
-class T_Memorization_Package_Memory_Palace_Technique(models.Model):
-    t_memory_palace_type = models.ForeignKey('T_Memory_Palace_Type', on_delete=models.SET_NULL, null=True)
-    t_week_target = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True)
-    t_workpackage_relevantinformation_tobememorized = models.ForeignKey('BookInstance', on_delete=models.SET_NULL, null=True)
-    t_information_item_tobeoperationalized_foreignkey = models.ForeignKey('T_Information_Item_Tobeoperationalized', on_delete=models.SET_NULL, null=True)
-    t_conflict_strategy_category_measure_foreignkey = models.ForeignKey('T_Conflict_Strategy_Category_Measure', on_delete=models.SET_NULL, null=True)
-    t_calendar_foreignkey2 = models.ForeignKey('T_Calendar', on_delete=models.SET_NULL, null=True)
+class T_Memorization_Package_Memory_Palace_Or_Cards_Technique(models.Model):
+#    t_memory_palace_type = models.ForeignKey('T_Memory_Palace_Type', on_delete=models.SET_NULL, null=True)
+#    t_week_target = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True)
+#    t_workpackage_relevantinformation_tobememorized = models.ForeignKey('BookInstance', on_delete=models.SET_NULL, null=True)
+#    t_information_item_tobeoperationalized_foreignkey = models.ForeignKey('T_Information_Item_Tobeoperationalized', on_delete=models.SET_NULL, null=True)
+#    t_conflict_strategy_category_measure_foreignkey = models.ForeignKey('T_Conflict_Strategy_Category_Measure', on_delete=models.SET_NULL, null=True)
+#    t_calendar_foreignkey2 = models.ForeignKey('T_Calendar', on_delete=models.SET_NULL, null=True)
     created_datetime = models.DateTimeField(null=True, blank=True)
     updated_datetime = models.DateTimeField(null=True, blank=True)
     memorization_package_title = models.CharField(max_length=255, default='')
     memorization_package_is_active = models.IntegerField(null=True, default=None)
 
     class Meta:
-        db_table = 't_memorization_package_memory_palace_technique'
+        db_table = 't_memorization_package_memory_palace_or_cards_technique'
 
 
 class T_Memory_Palace_Type(models.Model):
@@ -451,7 +450,7 @@ class T_Memory_Palace_Type(models.Model):
 
 
 class T_Memory_Palace_Type_Location(models.Model):
-    t_memorization_package_memory_palace_technique = models.ForeignKey('T_Memorization_Package_Memory_Palace_Technique', on_delete=models.SET_NULL, null=True)
+    t_memorization_package_memory_palace_or_cards_technique = models.ForeignKey('T_Memorization_Package_Memory_Palace_Or_Cards_Technique', on_delete=models.SET_NULL, null=True)
     t_memory_palace_type = models.ForeignKey('T_Memory_Palace_Type', on_delete=models.SET_NULL, null=True)
     sequence_proposed_for_new_memorization_package = models.IntegerField(null=True, default=None)
     memory_palace_type_location = models.CharField(max_length=255, default='')
@@ -463,7 +462,7 @@ class T_Memory_Palace_Type_Location(models.Model):
 
 class T_Memory_Palace_Type_Location_Packageassignment_Timeseries(models.Model):
     t_memory_palace_type_location = models.ForeignKey('T_Memory_Palace_Type_Location', on_delete=models.SET_NULL, null=True)
-    t_memorization_package_memory_palace_technique = models.ForeignKey('T_Memorization_Package_Memory_Palace_Technique', on_delete=models.SET_NULL, null=True)
+    t_memorization_package_memory_palace_or_cards_technique = models.ForeignKey('T_Memorization_Package_Memory_Palace_Or_Cards_Technique', on_delete=models.SET_NULL, null=True)
     assignment_to_memorization_package_datetime = models.DateTimeField(null=True, blank=True)
 
     class Meta:
@@ -488,14 +487,3 @@ class T_Memory_Palace_Type_Location_Daytime(models.Model):
 
     class Meta:
         db_table = 't_memory_palace_type_location_daytime'
-
-
-class T_Memorization_Package_Memory_Cards_Technique(models.Model):
-    created_datetime = models.DateTimeField(null=True, blank=True)
-    updated_datetime = models.DateTimeField(null=True, blank=True)
-    memorization_package_title = models.CharField(max_length=255, default='')
-    memorization_package_is_active = models.IntegerField(null=True, default=None)
-
-    class Meta:
-        db_table = 't_memorization_package_memory_cards_technique'
-
