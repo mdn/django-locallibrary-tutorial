@@ -427,16 +427,15 @@ class T_Conflict_Strategy_Category_Measure(models.Model):
 
 
 class T_Memorization_Package_Memory_Palace_Or_Cards_Technique(models.Model):
-#    t_memory_palace_type = models.ForeignKey('T_Memory_Palace_Type', on_delete=models.SET_NULL, null=True)
-#    t_week_target = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True)
-#    t_workpackage_relevantinformation_tobememorized = models.ForeignKey('BookInstance', on_delete=models.SET_NULL, null=True)
-#    t_information_item_tobeoperationalized_foreignkey = models.ForeignKey('T_Information_Item_Tobeoperationalized', on_delete=models.SET_NULL, null=True)
-#    t_conflict_strategy_category_measure_foreignkey = models.ForeignKey('T_Conflict_Strategy_Category_Measure', on_delete=models.SET_NULL, null=True)
-#    t_calendar_foreignkey2 = models.ForeignKey('T_Calendar', on_delete=models.SET_NULL, null=True)
     created_datetime = models.DateTimeField(null=True, blank=True)
     updated_datetime = models.DateTimeField(null=True, blank=True)
     memorization_package_title = models.CharField(max_length=255, default='')
     memorization_package_is_active = models.IntegerField(null=True, default=None)
+    is_mpt_t_week_target = models.IntegerField(null=True, default=None)
+    is_mpt_t_workpackage_relevantinformation_tobememorized = models.IntegerField(null=True, default=None)
+    is_mpt_t_conflict_strategy_category_measure = models.IntegerField(null=True, default=None)
+    is_mpt_t_information_item_tobeoperationalized = models.IntegerField(null=True, default=None)
+    is_mct_t_information_item_tobeoperationalized = models.IntegerField(null=True, default=None)
 
     class Meta:
         db_table = 't_memorization_package_memory_palace_or_cards_technique'
