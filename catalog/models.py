@@ -440,6 +440,14 @@ class T_Memorization_Package_Memory_Palace_Or_Cards_Technique(models.Model):
     class Meta:
         db_table = 't_memorization_package_memory_palace_or_cards_technique'
 
+    def get_absolute_url(self):
+        """Returns the url to access a particular memorization_package_title instance."""
+        return reverse('t_memorization_package_memory_palace_or_cards_technique-detail', args=[str(self.id)])
+
+    def __str__(self):
+        """String for representing the Model object."""
+        return self.memorization_package_title
+
 
 class T_Memory_Palace_Type(models.Model):
     memory_palace_type = models.CharField(max_length=255, default='')

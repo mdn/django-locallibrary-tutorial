@@ -1,0 +1,22 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Memorization Packages</h1>
+
+    {% if t_memorization_package_memory_palace_or_cards_technique_list %}
+    <ul>
+
+      {% for t_memorization_package_memory_palace_or_cards_technique in t_memorization_package_memory_palace_or_cards_technique_list %}
+      <li>
+        <a href="{{ t_memorization_package_memory_palace_or_cards_technique.get_absolute_url }}">{{ t_memorization_package_memory_palace_or_cards_technique.memorization_package_title }}</a>
+        <a class="text-muted">{{ t_memorization_package_memory_palace_or_cards_technique.created_datetime }} </a>
+      </li>
+      {% endfor %}
+
+    </ul>
+
+    {% else %}
+      <p>Es liegen keine Memorization Packages vor.</p>
+    {% endif %}       
+{% endblock %}
+

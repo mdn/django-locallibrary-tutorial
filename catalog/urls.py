@@ -16,6 +16,8 @@ urlpatterns = [
     path('t_conflict/<int:pk>', views.T_ConflictDetailView.as_view(), name='t_conflict-detail'),
     path('t_information_items_tobeoperationalized/', views.T_Information_Item_TobeoperationalizedListView.as_view(), name='t_information_items_tobeoperationalized'),
     path('t_information_item_tobeoperationalized/<int:pk>', views.T_Information_Item_TobeoperationalizedDetailView.as_view(), name='t_information_item_tobeoperationalized-detail'),
+    path('t_memorization_package_memory_palace_or_cards_technique/', views.T_Memorization_Package_Memory_Palace_Or_Cards_TechniqueListView.as_view(), name='t_memorization_packages_memory_palace_or_cards_technique'),
+    path('t_memorization_package_memory_palace_or_cards_technique/<int:pk>', views.T_Memorization_Package_Memory_Palace_Or_Cards_TechniqueDetailView.as_view(), name='t_memorization_package_memory_palace_or_cards_technique-detail'),
 ]
 
 
