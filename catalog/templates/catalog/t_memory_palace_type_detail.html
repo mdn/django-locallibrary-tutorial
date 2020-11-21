@@ -1,0 +1,21 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+<h1>Gedächtnispalast Typ - Detail</h1>
+<p></p>
+<p><strong>{{ t_memory_palace_type.t_memory_palace_type }} </strong></p>
+
+
+<div style="margin-left:20px;margin-top:20px">
+<h4>Gedächtnispalast Typ</h4>
+
+{% for t_memorization_package_memory_palace_or_cards_technique in t_memory_palace_type.t_memorization_package_memory_palace_or_cards_technique_set.all %}
+<hr>
+<p> {{t_memorization_package_memory_palace_or_cards_technique.memorization_package_title}} </p>
+<p class="text-muted"><strong>Erstellt am:</strong> {{t_memorization_package_memory_palace_or_cards_technique.created_datetime}} </p>
+{% endfor %}
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Gedächtnispalast Typen</h1>
+
+    {% if t_memory_palace_type_list %}
+    <ul>
+
+      {% for t_memory_palace_type in t_memory_palace_type_list %}
+      <li>
+        <a href="{{ t_memory_palace_type.get_absolute_url }}">{{ t_memory_palace_type.memory_palace_type }}</a>
+      </li>
+      {% endfor %}
+
+    </ul>
+
+    {% else %}
+      <p>Es liegen keine Gedächtnispalast Typen vor.</p>
+    {% endif %}       
+{% endblock %}
+

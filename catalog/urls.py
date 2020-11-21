@@ -18,6 +18,8 @@ urlpatterns = [
     path('t_information_item_tobeoperationalized/<int:pk>', views.T_Information_Item_TobeoperationalizedDetailView.as_view(), name='t_information_item_tobeoperationalized-detail'),
     path('t_memorization_package_memory_palace_or_cards_technique/', views.T_Memorization_Package_Memory_Palace_Or_Cards_TechniqueListView.as_view(), name='t_memorization_packages_memory_palace_or_cards_technique'),
     path('t_memorization_package_memory_palace_or_cards_technique/<int:pk>', views.T_Memorization_Package_Memory_Palace_Or_Cards_TechniqueDetailView.as_view(), name='t_memorization_package_memory_palace_or_cards_technique-detail'),
+    path('t_memory_palace_type/', views.T_Memory_Palace_TypeListView.as_view(), name='t_memory_palaces_type'),
+    path('t_memory_palace_type/<int:pk>', views.T_Memory_Palace_TypeDetailView.as_view(), name='t_memory_palace_type-detail'),
 ]
 
 

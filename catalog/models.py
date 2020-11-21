@@ -427,6 +427,7 @@ class T_Conflict_Strategy_Category_Measure(models.Model):
 
 
 class T_Memorization_Package_Memory_Palace_Or_Cards_Technique(models.Model):
+    t_memory_palace_type = models.ForeignKey('T_Memory_Palace_Type', on_delete=models.SET_NULL, null=True)
     created_datetime = models.DateTimeField(null=True, blank=True)
     updated_datetime = models.DateTimeField(null=True, blank=True)
     memorization_package_title = models.CharField(max_length=255, default='')
@@ -438,6 +439,7 @@ class T_Memorization_Package_Memory_Palace_Or_Cards_Technique(models.Model):
     is_mct_t_information_item_tobeoperationalized = models.IntegerField(null=True, default=None)
 
     class Meta:
+        ordering = ['memorization_package_title']
         db_table = 't_memorization_package_memory_palace_or_cards_technique'
 
     def get_absolute_url(self):
@@ -453,7 +455,16 @@ class T_Memory_Palace_Type(models.Model):
     memory_palace_type = models.CharField(max_length=255, default='')
 
     class Meta:
+        ordering = ['memory_palace_type']
         db_table = 't_memory_palace_type'
+
+    def get_absolute_url(self):
+        """Returns the url to access a particular memory_palace_type instance."""
+        return reverse('t_memory_palace_type-detail', args=[str(self.id)])
+
+    def __str__(self):
+        """String for representing the Model object."""
+        return self.memory_palace_type
 
 
 class T_Memory_Palace_Type_Location(models.Model):
