@@ -10,14 +10,11 @@
 <div style="margin-left:20px;margin-top:20px">
 <h4>Gedächtnispalast Ort</h4>
 
-<!--Hier kommen Memorizables:-->
-{% for t_memorization_package_memory_palace_or_cards_technique in t_memory_palace_type_location.t_memorization_package_memory_palace_or_cards_technique_set.all %}
+<!--Gedächtnispalast Nummern-->
+{% for t_memory_palace_type_location_number in t_memory_palace_type_location.t_memory_palace_type_location_number_set.all %}
 <hr>
-<p> {{t_memorization_package_memory_palace_or_cards_technique.memorization_package_title}} </p>
-<p class="text-muted"> {{t_memorization_package_memory_palace_or_cards_technique.created_datetime|get_due_date_string}} </p>
-
-<p> {{t_memorization_package_memory_palace_or_cards_technique.t_memory_palace_type_location_id|get_dictionary_value_from_variable2}} </p>
-
+<a href="{{ t_memory_palace_type_location_number.get_absolute_url }}">{{ t_memory_palace_type_location_number.memory_palace_number }}</a>
+{{ t_memory_palace_type_location_number.memory_palace_datapoint_description }}
 {% endfor %}
 
 </div>
