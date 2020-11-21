@@ -4,6 +4,7 @@ import pytz
 
 register = template.Library()
 
+#Days Output as difference between input datetime and now 
 @register.filter(name='get_due_date_string')
 def get_due_date_string(value):
     delta = value - datetime.utcnow().replace(tzinfo=pytz.utc)
