@@ -1,0 +1,25 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+{% load app_filters %}
+
+<h1>Gedächtnispalast Ort - Detail</h1>
+<p></p>
+<p> {{t_memory_palace_type_location.memory_palace_type_location}} </p>
+<div style="margin-left:20px;margin-top:20px">
+<h4>Gedächtnispalast Ort</h4>
+
+<!--Hier kommen Memorizables:-->
+{% for t_memorization_package_memory_palace_or_cards_technique in t_memory_palace_type_location.t_memorization_package_memory_palace_or_cards_technique_set.all %}
+<hr>
+<p> {{t_memorization_package_memory_palace_or_cards_technique.memorization_package_title}} </p>
+<p class="text-muted"> {{t_memorization_package_memory_palace_or_cards_technique.created_datetime|get_due_date_string}} </p>
+
+<p> {{t_memorization_package_memory_palace_or_cards_technique.t_memory_palace_type_location_id|get_dictionary_value_from_variable2}} </p>
+
+{% endfor %}
+
+</div>
+
+{% endblock %}

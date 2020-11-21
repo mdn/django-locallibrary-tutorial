@@ -1,0 +1,21 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Gedächtnispalast Orte</h1>
+
+    {% if t_memory_palace_type_location_list %}
+    <ul>
+
+      {% for t_memory_palace_type_location in t_memory_palace_type_location_list %}
+      <li>
+        <a href="{{ t_memory_palace_type_location.get_absolute_url }}">{{ t_memory_palace_type_location.memory_palace_type_location }}</a>
+      </li>
+      {% endfor %}
+
+    </ul>
+
+    {% else %}
+      <p>Es liegen keine Gedächtnispalast Orte vor.</p>
+    {% endif %}       
+{% endblock %}
+

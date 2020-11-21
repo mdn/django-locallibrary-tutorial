@@ -20,6 +20,8 @@ urlpatterns = [
     path('t_memorization_package_memory_palace_or_cards_technique/<int:pk>', views.T_Memorization_Package_Memory_Palace_Or_Cards_TechniqueDetailView.as_view(), name='t_memorization_package_memory_palace_or_cards_technique-detail'),
     path('t_memory_palace_type/', views.T_Memory_Palace_TypeListView.as_view(), name='t_memory_palaces_type'),
     path('t_memory_palace_type/<int:pk>', views.T_Memory_Palace_TypeDetailView.as_view(), name='t_memory_palace_type-detail'),
+    path('t_memory_palaces_type_location/', views.T_Memory_Palace_Type_LocationListView.as_view(), name='t_memory_palaces_type_location'),
+    path('t_memory_palace_type_location/<int:pk>', views.T_Memory_Palace_Type_LocationDetailView.as_view(), name='t_memory_palace_type_location-detail'),
 ]
 
 
