@@ -1,0 +1,15 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+{% load app_filters %}
+
+<h1>Gedächtnispalast Zeitreihe - Detail</h1>
+<p></p>
+<p> {{t_memory_palace_type_location_packageassignment_timeseries.assignment_to_memorization_package_datetime}} </p>
+<p> t_memory_palace_type_location_id: {{t_memory_palace_type_location_packageassignment_timeseries.t_memory_palace_type_location_id}} </p>
+<p> t_memorization_package_memory_palace_or_cards_technique_id: {{t_memory_palace_type_location_packageassignment_timeseries.t_memorization_package_memory_palace_or_cards_technique_id}} </p>
+
+</div>
+
+{% endblock %}

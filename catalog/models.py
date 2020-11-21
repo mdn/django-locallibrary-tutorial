@@ -493,7 +493,16 @@ class T_Memory_Palace_Type_Location_Packageassignment_Timeseries(models.Model):
     assignment_to_memorization_package_datetime = models.DateTimeField(null=True, blank=True)
 
     class Meta:
+        ordering = ['assignment_to_memorization_package_datetime']
         db_table = 't_memory_palace_type_location_packageassignment_timeseries'
+
+    def get_absolute_url(self):
+        """Returns the url to access a particular memory_palace_type_location_packageassignment_timeseries instance."""
+        return reverse('t_memory_palace_type_location_packageassignment_timeseries-detail', args=[str(self.id)])
+
+    def __str__(self):
+        """String for representing the Model object."""
+        return self.assignment_to_memorization_package_datetime
 
 
 class T_Memory_Palace_Type_Location_Number(models.Model):
