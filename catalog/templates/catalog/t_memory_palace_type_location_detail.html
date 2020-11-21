@@ -17,6 +17,13 @@
 {{ t_memory_palace_type_location_number.memory_palace_datapoint_description }}
 {% endfor %}
 
+<!--Gedächtnispalast Tageszeiten-->
+{% for t_memory_palace_type_location_daytime in t_memory_palace_type_location.t_memory_palace_type_location_daytime_set.all %}
+<hr>
+<a href="{{ t_memory_palace_type_location_daytime.get_absolute_url }}">{{ t_memory_palace_type_location_daytime.memory_palace_daytime }}</a>
+<p>{{ t_memory_palace_type_location_daytime.memory_palace_daytime_datapoint_description }}</p>
+{% endfor %}
+
 </div>
 
 {% endblock %}

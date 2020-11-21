@@ -531,4 +531,13 @@ class T_Memory_Palace_Type_Location_Daytime(models.Model):
     memory_palace_daytime_datapoint_description = models.CharField(max_length=255, default='')
 
     class Meta:
+        ordering = ['memory_palace_daytime']
         db_table = 't_memory_palace_type_location_daytime'
+
+    def get_absolute_url(self):
+        """Returns the url to access a particular memory_palace_type_location_daytime instance."""
+        return reverse('t_memory_palace_type_location_daytime-detail', args=[str(self.id)])
+
+    def __str__(self):
+        """String for representing the Model object."""
+        return self.memory_palace_daytime
