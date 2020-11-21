@@ -8,6 +8,15 @@
 <p> Erstellt am: {{t_memorization_package_memory_palace_or_cards_technique.created_datetime}} </p>
 <p> Gedächtnispalast Typ: {{t_memorization_package_memory_palace_or_cards_technique.t_memory_palace_type_id}} </p>
 
+<div style="margin-left:20px;margin-top:20px">
+<h4>Gedächtnispaläste</h4>
+
+<!--Gedächtnispalast Nummern-->
+{% for t_memory_palace_type_location in t_memorization_package_memory_palace_or_cards_technique.t_memory_palace_type_location_set.all %}
+<hr>
+<a href="{{ t_memory_palace_type_location.get_absolute_url }}">{{ t_memory_palace_type_location.memory_palace_type_location }}</a>
+{% endfor %}
+
 </div>
 
 {% endblock %}
