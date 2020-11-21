@@ -1,0 +1,22 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Gedächtnispalast Nummern</h1>
+Noch einarbeiten: Nur pro Gedächtnispalast anzeigen
+    {% if t_memory_palace_type_location_number_list %}
+    <ul>
+
+      {% for t_memory_palace_type_location_number in t_memory_palace_type_location_number_list %}
+      <li>
+        <a href="{{ t_memory_palace_type_location_number.get_absolute_url }}">{{ t_memory_palace_type_location_number.memory_palace_number }}</a>
+        {{ t_memory_palace_type_location_number.memory_palace_datapoint_description }}
+      </li>
+      {% endfor %}
+
+    </ul>
+
+    {% else %}
+      <p>Es liegen keine Nummern vor.</p>
+    {% endif %}       
+{% endblock %}
+

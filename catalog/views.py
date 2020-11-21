@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 # Create your views here.
 
-from .models import Book, Author, BookInstance, Genre, T_Calendar, T_Conflict, T_Information_Item_Tobeoperationalized, T_Memorization_Package_Memory_Palace_Or_Cards_Technique, T_Memory_Palace_Type, T_Memory_Palace_Type_Location, T_Memory_Palace_Type_Location_Packageassignment_Timeseries
+from .models import Book, Author, BookInstance, Genre, T_Calendar, T_Conflict, T_Information_Item_Tobeoperationalized, T_Memorization_Package_Memory_Palace_Or_Cards_Technique, T_Memory_Palace_Type, T_Memory_Palace_Type_Location, T_Memory_Palace_Type_Location_Packageassignment_Timeseries, T_Memory_Palace_Type_Location_Number
 
 
 def index(request):
@@ -125,6 +125,16 @@ class T_Memory_Palace_Type_Location_Packageassignment_TimeseriesListView(generic
 class T_Memory_Palace_Type_Location_Packageassignment_TimeseriesDetailView(generic.DetailView):
     """Generic class-based detail view for a t_memory_palace_type_location_packageassignment_timeseries."""
     model = T_Memory_Palace_Type_Location_Packageassignment_Timeseries
+
+
+class T_Memory_Palace_Type_Location_NumberListView(generic.ListView):
+    """Generic class-based view for a list of t_memory_palace_type_location_number."""
+    model = T_Memory_Palace_Type_Location_Number
+    paginate_by = 10
+
+class T_Memory_Palace_Type_Location_NumberDetailView(generic.DetailView):
+    """Generic class-based detail view for a t_memory_palace_type_location_number."""
+    model = T_Memory_Palace_Type_Location_Number
 
 
 

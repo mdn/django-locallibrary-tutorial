@@ -24,6 +24,8 @@ urlpatterns = [
     path('t_memory_palace_type_location/<int:pk>', views.T_Memory_Palace_Type_LocationDetailView.as_view(), name='t_memory_palace_type_location-detail'),
     path('t_memory_palaces_type_location_packageassignment_timeseries/', views.T_Memory_Palace_Type_Location_Packageassignment_TimeseriesListView.as_view(), name='t_memory_palaces_type_location_packageassignment_timeseries'),
     path('t_memory_palace_type_location_packageassignment_timeseries/<int:pk>', views.T_Memory_Palace_Type_Location_Packageassignment_TimeseriesDetailView.as_view(), name='t_memory_palace_type_location_packageassignment_timeseries-detail'),
+    path('t_memory_palaces_type_location_number/', views.T_Memory_Palace_Type_Location_NumberListView.as_view(), name='t_memory_palaces_type_location_number'),
+    path('t_memory_palace_type_location_number/<int:pk>', views.T_Memory_Palace_Type_Location_NumberDetailView.as_view(), name='t_memory_palace_type_location_number-detail'),
 ]
 
 

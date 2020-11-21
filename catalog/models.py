@@ -513,7 +513,16 @@ class T_Memory_Palace_Type_Location_Number(models.Model):
     memory_palace_datapoint_is_inactive = models.IntegerField(null=True, default=None)
 
     class Meta:
+        ordering = ['memory_palace_number']
         db_table = 't_memory_palace_type_location_number'
+
+    def get_absolute_url(self):
+        """Returns the url to access a particular memory_palace_type_location_number instance."""
+        return reverse('t_memory_palace_type_location_number-detail', args=[str(self.id)])
+
+    def __str__(self):
+        """String for representing the Model object."""
+        return self.memory_palace_number
 
 
 class T_Memory_Palace_Type_Location_Daytime(models.Model):
