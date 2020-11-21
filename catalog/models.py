@@ -475,7 +475,16 @@ class T_Memory_Palace_Type_Location(models.Model):
     memory_palace_type_location_is_inactive = models.IntegerField(null=True, default=None)
 
     class Meta:
+        ordering = ['memory_palace_type_location']
         db_table = 't_memory_palace_type_location'
+
+    def get_absolute_url(self):
+        """Returns the url to access a particular memory_palace_type_location instance."""
+        return reverse('t_memory_palace_type_location-detail', args=[str(self.id)])
+
+    def __str__(self):
+        """String for representing the Model object."""
+        return self.memory_palace_type_location
 
 
 class T_Memory_Palace_Type_Location_Packageassignment_Timeseries(models.Model):
