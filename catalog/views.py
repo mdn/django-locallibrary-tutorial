@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 # Create your views here.
 
-from .models import Book, Author, BookInstance, Genre, T_Calendar, T_Conflict, T_Information_Item_Tobeoperationalized, T_Memorization_Package_Memory_Palace_Or_Cards_Technique, T_Memory_Palace_Type, T_Memory_Palace_Type_Location, T_Memory_Palace_Type_Location_Packageassignment_Timeseries, T_Memory_Palace_Type_Location_Number, T_Memory_Palace_Type_Location_Daytime
+from .models import Book, Author, BookInstance, Genre, T_Calendar, T_Conflict, T_Ausatemmuskulatur_Isnot_Entspannt_Dueto_Strategyrefinemt, T_Information_Item_Tobeoperationalized, T_Memorization_Package_Memory_Palace_Or_Cards_Technique, T_Memory_Palace_Type, T_Memory_Palace_Type_Location, T_Memory_Palace_Type_Location_Packageassignment_Timeseries, T_Memory_Palace_Type_Location_Number, T_Memory_Palace_Type_Location_Daytime
 
 
 def index(request):
@@ -73,6 +73,16 @@ class T_ConflictListView(generic.ListView):
 class T_ConflictDetailView(generic.DetailView):
     """Generic class-based detail view for a t_conflict."""
     model = T_Conflict
+
+
+class T_Ausatemmuskulatur_Isnot_Entspannt_Dueto_StrategyrefinemtListView(generic.ListView):
+    """Generic class-based view for a list of t_ausatemmuskulatur_isnot_entspannt_dueto_strategyrefinemt."""
+    model = T_Ausatemmuskulatur_Isnot_Entspannt_Dueto_Strategyrefinemt
+    paginate_by = 10
+
+class T_Ausatemmuskulatur_Isnot_Entspannt_Dueto_StrategyrefinemtDetailView(generic.DetailView):
+    """Generic class-based detail view for a t_ausatemmuskulatur_isnot_entspannt_dueto_strategyrefinemt."""
+    model = T_Ausatemmuskulatur_Isnot_Entspannt_Dueto_Strategyrefinemt
 
 
 class T_Information_Item_TobeoperationalizedListView(generic.ListView):

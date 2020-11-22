@@ -1,0 +1,21 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Ausatemmuskulatur Zeitreihen</h1>
+
+    {% if t_ausatemmuskulatur_isnot_entspannt_dueto_strategyrefinemt_list %}
+    <ul>
+
+      {% for t_ausatemmuskulatur_isnot_entspannt_dueto_strategyrefinemt in t_ausatemmuskulatur_isnot_entspannt_dueto_strategyrefinemt_list %}
+      <li>
+        <a href="{{ t_ausatemmuskulatur_isnot_entspannt_dueto_strategyrefinemt.get_absolute_url }}">{{ t_ausatemmuskulatur_isnot_entspannt_dueto_strategyrefinemt.created_datetime }}</a>
+      </li>
+      {% endfor %}
+
+    </ul>
+
+    {% else %}
+      <p>Es liegen keine Zeitreihen vor.</p>
+    {% endif %}       
+{% endblock %}
+
