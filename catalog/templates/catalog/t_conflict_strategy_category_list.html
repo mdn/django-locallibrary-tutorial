@@ -1,0 +1,21 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Konfliktkategorien</h1>
+
+    {% if t_conflict_strategy_category_list %}
+    <ul>
+
+      {% for t_conflict_strategy_category in t_conflict_strategy_category_list %}
+      <li>
+        <a href="{{ t_conflict_strategy_category.get_absolute_url }}">{{ t_conflict_strategy_category.conflict_strategy_category_verb }}</a>
+      </li>
+      {% endfor %}
+
+    </ul>
+
+    {% else %}
+      <p>Es liegen keine Konfliktkategorien vor.</p>
+    {% endif %}       
+{% endblock %}
+

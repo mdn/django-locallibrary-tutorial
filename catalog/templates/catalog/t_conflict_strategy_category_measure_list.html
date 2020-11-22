@@ -1,0 +1,21 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Konfliktmassnahmen</h1>
+
+    {% if t_conflict_strategy_category_measure_list %}
+    <ul>
+
+      {% for t_conflict_strategy_category_measure in t_conflict_strategy_category_measure_list %}
+      <li>
+        <a href="{{ t_conflict_strategy_category_measure.get_absolute_url }}">{{ t_conflict_strategy_category_measure.conflict_strategy_category_measure_description }}</a>
+      </li>
+      {% endfor %}
+
+    </ul>
+
+    {% else %}
+      <p>Es liegen keine Konfliktmassnahmen vor.</p>
+    {% endif %}       
+{% endblock %}
+

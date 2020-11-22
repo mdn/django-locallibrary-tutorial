@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 # Create your views here.
 
-from .models import Book, Author, BookInstance, Genre, T_Calendar, T_Conflict, T_Ausatemmuskulatur_Isnot_Entspannt_Dueto_Strategyrefinemt, T_Ausatemmuskulatur_Strategyrefinement_Conflict_Phase, T_Information_Item_Tobeoperationalized, T_Memorization_Package_Memory_Palace_Or_Cards_Technique, T_Memory_Palace_Type, T_Memory_Palace_Type_Location, T_Memory_Palace_Type_Location_Packageassignment_Timeseries, T_Memory_Palace_Type_Location_Number, T_Memory_Palace_Type_Location_Daytime
+from .models import Book, Author, BookInstance, Genre, T_Calendar, T_Conflict, T_Ausatemmuskulatur_Isnot_Entspannt_Dueto_Strategyrefinemt, T_Ausatemmuskulatur_Strategyrefinement_Conflict_Phase, T_Conflict_Strategy_Category, T_Conflict_Strategy_Category_Measure, T_Information_Item_Tobeoperationalized, T_Memorization_Package_Memory_Palace_Or_Cards_Technique, T_Memory_Palace_Type, T_Memory_Palace_Type_Location, T_Memory_Palace_Type_Location_Packageassignment_Timeseries, T_Memory_Palace_Type_Location_Number, T_Memory_Palace_Type_Location_Daytime
 
 
 def index(request):
@@ -69,7 +69,6 @@ class T_ConflictListView(generic.ListView):
     model = T_Conflict
     paginate_by = 10
 
-
 class T_ConflictDetailView(generic.DetailView):
     """Generic class-based detail view for a t_conflict."""
     model = T_Conflict
@@ -93,6 +92,26 @@ class T_Ausatemmuskulatur_Strategyrefinement_Conflict_PhaseListView(generic.List
 class T_Ausatemmuskulatur_Strategyrefinement_Conflict_PhaseDetailView(generic.DetailView):
     """Generic class-based detail view for a t_ausatemmuskulatur_strategyrefinement_conflict_phase."""
     model = T_Ausatemmuskulatur_Strategyrefinement_Conflict_Phase
+
+
+class T_Conflict_Strategy_CategoryListView(generic.ListView):
+    """Generic class-based view for a list of t_conflict_strategy_categorys."""
+    model = T_Conflict_Strategy_Category
+    paginate_by = 10
+
+class T_Conflict_Strategy_CategoryDetailView(generic.DetailView):
+    """Generic class-based detail view for a t_conflict_strategy_category."""
+    model = T_Conflict_Strategy_Category
+
+
+class T_Conflict_Strategy_Category_MeasureListView(generic.ListView):
+    """Generic class-based view for a list of t_conflict_strategy_category_measures."""
+    model = T_Conflict_Strategy_Category_Measure
+    paginate_by = 10
+
+class T_Conflict_Strategy_Category_MeasureDetailView(generic.DetailView):
+    """Generic class-based detail view for a t_conflict_strategy_category_measure."""
+    model = T_Conflict_Strategy_Category_Measure
 
 
 class T_Information_Item_TobeoperationalizedListView(generic.ListView):
