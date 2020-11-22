@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 # Create your views here.
 
-from .models import Book, Author, BookInstance, Genre, T_Calendar, T_Conflict, T_Ausatemmuskulatur_Isnot_Entspannt_Dueto_Strategyrefinemt, T_Ausatemmuskulatur_Strategyrefinement_Conflict_Phase, T_Conflict_Strategy_Category, T_Conflict_Strategy_Category_Measure, T_Information_Item_Tobeoperationalized, T_Memorization_Package_Memory_Palace_Or_Cards_Technique, T_Memory_Palace_Type, T_Memory_Palace_Type_Location, T_Memory_Palace_Type_Location_Packageassignment_Timeseries, T_Memory_Palace_Type_Location_Number, T_Memory_Palace_Type_Location_Daytime
+from .models import Book, Author, BookInstance, Genre, T_Calendar, T_Conflict, T_Ausatemmuskulatur_Isnot_Entspannt_Dueto_Strategyrefinemt, T_Ausatemmuskulatur_Strategyrefinement_Conflict_Phase, T_Conflict_Strategy_Category, T_Conflict_Strategy_Category_Measure, T_Information_Item_Tobeoperationalized, T_Category_Table, T_Category_Table_Predicate_Asverb, T_Category_Table_Entry, T_Memorization_Package_Memory_Palace_Or_Cards_Technique, T_Memory_Palace_Type, T_Memory_Palace_Type_Location, T_Memory_Palace_Type_Location_Packageassignment_Timeseries, T_Memory_Palace_Type_Location_Number, T_Memory_Palace_Type_Location_Daytime
 
 
 def index(request):
@@ -119,10 +119,39 @@ class T_Information_Item_TobeoperationalizedListView(generic.ListView):
     model = T_Information_Item_Tobeoperationalized
     paginate_by = 10
 
-
 class T_Information_Item_TobeoperationalizedDetailView(generic.DetailView):
     """Generic class-based detail view for a t_information_item_tobeoperationalized."""
     model = T_Information_Item_Tobeoperationalized
+
+
+class T_Category_TableListView(generic.ListView):
+    """Generic class-based view for a list of t_category_tables."""
+    model = T_Category_Table
+    paginate_by = 10
+
+class T_Category_TableDetailView(generic.DetailView):
+    """Generic class-based detail view for a t_category_table."""
+    model = T_Category_Table
+
+
+class T_Category_Table_EntryListView(generic.ListView):
+    """Generic class-based view for a list of t_category_table_entries."""
+    model = T_Category_Table_Entry
+    paginate_by = 10
+
+class T_Category_Table_EntryDetailView(generic.DetailView):
+    """Generic class-based detail view for a t_category_table_entry."""
+    model = T_Category_Table_Entry
+
+
+class T_Category_Table_Predicate_AsverbListView(generic.ListView):
+    """Generic class-based view for a list of t_category_table_predicates_asverb."""
+    model = T_Category_Table_Predicate_Asverb
+    paginate_by = 10
+
+class T_Category_Table_Predicate_AsverbDetailView(generic.DetailView):
+    """Generic class-based detail view for a t_category_table_predicate_asverb."""
+    model = T_Category_Table_Predicate_Asverb
 
 
 class T_Memorization_Package_Memory_Palace_Or_Cards_TechniqueListView(generic.ListView):

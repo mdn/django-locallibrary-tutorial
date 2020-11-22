@@ -323,8 +323,16 @@ class T_Category_Table_Predicate_Asverb(models.Model):
     predicate_asverb = models.CharField(max_length=255, default='')
 
     class Meta:
+        ordering = ['predicate_asverb']
         db_table = 't_category_table_predicate_asverb'
 
+    def get_absolute_url(self):
+        """Returns the url to access a particular t_category_table_predicate_asverb instance."""
+        return reverse('t_category_table_predicate_asverb-detail', args=[str(self.id)])
+
+    def __str__(self):
+        """String for representing the Model object."""
+        return self.category_name
 
 
 class T_Category_Table_Entry(models.Model):

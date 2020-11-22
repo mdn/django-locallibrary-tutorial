@@ -1,0 +1,21 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Kategorie Prädikate</h1>
+
+    {% if t_category_table_predicate_asverb_list %}
+    <ul>
+
+      {% for t_category_table_predicate_asverb in t_category_table_predicate_asverb_list %}
+      <li>
+        <a href="{{ t_category_table_predicate_asverb.get_absolute_url }}">{{ t_category_table_predicate_asverb.predicate_asverb }}</a>
+      </li>
+      {% endfor %}
+
+    </ul>
+
+    {% else %}
+      <p>Es liegen keine Kategorieprädikate vor.</p>
+    {% endif %}       
+{% endblock %}
+

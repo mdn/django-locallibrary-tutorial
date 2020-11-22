@@ -1,0 +1,21 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Kategorie Tabellen</h1>
+
+    {% if t_category_table_list %}
+    <ul>
+
+      {% for t_category_table in t_category_table_list %}
+      <li>
+        <a href="{{ t_category_table.get_absolute_url }}">{{ t_category_table.category_table_name }}</a>
+      </li>
+      {% endfor %}
+
+    </ul>
+
+    {% else %}
+      <p>Es liegen keine Kategorietabellen vor.</p>
+    {% endif %}       
+{% endblock %}
+
