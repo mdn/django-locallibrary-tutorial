@@ -1,0 +1,21 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Konfliktphasen</h1>
+
+    {% if t_ausatemmuskulatur_strategyrefinement_conflict_phase_list %}
+    <ul>
+
+      {% for t_ausatemmuskulatur_strategyrefinement_conflict_phase in t_ausatemmuskulatur_strategyrefinement_conflict_phase_list %}
+      <li>
+        <a href="{{ t_ausatemmuskulatur_strategyrefinement_conflict_phase.get_absolute_url }}">{{ t_ausatemmuskulatur_strategyrefinement_conflict_phase.conflict_phase_name }}</a>
+      </li>
+      {% endfor %}
+
+    </ul>
+
+    {% else %}
+      <p>Es liegen keine Konfliktphasen vor.</p>
+    {% endif %}       
+{% endblock %}
+
