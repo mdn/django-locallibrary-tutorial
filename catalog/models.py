@@ -174,8 +174,8 @@ class T_Wt_Or_Wp_Or_Infotbo_Category_Timeseries(models.Model):
     t_week_target = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True)
     t_workpackage = models.ForeignKey('Book', on_delete=models.SET_NULL, null=True)
     t_information_item_tobeoperationalized = models.ForeignKey('T_Information_Item_Tobeoperationalized', on_delete=models.SET_NULL, null=True)
-#    t_category_table = models.ForeignKey('T_Category_Table', on_delete=models.SET_NULL, null=True)
-#    t_category_table_entry = models.ForeignKey('T_Category_Table_Entry', on_delete=models.SET_NULL, null=True)
+    t_category_table = models.ForeignKey('T_Category_Table', on_delete=models.SET_NULL, null=True)
+    t_category_table_entry = models.ForeignKey('T_Category_Table_Entry', on_delete=models.SET_NULL, null=True)
     created_datetime = models.DateTimeField(null=True, blank=True)
 
     class Meta:
@@ -318,8 +318,8 @@ class T_Category_Table(models.Model):
 
 
 class T_Category_Table_Predicate_Asverb(models.Model):
-#    t_category_table_subject = models.ForeignKey('T_Category_Table', on_delete=models.SET_NULL, null=True)
-#    t_category_table_object = models.ForeignKey('T_Category_Table', related_name = 'T_Category_Table_Related_Name', on_delete=models.SET_NULL, null=True)
+    t_category_table_subject = models.ForeignKey('T_Category_Table', on_delete=models.SET_NULL, null=True)
+    t_category_table_object = models.ForeignKey('T_Category_Table', related_name = 'T_Category_Table_Related_Name', on_delete=models.SET_NULL, null=True)
     predicate_asverb = models.CharField(max_length=255, default='')
 
     class Meta:
@@ -349,7 +349,7 @@ class T_Calendar(models.Model):
     t_workpackage = models.ForeignKey('Book', related_name = 'Book_Related_Name', on_delete=models.SET_NULL, null=True)
     t_memorization_package_memory_palace_or_cards_technique_fk4 = models.ForeignKey('T_Memorization_Package_Memory_Palace_Or_Cards_Technique', on_delete=models.SET_NULL, null=True)
     t_memory_palace_type_location_daytime = models.ForeignKey('T_Memory_Palace_Type_Location_Daytime', on_delete=models.SET_NULL, null=True)
-#    t_category_table_entry = models.ForeignKey('T_Category_Table_Entry', on_delete=models.SET_NULL, null=True)  #t_client_id = Konfliktpartner
+    t_category_table_entry = models.ForeignKey('T_Category_Table_Entry', on_delete=models.SET_NULL, null=True)  #t_client_id = Konfliktpartner
     t_conflict = models.ForeignKey('T_Conflict', on_delete=models.SET_NULL, null=True)
     created_datetime = models.DateTimeField(null=True, blank=True)
     updated_datetime = models.DateTimeField(null=True, blank=True)
