@@ -331,7 +331,6 @@ class t_category_table_entry(models.Model):
 
 class T_Calendar(models.Model):
     t_workpackage = models.ForeignKey('Book', related_name = 'Book_Related_Name', on_delete=models.SET_NULL, null=True)
-#    t_calendar_conflict_related_association_foreignkey = models.ForeignKey('T_Calendar_Conflict_Related_Association', on_delete=models.SET_NULL, null=True)
     t_memorization_package_memory_palace_or_cards_technique_fk4 = models.ForeignKey('T_Memorization_Package_Memory_Palace_Or_Cards_Technique', on_delete=models.SET_NULL, null=True)
     t_memory_palace_type_location_daytime = models.ForeignKey('T_Memory_Palace_Type_Location_Daytime', on_delete=models.SET_NULL, null=True)
     t_category_table_entry = models.ForeignKey('T_Category_Table_Entry', on_delete=models.SET_NULL, null=True)  #t_client_id = Konfliktpartner
@@ -376,21 +375,9 @@ class T_Conflict(models.Model):
         return self.general_conflict_konfliktgegenstand_titel
 
 
-#class T_Calendar_Conflict_Related_Association(models.Model):
-#    t_calendar_foreignkey = models.ForeignKey('T_Calendar', on_delete=models.SET_NULL, null=True)
-#    t_conflict = models.ForeignKey('T_Conflict', on_delete=models.SET_NULL, null=True)
-#    t_category_table_entry = models.ForeignKey('T_Category_Table_Entry', on_delete=models.SET_NULL, null=True)  #t_client_id = Konfliktpartner
-#    t_memorization_package_memory_palace_or_cards_technique = models.ForeignKey('T_Memorization_Package_Memory_Palace_Or_Cards_Technique', on_delete=models.SET_NULL, null=True)
-#    hypothetic_appointment_datetime = models.DateTimeField(null=True, blank=True)
-#    hypothetic_appointment_association_description = models.CharField(max_length=255, default='')
-
-#    class Meta:
-#        db_table = 't_calendar_conflict_related_association'
-
-
 class T_Ausatemmuskulatur_Isnot_Entspannt_Dueto_Strategyrefinemt(models.Model):
     t_conflict = models.ForeignKey('T_Conflict', on_delete=models.SET_NULL, null=True)
-#    t_calendar_conflict_related_association = models.ForeignKey('T_Calendar_Conflict_Related_Association', on_delete=models.SET_NULL, null=True)
+    t_calendar = models.ForeignKey('T_Calendar', on_delete=models.SET_NULL, null=True)
     t_ausatemmuskulatur_strategyrefinement_conflict_phase = models.ForeignKey('T_Ausatemmuskulatur_Strategyrefinement_Conflict_Phase', on_delete=models.SET_NULL, null=True)
     created_datetime = models.DateTimeField(null=True, blank=True)
     memorized_unit_is_gone_through_mentally = models.IntegerField(null=True, default=None)
