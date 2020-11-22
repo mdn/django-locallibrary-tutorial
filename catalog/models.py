@@ -384,14 +384,32 @@ class T_Ausatemmuskulatur_Isnot_Entspannt_Dueto_Strategyrefinemt(models.Model):
     memory_palace_is_enhanced_or_complete = models.IntegerField(null=True, default=None)
 
     class Meta:
+        ordering = ['created_datetime']
         db_table = 't_ausatemmuskulatur_isnot_entspannt_dueto_strategyrefinemt'
+
+    def get_absolute_url(self):
+        """Returns the url to access a particular t_ausatemmuskulatur_isnot_entspannt_dueto_strategyrefinemt instance."""
+        return reverse('t_ausatemmuskulatur_isnot_entspannt_dueto_strategyrefinemt-detail', args=[str(self.id)])
+
+    def __str__(self):
+        """String for representing the Model object."""
+        return self.created_datetime
 
 
 class T_Ausatemmuskulatur_Strategyrefinement_Conflict_Phase(models.Model):
     conflict_phase_name = models.CharField(max_length=255, default='')
 
     class Meta:
+        ordering = ['conflict_phase_name']
         db_table = 't_ausatemmuskulatur_strategyrefinement_conflict_phase'
+
+    def get_absolute_url(self):
+        """Returns the url to access a particular t_ausatemmuskulatur_strategyrefinement_conflict_phase instance."""
+        return reverse('t_ausatemmuskulatur_strategyrefinement_conflict_phase-detail', args=[str(self.id)])
+
+    def __str__(self):
+        """String for representing the Model object."""
+        return self.conflict_phase_name
 
 
 class T_Conflict_Strategy_Category(models.Model):
@@ -399,7 +417,16 @@ class T_Conflict_Strategy_Category(models.Model):
     conflict_strategy_category_mywish = models.CharField(max_length=255, default='')
 
     class Meta:
+        ordering = ['conflict_strategy_category_verb']
         db_table = 't_conflict_strategy_category'
+
+    def get_absolute_url(self):
+        """Returns the url to access a particular t_conflict_strategy_category instance."""
+        return reverse('t_conflict_strategy_category-detail', args=[str(self.id)])
+
+    def __str__(self):
+        """String for representing the Model object."""
+        return self.conflict_strategy_category_verb
 
 
 class T_Conflict_Strategy_Category_Measure(models.Model):
@@ -413,8 +440,16 @@ class T_Conflict_Strategy_Category_Measure(models.Model):
     memorization_sequence_is_fixed_because_memorized = models.IntegerField(null=True, default=None)
 
     class Meta:
+        ordering = ['conflict_strategy_category_measure_description']
         db_table = 't_conflict_strategy_category_measure'
 
+    def get_absolute_url(self):
+        """Returns the url to access a particular t_conflict_strategy_category_measure instance."""
+        return reverse('t_conflict_strategy_category_measure-detail', args=[str(self.id)])
+
+    def __str__(self):
+        """String for representing the Model object."""
+        return self.conflict_strategy_category_measure_description
 
 
 class T_Memorization_Package_Memory_Palace_Or_Cards_Technique(models.Model):
