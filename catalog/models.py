@@ -71,27 +71,44 @@ class Author(models.Model):
         return self.memorizable_week_target
 
 
-
-class T_Memory_Palace_Memorization_Timeseries(models.Model):
+class T_Memory_Palace_Or_Cards_Memorization_Timeseries(models.Model):
     t_week_target = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True)
     t_workpackage_relevantinformation_tobememorized = models.ForeignKey('BookInstance', on_delete=models.SET_NULL, null=True)
     t_information_item_tobeoperationalized = models.ForeignKey('T_Information_Item_Tobeoperationalized', on_delete=models.SET_NULL, null=True) 
     t_conflict_strategy_category_measure = models.ForeignKey('T_Conflict_Strategy_Category_Measure', on_delete=models.SET_NULL, null=True)
     t_calendar = models.ForeignKey('T_Calendar', on_delete=models.SET_NULL, null=True)
-    t_memory_palace_memorization_timeseries_action = models.ForeignKey('T_Memory_Palace_Memorization_Timeseries_Action', on_delete=models.SET_NULL, null=True)
+    t_memory_palace_or_cards_memorization_timeseries_action = models.ForeignKey('T_Memory_Palace_Or_Cards_Memorization_Timeseries_Action', on_delete=models.SET_NULL, null=True)
+    t_memorization_package_memory_palace_or_cards_technique_snap = models.IntegerField(null=True, default=None)
+    t_memory_palace_type_location_number_snap = models.IntegerField(null=True, default=None)
     action_datetime = models.DateTimeField(null=True, blank=True)
 
     class Meta:
-        db_table = 't_memory_palace_memorization_timeseries'
+        ordering = ['action_datetime']
+        db_table = 't_memory_palace_or_cards_memorization_timeseries'
+
+    def get_absolute_url(self):
+        """Returns the url to access a particular t_memory_palace_or_cards_memorization_timeseries instance."""
+        return reverse('t_memory_palace_or_cards_memorization_timeseries-detail', args=[str(self.id)])
+
+    def __str__(self):
+        """String for representing the Model object."""
+        return self.action_datetime
 
 
-
-class T_Memory_Palace_Memorization_Timeseries_Action(models.Model):
+class T_Memory_Palace_Or_Cards_Memorization_Timeseries_Action(models.Model):
     action_description = models.CharField(max_length=255, default='')   #--1: memory palace datapoint description shown, 2. corresponding memorizable known, 3: decided to repeat memory palace datapoint description
 
     class Meta:
-        db_table = 't_memory_palace_memorization_timeseries_action'
+        ordering = ['action_description']
+        db_table = 't_memory_palace_or_cards_memorization_timeseries_action'
 
+    def get_absolute_url(self):
+        """Returns the url to access a particular t_memory_palace_or_cards_memorization_timeseries_action instance."""
+        return reverse('t_memory_palace_or_cards_memorization_timeseries_action-detail', args=[str(self.id)])
+
+    def __str__(self):
+        """String for representing the Model object."""
+        return self.action_description
 
 
 class T_Day_Target_Sequence_Timeseries(models.Model):
