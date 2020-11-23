@@ -7,4 +7,7 @@ assignees: ''
 
 ---
 
-Before posting an issue, please verify that you can reproduce your issue on the code in THIS repository.
+Before posting an issue, please confirm:
+- [ ] Issue can be reproduced on THIS repository (setup using [quickstart instructions](https://github.com/mdn/django-locallibrary-tutorial#quick-start)).
+- [ ] I am using a clean/fresh database
+- [ ] I have provided output logs and information about my environment setup below.
