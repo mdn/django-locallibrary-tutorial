@@ -42,6 +42,10 @@ urlpatterns = [
     path('t_memory_palace_type_location_number/<int:pk>', views.T_Memory_Palace_Type_Location_NumberDetailView.as_view(), name='t_memory_palace_type_location_number-detail'),
     path('t_memory_palaces_type_location_daytime/', views.T_Memory_Palace_Type_Location_DaytimeListView.as_view(), name='t_memory_palaces_type_location_daytime'),
     path('t_memory_palace_type_location_daytime/<int:pk>', views.T_Memory_Palace_Type_Location_DaytimeDetailView.as_view(), name='t_memory_palace_type_location_daytime-detail'),
+    path('t_memory_palaces_or_cards_memorization_timeseries/', views.T_Memory_Palace_Or_Cards_Memorization_TimeseriesListView.as_view(), name='t_memory_palaces_or_cards_memorization_timeseries'),
+    path('t_memory_palace_or_cards_memorization_timeseries/<int:pk>', views.T_Memory_Palace_Or_Cards_Memorization_TimeseriesDetailView.as_view(), name='t_memory_palace_or_cards_memorization_timeseries-detail'),
+    path('t_memory_palace_or_cards_memorization_timeseries_actions/', views.T_Memory_Palace_Or_Cards_Memorization_Timeseries_ActionListView.as_view(), name='t_memory_palace_or_cards_memorization_timeseries_actions'),
+    path('t_memory_palace_or_cards_memorization_timeseries_action/<int:pk>', views.T_Memory_Palace_Or_Cards_Memorization_Timeseries_ActionDetailView.as_view(), name='t_memory_palace_or_cards_memorization_timeseries_action-detail'),
 ]
 
 

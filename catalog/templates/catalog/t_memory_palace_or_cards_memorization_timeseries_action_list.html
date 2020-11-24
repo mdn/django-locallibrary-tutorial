@@ -1,0 +1,21 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Auswendiglernen Aktionen</h1>
+
+    {% if t_memory_palace_or_cards_memorization_timeseries_action_list %}
+    <ul>
+
+      {% for t_memory_palace_or_cards_memorization_timeseries_action in t_memory_palace_or_cards_memorization_timeseries_action_list %}
+      <li>
+        <a href="{{ t_memory_palace_or_cards_memorization_timeseries_action.get_absolute_url }}">{{ t_memory_palace_or_cards_memorization_timeseries_action.action_description }}</a>
+      </li>
+      {% endfor %}
+
+    </ul>
+
+    {% else %}
+      <p>Es liegen keine Auswendiglernen Zeitreihen vor.</p>
+    {% endif %}       
+{% endblock %}
+
