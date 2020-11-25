@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 # Create your views here.
 
-from .models import Book, Author, T_Day_Target_Sequence_Timeseries, BookInstance, Genre, T_Calendar, T_Conflict, T_Ausatemmuskulatur_Isnot_Entspannt_Dueto_Strategyrefinemt, T_Ausatemmuskulatur_Strategyrefinement_Conflict_Phase, T_Conflict_Strategy_Category, T_Conflict_Strategy_Category_Measure, T_Information_Item_Tobeoperationalized, T_Category_Table, T_Category_Table_Predicate_Asverb, T_Category_Table_Entry, T_Memorization_Package_Memory_Palace_Or_Cards_Technique, T_Memory_Palace_Type, T_Memory_Palace_Type_Location, T_Memory_Palace_Type_Location_Packageassignment_Timeseries, T_Memory_Palace_Type_Location_Number, T_Memory_Palace_Type_Location_Daytime, T_Memory_Palace_Or_Cards_Memorization_Timeseries, T_Memory_Palace_Or_Cards_Memorization_Timeseries_Action
+from .models import Book, Author, T_Wt_Is_Excluded_From_Dt_Mp_Assignment_On_Weekday_Timeseries, T_Day_Target_Sequence_Timeseries, BookInstance, Genre, T_Calendar, T_Conflict, T_Ausatemmuskulatur_Isnot_Entspannt_Dueto_Strategyrefinemt, T_Ausatemmuskulatur_Strategyrefinement_Conflict_Phase, T_Conflict_Strategy_Category, T_Conflict_Strategy_Category_Measure, T_Information_Item_Tobeoperationalized, T_Category_Table, T_Category_Table_Predicate_Asverb, T_Category_Table_Entry, T_Memorization_Package_Memory_Palace_Or_Cards_Technique, T_Memory_Palace_Type, T_Memory_Palace_Type_Location, T_Memory_Palace_Type_Location_Packageassignment_Timeseries, T_Memory_Palace_Type_Location_Number, T_Memory_Palace_Type_Location_Daytime, T_Memory_Palace_Or_Cards_Memorization_Timeseries, T_Memory_Palace_Or_Cards_Memorization_Timeseries_Action
 
 
 def index(request):
@@ -49,6 +49,16 @@ class AuthorListView(generic.ListView):
 class AuthorDetailView(generic.DetailView):
     """Generic class-based detail view for an author."""
     model = Author
+
+
+class T_Wt_Is_Excluded_From_Dt_Mp_Assignment_On_Weekday_TimeseriesListView(generic.ListView):
+    """Generic class-based list view for a list of t_wt_is_excluded_from_dt_mp_assignment_on_weekdays_timeseries."""
+    model = T_Wt_Is_Excluded_From_Dt_Mp_Assignment_On_Weekday_Timeseries
+    paginate_by = 10
+
+class T_Wt_Is_Excluded_From_Dt_Mp_Assignment_On_Weekday_TimeseriesDetailView(generic.DetailView):
+    """Generic class-based detail view for a t_wt_is_excluded_from_dt_mp_assignment_on_weekday_timeseries."""
+    model = T_Wt_Is_Excluded_From_Dt_Mp_Assignment_On_Weekday_Timeseries
 
 
 class T_Day_Target_Sequence_TimeseriesListView(generic.ListView):

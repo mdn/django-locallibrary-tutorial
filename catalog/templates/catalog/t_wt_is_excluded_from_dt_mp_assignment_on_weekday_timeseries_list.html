@@ -1,0 +1,21 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Ausschlusstage Zeitreihen</h1>
+
+    {% if t_wt_is_excluded_from_dt_mp_assignment_on_weekday_timeseries_list %}
+    <ul>
+
+      {% for t_wt_is_excluded_from_dt_mp_assignment_on_weekday_timeseries in t_wt_is_excluded_from_dt_mp_assignment_on_weekday_timeseries_list %}
+      <li>
+        <a href="{{ t_wt_is_excluded_from_dt_mp_assignment_on_weekday_timeseries.get_absolute_url }}">{{ t_wt_is_excluded_from_dt_mp_assignment_on_weekday_timeseries.created_datetime }}</a>
+      </li>
+      {% endfor %}
+
+    </ul>
+
+    {% else %}
+      <p>Es liegen keine Ausschlusstage Zeitreihen vor.</p>
+    {% endif %}       
+{% endblock %}
+

@@ -1,0 +1,13 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+{% load app_filters %}
+<h1>Ausschlusstage Zeitreihe - Detail</h1>
+<p></p>
+<p> Erstellt am: {{t_wt_is_excluded_from_dt_mp_assignment_on_weekday_timeseries.created_datetime}} </p>
+<p> Ausschlusstag: {{t_wt_is_excluded_from_dt_mp_assignment_on_weekday_timeseries.week_target_isnot_potential_day_target_on_weekday_date}} </p>
+
+</div>
+
+{% endblock %}
