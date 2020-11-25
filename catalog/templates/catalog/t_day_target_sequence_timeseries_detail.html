@@ -1,0 +1,14 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+{% load app_filters %}
+<h1>Tagesziel Zeitreihe - Detail</h1>
+<p></p>
+<p> {{t_day_target_sequence_timeseries.created_datetime}} </p>
+<p> Vorgeschlagene Reihenfolge: {{t_day_target_sequence_timeseries.sequence_proposed_for_day_target_memory_palace}} </p>
+<p> Auswendig gelernte Reihenfolge: {{t_day_target_sequence_timeseries.sequence_memorized_in_day_target_memory_palace}} </p>
+
+</div>
+
+{% endblock %}

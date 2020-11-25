@@ -1,0 +1,21 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Tagesziel Zeitreihen</h1>
+
+    {% if t_day_target_sequence_timeseries_list %}
+    <ul>
+
+      {% for t_day_target_sequence_timeseries in t_day_target_sequence_timeseries_list %}
+      <li>
+        <a href="{{ t_day_target_sequence_timeseries.get_absolute_url }}">{{ t_day_target_sequence_timeseries.created_datetime }}</a>
+      </li>
+      {% endfor %}
+
+    </ul>
+
+    {% else %}
+      <p>Es liegen keine Tagesziel Zeitreihen vor.</p>
+    {% endif %}       
+{% endblock %}
+

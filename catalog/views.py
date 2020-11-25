@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 # Create your views here.
 
-from .models import Book, Author, BookInstance, Genre, T_Calendar, T_Conflict, T_Ausatemmuskulatur_Isnot_Entspannt_Dueto_Strategyrefinemt, T_Ausatemmuskulatur_Strategyrefinement_Conflict_Phase, T_Conflict_Strategy_Category, T_Conflict_Strategy_Category_Measure, T_Information_Item_Tobeoperationalized, T_Category_Table, T_Category_Table_Predicate_Asverb, T_Category_Table_Entry, T_Memorization_Package_Memory_Palace_Or_Cards_Technique, T_Memory_Palace_Type, T_Memory_Palace_Type_Location, T_Memory_Palace_Type_Location_Packageassignment_Timeseries, T_Memory_Palace_Type_Location_Number, T_Memory_Palace_Type_Location_Daytime, T_Memory_Palace_Or_Cards_Memorization_Timeseries, T_Memory_Palace_Or_Cards_Memorization_Timeseries_Action
+from .models import Book, Author, T_Day_Target_Sequence_Timeseries, BookInstance, Genre, T_Calendar, T_Conflict, T_Ausatemmuskulatur_Isnot_Entspannt_Dueto_Strategyrefinemt, T_Ausatemmuskulatur_Strategyrefinement_Conflict_Phase, T_Conflict_Strategy_Category, T_Conflict_Strategy_Category_Measure, T_Information_Item_Tobeoperationalized, T_Category_Table, T_Category_Table_Predicate_Asverb, T_Category_Table_Entry, T_Memorization_Package_Memory_Palace_Or_Cards_Technique, T_Memory_Palace_Type, T_Memory_Palace_Type_Location, T_Memory_Palace_Type_Location_Packageassignment_Timeseries, T_Memory_Palace_Type_Location_Number, T_Memory_Palace_Type_Location_Daytime, T_Memory_Palace_Or_Cards_Memorization_Timeseries, T_Memory_Palace_Or_Cards_Memorization_Timeseries_Action
 
 
 def index(request):
@@ -36,7 +36,6 @@ class BookListView(generic.ListView):
     model = Book
     paginate_by = 10
 
-
 class BookDetailView(generic.DetailView):
     """Generic class-based detail view for a book."""
     model = Book
@@ -47,17 +46,25 @@ class AuthorListView(generic.ListView):
     model = Author
     paginate_by = 10
 
-
 class AuthorDetailView(generic.DetailView):
     """Generic class-based detail view for an author."""
     model = Author
+
+
+class T_Day_Target_Sequence_TimeseriesListView(generic.ListView):
+    """Generic class-based list view for a list of t_day_targets_sequence_timeseries."""
+    model = T_Day_Target_Sequence_Timeseries
+    paginate_by = 10
+
+class T_Day_Target_Sequence_TimeseriesDetailView(generic.DetailView):
+    """Generic class-based detail view for a t_day_target_sequence_timeseries."""
+    model = T_Day_Target_Sequence_Timeseries
 
 
 class T_CalendarListView(generic.ListView):
     """Generic class-based view for a list of t_calendars."""
     model = T_Calendar
     paginate_by = 10
-
 
 class T_CalendarDetailView(generic.DetailView):
     """Generic class-based detail view for a t_calendar."""

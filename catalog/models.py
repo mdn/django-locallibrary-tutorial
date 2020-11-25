@@ -112,12 +112,24 @@ class T_Memory_Palace_Or_Cards_Memorization_Timeseries_Action(models.Model):
 
 
 class T_Day_Target_Sequence_Timeseries(models.Model):
+    t_week_target = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True)
+    t_memorization_package_memory_palace_or_cards_technique = models.ForeignKey('T_Memorization_Package_Memory_Palace_Or_Cards_Technique', on_delete=models.SET_NULL, null=True)
+    t_memory_palace_type_location_number = models.ForeignKey('T_Memory_Palace_Type_Location_Number', on_delete=models.SET_NULL, null=True)
+    created_datetime = models.DateTimeField(null=True, blank=True)
     sequence_proposed_for_day_target_memory_palace = models.IntegerField(null=True, default=None)
     sequence_memorized_in_day_target_memory_palace = models.IntegerField(null=True, default=None)
 
     class Meta:
+        ordering = ['created_datetime']
         db_table = 't_day_target_sequence_timeseries'
 
+    def get_absolute_url(self):
+        """Returns the url to access a particular t_day_target_sequence_timeseries instance."""
+        return reverse('t_day_target_sequence_timeseries-detail', args=[str(self.id)])
+
+    def __str__(self):
+        """String for representing the Model object."""
+        return self.sequence_proposed_for_day_target_memory_palace
 
 
 class T_Week_Target_Is_Excluded_From_Dt_Mp_Assignment_On_Weekday(models.Model):
