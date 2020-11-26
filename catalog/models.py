@@ -197,7 +197,7 @@ class Book(models.Model):
         verbose_name = 'T_Workpackage'
 
 
-
+#HIER WETER:
 class T_Workpackage_Actual_Duration_Timeseries(models.Model):
     t_workpackage = models.ForeignKey('Book', on_delete=models.SET_NULL, null=True)
     measurement_datetime = models.DateTimeField(null=True, blank=True)
@@ -206,18 +206,6 @@ class T_Workpackage_Actual_Duration_Timeseries(models.Model):
     class Meta:
         db_table = 't_workpackage_actual_duration_timeseries'
 
-
-
-class T_Wt_Or_Wp_Or_Infotbo_Category_Timeseries(models.Model):
-    t_week_target = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True)
-    t_workpackage = models.ForeignKey('Book', on_delete=models.SET_NULL, null=True)
-    t_information_item_tobeoperationalized = models.ForeignKey('T_Information_Item_Tobeoperationalized', on_delete=models.SET_NULL, null=True)
-    t_category_table = models.ForeignKey('T_Category_Table', on_delete=models.SET_NULL, null=True)
-    t_category_table_entry = models.ForeignKey('T_Category_Table_Entry', on_delete=models.SET_NULL, null=True)
-    created_datetime = models.DateTimeField(null=True, blank=True)
-
-    class Meta:
-        db_table = 't_wt_or_wp_or_infotbo_category_timeseries'
 
 
 
@@ -390,12 +378,33 @@ class T_Category_Table_Entry(models.Model):
         return self.category_name
 
 
+class T_Category_Timeseries(models.Model):
+    t_week_target = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True)
+    t_workpackage = models.ForeignKey('Book', on_delete=models.SET_NULL, null=True)
+    t_information_item_tobeoperationalized = models.ForeignKey('T_Information_Item_Tobeoperationalized', on_delete=models.SET_NULL, null=True)
+    t_conflict = models.ForeignKey('T_Conflict', on_delete=models.SET_NULL, null=True)
+    t_calendar = models.ForeignKey('T_Calendar', on_delete=models.SET_NULL, null=True)
+    t_category_table = models.ForeignKey('T_Category_Table', on_delete=models.SET_NULL, null=True)
+    t_category_table_entry = models.ForeignKey('T_Category_Table_Entry', on_delete=models.SET_NULL, null=True)
+    created_datetime = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        ordering = ['created_datetime']
+        db_table = 't_category_timeseries'
+
+    def get_absolute_url(self):
+        """Returns the url to access a particular t_category_timeseries instance."""
+        return reverse('t_category_timeseries-detail', args=[str(self.id)])
+
+    def __str__(self):
+        """String for representing the Model object."""
+        return self.created_datetime
+
 
 class T_Calendar(models.Model):
     t_workpackage = models.ForeignKey('Book', related_name = 'Book_Related_Name', on_delete=models.SET_NULL, null=True)
     t_memorization_package_memory_palace_or_cards_technique_fk4 = models.ForeignKey('T_Memorization_Package_Memory_Palace_Or_Cards_Technique', on_delete=models.SET_NULL, null=True)
     t_memory_palace_type_location_daytime = models.ForeignKey('T_Memory_Palace_Type_Location_Daytime', on_delete=models.SET_NULL, null=True)
-    t_category_table_entry = models.ForeignKey('T_Category_Table_Entry', on_delete=models.SET_NULL, null=True)  #t_client_id = Konfliktpartner
     t_conflict = models.ForeignKey('T_Conflict', on_delete=models.SET_NULL, null=True)
     created_datetime = models.DateTimeField(null=True, blank=True)
     updated_datetime = models.DateTimeField(null=True, blank=True)

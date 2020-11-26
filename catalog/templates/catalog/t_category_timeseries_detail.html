@@ -1,0 +1,14 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+{% load app_filters %}
+<h1>Kategorie Zeitreihe - Detail</h1>
+<p></p>
+<p> Erstellt am: {{t_category_timeseries.created_datetime}} </p>
+<p> Kategorie Tabelle Eintrag: {{t_category_timeseries.t_category_table_entry}} </p>
+<p> Kategorie Tabelle: {{t_category_timeseries.t_category_table}} </p>
+
+</div>
+
+{% endblock %}

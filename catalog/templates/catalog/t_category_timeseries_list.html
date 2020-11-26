@@ -1,0 +1,21 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Kategorie Zeitreihen</h1>
+
+    {% if t_category_timeseries_list %}
+    <ul>
+
+      {% for t_category_timeseries in t_category_timeseries_list %}
+      <li>
+        <a href="{{ t_category_timeseries.get_absolute_url }}">{{ t_category_timeseries.created_datetime }}</a>
+      </li>
+      {% endfor %}
+
+    </ul>
+
+    {% else %}
+      <p>Es liegen keine Kategorie Zeitreihen vor.</p>
+    {% endif %}       
+{% endblock %}
+
