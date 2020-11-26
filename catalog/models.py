@@ -60,7 +60,7 @@ class Author(models.Model):
     
 
     class Meta:
-        ordering = ['last_name', 'first_name']
+        ordering = ['created_datetime']
         db_table = 't_week_target'
         verbose_name = 'T_Week_Target'
 
@@ -161,7 +161,7 @@ class Book(models.Model):
     t_calendar = models.ForeignKey('T_Calendar', on_delete=models.SET_NULL, null=True)
     created_datetime = models.DateTimeField(null=True, blank=True)
     updated_datetime = models.DateTimeField(null=True, blank=True)
-    associated_email_subject = models.CharField(max_length=1000, default='')
+    associated_email_subject = models.CharField(null=True, max_length=1000, default='')
     associated_email_received_datetime = models.DateTimeField(null=True, blank=True)
     associated_email_received_account = models.CharField(max_length=1000, default='')
     filepath_for_readiness_enhancement = models.CharField(max_length=2000, default='')
