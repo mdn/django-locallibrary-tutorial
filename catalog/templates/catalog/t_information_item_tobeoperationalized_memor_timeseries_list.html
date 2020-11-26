@@ -1,0 +1,21 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Zu operationalisierende Infos Zeitreihen</h1>
+
+    {% if t_information_item_tobeoperationalized_memor_timeseries_list %}
+    <ul>
+
+      {% for t_information_item_tobeoperationalized_memor_timeseries in t_information_item_tobeoperationalized_memor_timeseries_list %}
+      <li>
+        <a href="{{ t_information_item_tobeoperationalized_memor_timeseries.get_absolute_url }}">{{ t_information_item_tobeoperationalized_memor_timeseries.action_datetime }}</a>
+      </li>
+      {% endfor %}
+
+    </ul>
+
+    {% else %}
+      <p>Es liegen keine zu operationalisierende Informationseinheiten vor.</p>
+    {% endif %}       
+{% endblock %}
+

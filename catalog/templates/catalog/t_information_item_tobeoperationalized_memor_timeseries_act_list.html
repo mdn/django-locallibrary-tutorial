@@ -1,0 +1,21 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Zu operationalisierende Infos Zeitreihen Aktionen</h1>
+
+    {% if t_information_item_tobeoperationalized_memor_timeseries_act_list %}
+    <ul>
+
+      {% for t_information_item_tobeoperationalized_memor_timeseries_act in t_information_item_tobeoperationalized_memor_timeseries_act_list %}
+      <li>
+        <a href="{{ t_information_item_tobeoperationalized_memor_timeseries_act.get_absolute_url }}">{{ t_information_item_tobeoperationalized_memor_timeseries_act.action_description }}</a>
+      </li>
+      {% endfor %}
+
+    </ul>
+
+    {% else %}
+      <p>Es liegen keine zu operationalisierende Infos Zeitreihen Aktionen vor.</p>
+    {% endif %}       
+{% endblock %}
+

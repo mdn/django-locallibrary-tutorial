@@ -33,6 +33,8 @@ class Author(models.Model):
     """Model representing an author."""
     t_memorization_package_memory_palace_or_cards_technique_fk = models.ForeignKey('T_Memorization_Package_Memory_Palace_Or_Cards_Technique', on_delete=models.SET_NULL, null=True)
     t_memory_palace_type_location_number = models.ForeignKey('T_Memory_Palace_Type_Location_Number', on_delete=models.SET_NULL, null=True)
+    created_datetime = models.DateTimeField(null=True, blank=True)
+    updated_datetime = models.DateTimeField(null=True, blank=True)
     date_frame_from_weekday = models.DateField(null=True, blank=True)
     date_frame_to_weekday = models.DateField(null=True, blank=True)
     phase_week_target_is_excluded_from_wt_mp_assignment_until = models.DateField(null=True, blank=True)
@@ -157,6 +159,8 @@ class Book(models.Model):
     # Foreign Key used because book can only have one author, but authors can have multiple books
     # Author as a string rather than object because it hasn't been declared yet in file.
     t_calendar = models.ForeignKey('T_Calendar', on_delete=models.SET_NULL, null=True)
+    created_datetime = models.DateTimeField(null=True, blank=True)
+    updated_datetime = models.DateTimeField(null=True, blank=True)
     associated_email_subject = models.CharField(max_length=1000, default='')
     associated_email_received_datetime = models.DateTimeField(null=True, blank=True)
     associated_email_received_account = models.CharField(max_length=1000, default='')
@@ -280,18 +284,6 @@ class BookInstance(models.Model):
 
 
 
-class T_Week_Target_Or_Workpackage_Or_Relevinf_Timeseries(models.Model):
-    t_week_target = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True)
-    t_workpackage = models.ForeignKey('Book', on_delete=models.SET_NULL, null=True)
-    t_workpackage_relevantinformation_tobememorized = models.ForeignKey('BookInstance', on_delete=models.SET_NULL, null=True)
-    action_datetime = models.DateTimeField(null=True, blank=True)
-    action_description_create_read_update_delete = models.CharField(max_length=255, default='')
-
-    class Meta:
-        db_table = 't_week_target_or_workpackage_or_relevinf_timeseries'
-
-
-
 class T_Information_Item_Tobeoperationalized(models.Model):
     t_memorization_package_memory_palace_or_cards_technique = models.ForeignKey('T_Memorization_Package_Memory_Palace_Or_Cards_Technique', on_delete=models.SET_NULL, null=True)
     t_memory_palace_type_location_number = models.ForeignKey('T_Memory_Palace_Type_Location_Number', on_delete=models.SET_NULL, null=True)
@@ -322,16 +314,32 @@ class T_Information_Item_Tobeoperationalized_Memor_Timeseries(models.Model):
     action_datetime = models.DateTimeField(null=True, blank=True)
 
     class Meta:
+        ordering = ['action_datetime']
         db_table = 't_information_item_tobeoperationalized_memor_timeseries'
 
+    def get_absolute_url(self):
+        """Returns the url to access a particular t_information_item_tobeoperationalized_memor_timeseries instance."""
+        return reverse('t_information_item_tobeoperationalized_memor_timeseries-detail', args=[str(self.id)])
+
+    def __str__(self):
+        """String for representing the Model object."""
+        return self.action_datetime
 
 
 class T_Information_Item_Tobeoperationalized_Memor_Timeseries_Act(models.Model):
     action_description = models.CharField(max_length=255, default='')
 
     class Meta:
+        ordering = ['action_description']
         db_table = 't_information_item_tobeoperationalized_memor_timeseries_act'
 
+    def get_absolute_url(self):
+        """Returns the url to access a particular t_information_item_tobeoperationalized_memor_timeseries_act instance."""
+        return reverse('t_information_item_tobeoperationalized_memor_timeseries_act-detail', args=[str(self.id)])
+
+    def __str__(self):
+        """String for representing the Model object."""
+        return self.action_description
 
 
 class T_Category_Table(models.Model):

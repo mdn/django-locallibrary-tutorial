@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 # Create your views here.
 
-from .models import Book, T_Workpackage_Actual_Duration_Timeseries, Author, T_Wt_Is_Excluded_From_Dt_Mp_Assignment_On_Weekday_Timeseries, T_Day_Target_Sequence_Timeseries, BookInstance, Genre, T_Calendar, T_Conflict, T_Ausatemmuskulatur_Isnot_Entspannt_Dueto_Strategyrefinemt, T_Ausatemmuskulatur_Strategyrefinement_Conflict_Phase, T_Conflict_Strategy_Category, T_Conflict_Strategy_Category_Measure, T_Information_Item_Tobeoperationalized, T_Category_Table, T_Category_Table_Predicate_Asverb, T_Category_Table_Entry, T_Category_Timeseries, T_Memorization_Package_Memory_Palace_Or_Cards_Technique, T_Memory_Palace_Type, T_Memory_Palace_Type_Location, T_Memory_Palace_Type_Location_Packageassignment_Timeseries, T_Memory_Palace_Type_Location_Number, T_Memory_Palace_Type_Location_Daytime, T_Memory_Palace_Or_Cards_Memorization_Timeseries, T_Memory_Palace_Or_Cards_Memorization_Timeseries_Action
+from .models import Book, T_Workpackage_Actual_Duration_Timeseries, Author, T_Wt_Is_Excluded_From_Dt_Mp_Assignment_On_Weekday_Timeseries, T_Day_Target_Sequence_Timeseries, BookInstance, Genre, T_Calendar, T_Conflict, T_Ausatemmuskulatur_Isnot_Entspannt_Dueto_Strategyrefinemt, T_Ausatemmuskulatur_Strategyrefinement_Conflict_Phase, T_Conflict_Strategy_Category, T_Conflict_Strategy_Category_Measure, T_Information_Item_Tobeoperationalized, T_Information_Item_Tobeoperationalized_Memor_Timeseries, T_Information_Item_Tobeoperationalized_Memor_Timeseries_Act, T_Category_Table, T_Category_Table_Predicate_Asverb, T_Category_Table_Entry, T_Category_Timeseries, T_Memorization_Package_Memory_Palace_Or_Cards_Technique, T_Memory_Palace_Type, T_Memory_Palace_Type_Location, T_Memory_Palace_Type_Location_Packageassignment_Timeseries, T_Memory_Palace_Type_Location_Number, T_Memory_Palace_Type_Location_Daytime, T_Memory_Palace_Or_Cards_Memorization_Timeseries, T_Memory_Palace_Or_Cards_Memorization_Timeseries_Action
 
 
 def index(request):
@@ -149,6 +149,26 @@ class T_Information_Item_TobeoperationalizedListView(generic.ListView):
 class T_Information_Item_TobeoperationalizedDetailView(generic.DetailView):
     """Generic class-based detail view for a t_information_item_tobeoperationalized."""
     model = T_Information_Item_Tobeoperationalized
+
+
+class T_Information_Item_Tobeoperationalized_Memor_TimeseriesListView(generic.ListView):
+    """Generic class-based view for a list of t_information_item_tobeoperationalized_memor_timeseries."""
+    model = T_Information_Item_Tobeoperationalized_Memor_Timeseries
+    paginate_by = 10
+
+class T_Information_Item_Tobeoperationalized_Memor_TimeseriesDetailView(generic.DetailView):
+    """Generic class-based detail view for a t_information_item_tobeoperationalized_memor_timeseries."""
+    model = T_Information_Item_Tobeoperationalized_Memor_Timeseries
+
+
+class T_Information_Item_Tobeoperationalized_Memor_Timeseries_ActListView(generic.ListView):
+    """Generic class-based view for a list of t_information_item_tobeoperationalized_memor_timeseries_act."""
+    model = T_Information_Item_Tobeoperationalized_Memor_Timeseries_Act
+    paginate_by = 10
+
+class T_Information_Item_Tobeoperationalized_Memor_Timeseries_ActDetailView(generic.DetailView):
+    """Generic class-based detail view for a t_information_item_tobeoperationalized_memor_timeseries_act."""
+    model = T_Information_Item_Tobeoperationalized_Memor_Timeseries_Act
 
 
 class T_Category_TableListView(generic.ListView):
