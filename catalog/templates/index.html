@@ -16,17 +16,17 @@
 </div>  
 
 
-<h2>Dynamic content</h2>
+<h2>Dynamischer Inhalt</h2>
 
-<p>The library has the following record counts:</p>
+<p>Anzahl Datensätze:</p>
 <ul>
-<li><strong>Books:</strong> {{ num_books }}</li>
-<li><strong>Copies:</strong> {{ num_instances }}</li>
+<li><strong>Wochenziele:</strong> {{ num_authors }}</li>
+<li><strong>Arbeitspakete:</strong> {{ num_books }}</li>
+<li><strong>Relevante Informationen zu Arbeitspaketen:</strong> {{ num_instances }}</li>
 <li><strong>Copies available:</strong> {{ num_instances_available }}</li>
-<li><strong>Authors:</strong> {{ num_authors }}</li>
 </ul>
 
 
-You have visited this page {{ num_visits }} times.
+Diese Seite wurde {{ num_visits }} mal besucht.
 
 {% endblock %}
