@@ -37,6 +37,12 @@
   {% block sidebar %}
   <ul class="sidebar-nav">
     <li><a href="{% url 'index' %}">Home</a></li>
+  </ul>
+ 
+  <ul class="sidebar-nav">
+   {% if user.is_authenticated %}
+     <li>User: {{ user.get_username }}</li>
+
     <li><a href="{% url 'authors' %}">Alle Wochenziele</a></li>
     <li><a href="{% url 't_wt_is_excluded_from_dt_mp_assignment_on_weekdays_timeseries' %}">Alle Ausschlusstage Zeitreihen</a></li>
     <li><a href="{% url 't_day_targets_sequence_timeseries' %}">Alle Tagesziel Zeitreihen</a></li>
@@ -61,11 +67,7 @@
     <li><a href="{% url 't_memorization_packages_memory_palace_or_cards_technique' %}">Alle Memorization Packages</a></li>
     <li><a href="{% url 't_memory_palaces_or_cards_memorization_timeseries' %}">Alle Auswendiglern Zeitreihen</a></li>
     <li><a href="{% url 't_memory_palace_or_cards_memorization_timeseries_actions' %}">Alle Auswendiglern Aktionen</a></li>
-  </ul>
- 
-  <ul class="sidebar-nav">
-   {% if user.is_authenticated %}
-     <li>User: {{ user.get_username }}</li>
+
      <li><a href="{% url 'my-borrowed' %}">My Borrowed</a></li>
      <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>   
    {% else %}
