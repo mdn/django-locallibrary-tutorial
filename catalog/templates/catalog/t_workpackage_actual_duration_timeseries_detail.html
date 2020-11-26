@@ -1,0 +1,14 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+{% load app_filters %}
+<h1>Arbeitspaket Ist-Dauer Zeitreihe - Detail</h1>
+<p></p>
+<p> Erstellt am: {{t_workpackage_actual_duration_timeseries.measurement_datetime}} </p>
+<p> Kategorie Tabelle Eintrag: {{t_workpackage_actual_duration_timeseries.measurement_type_start_or_stop}} </p>
+<p> Kategorie Tabelle: {{t_workpackage_actual_duration_timeseries.t_workpackage}} </p>
+
+</div>
+
+{% endblock %}

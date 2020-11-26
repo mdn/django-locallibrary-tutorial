@@ -1,0 +1,21 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Arbeitspaket Ist-Dauer Zeitreihen</h1>
+
+    {% if t_workpackage_actual_duration_timeseries_list %}
+    <ul>
+
+      {% for t_workpackage_actual_duration_timeseries in t_workpackage_actual_duration_timeseries_list %}
+      <li>
+        <a href="{{ t_workpackage_actual_duration_timeseries.get_absolute_url }}">{{ t_workpackage_actual_duration_timeseries.measurement_datetime }}</a>
+      </li>
+      {% endfor %}
+
+    </ul>
+
+    {% else %}
+      <p>Es liegen keine Arbeitspaket Ist-Dauer Zeitreihen vor.</p>
+    {% endif %}       
+{% endblock %}
+

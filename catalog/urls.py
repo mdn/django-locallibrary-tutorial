@@ -7,6 +7,8 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('books/', views.BookListView.as_view(), name='books'),
     path('book/<int:pk>', views.BookDetailView.as_view(), name='book-detail'),
+    path('t_workpackages_actual_duration_timeseries/', views.T_Workpackage_Actual_Duration_TimeseriesListView.as_view(), name='t_workpackages_actual_duration_timeseries'),
+    path('t_workpackage_actual_duration_timeseries/<int:pk>', views.T_Workpackage_Actual_Duration_TimeseriesDetailView.as_view(), name='t_workpackage_actual_duration_timeseries-detail'),
     path('authors/', views.AuthorListView.as_view(), name='authors'),
     path('author/<int:pk>',
          views.AuthorDetailView.as_view(), name='author-detail'),

@@ -197,15 +197,22 @@ class Book(models.Model):
         verbose_name = 'T_Workpackage'
 
 
-#HIER WETER:
 class T_Workpackage_Actual_Duration_Timeseries(models.Model):
     t_workpackage = models.ForeignKey('Book', on_delete=models.SET_NULL, null=True)
     measurement_datetime = models.DateTimeField(null=True, blank=True)
     measurement_type_start_or_stop = models.CharField(max_length=255, default='')
 
     class Meta:
+        ordering = ['measurement_datetime']
         db_table = 't_workpackage_actual_duration_timeseries'
 
+    def get_absolute_url(self):
+        """Returns the url to access a particular t_workpackage_actual_duration_timeseries instance."""
+        return reverse('t_workpackage_actual_duration_timeseries-detail', args=[str(self.id)])
+
+    def __str__(self):
+        """String for representing the Model object."""
+        return self.measurement_datetime
 
 
 
