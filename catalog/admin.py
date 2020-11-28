@@ -66,7 +66,7 @@ class BookInstanceAdmin(admin.ModelAdmin):
 
     fieldsets = (
         (None, {
-            'fields': ('book', 'imprint', 'id')
+            'fields': ('book', 'target_group_question', 'memorizable_workpackage_relevantinformation_tobememorized', 'relevantinformation_comment', 'is_workpackage', 'memorization_sequence', 'memorization_sequence_is_fixed_because_memorized')
         }),
         ('Availability', {
             'fields': ('status', 'due_back', 'borrower')
