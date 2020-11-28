@@ -197,6 +197,7 @@ class Book(models.Model):
         return self.title
 
     class Meta:
+        ordering = ['created_datetime']
         db_table = 't_workpackage'
         verbose_name = 'T_Workpackage'
 
