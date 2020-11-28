@@ -61,7 +61,7 @@ class BookInstanceAdmin(admin.ModelAdmin):
      - filters that will be displayed in sidebar (list_filter)
      - grouping of fields into sections (fieldsets)
     """
-    list_display = ('book', 'status', 'borrower', 'due_back', 'id')
+    list_display = ('book', 'created_datetime', 'updated_datetime', 'target_group_question', 'memorizable_workpackage_relevantinformation_tobememorized', 'relevantinformation_comment', 'is_workpackage', 'memorization_sequence', 'memorization_sequence_is_fixed_because_memorized', 't_information_item_tobeoperationalized_id', 't_memory_palace_type_location_number_id', 'id_asinteger', 't_memorization_package_memory_palace_or_cards_technique_fk2_id')
     list_filter = ('status', 'due_back')
 
     fieldsets = (
