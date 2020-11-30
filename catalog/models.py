@@ -194,7 +194,7 @@ class Book(models.Model):
 
     def __str__(self):
         """String for representing the Model object."""
-        return self.title
+        return self.associated_email_subject
 
     class Meta:
         ordering = ['created_datetime']

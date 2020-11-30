@@ -46,9 +46,9 @@ class BookAdmin(admin.ModelAdmin):
      - fields to be displayed in list view (list_display)
      - adds inline addition of book instances in book view (inlines)
     """
-    list_display = ('author', 'created_datetime', 'plan_duration_mins', 'due_datetime', 'filepath_for_readiness_enhancement', 'hyperlink_for_readiness_enhancement', 'associated_email_subject', 'associated_email_received_datetime', 'associated_email_received_account', 'filepath_for_readiness_enhancement')
-#    list_display = ('author', 'created_datetime', 'plan_duration_mins', 'due_datetime', 'filepath_for_readiness_enhancement', 'hyperlink_for_readiness_enhancement', 'associated_email_subject', 'associated_email_received_datetime', 'associated_email_received_account', 'filepath_for_readiness_enhancement')
-    inlines = [BooksInstanceInline]
+    list_display = ('author', 'created_datetime', 'plan_duration_mins', 'due_datetime', 'filepath_for_readiness_enhancement', 'hyperlink_for_readiness_enhancement', 'associated_email_subject', 'associated_email_received_datetime', 'associated_email_received_account')
+    fields = ['author', ('due_datetime', 'created_datetime', 'updated_datetime'), 'plan_duration_mins', 'filepath_for_readiness_enhancement', 'hyperlink_for_readiness_enhancement', 'associated_email_subject', 'associated_email_received_datetime', 'associated_email_received_account']
+#    inlines = [BooksInstanceInline]
 
 
 admin.site.register(Book, BookAdmin)
