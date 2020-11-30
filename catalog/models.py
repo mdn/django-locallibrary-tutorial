@@ -161,6 +161,7 @@ class Book(models.Model):
     t_calendar = models.ForeignKey('T_Calendar', on_delete=models.SET_NULL, null=True)
     created_datetime = models.DateTimeField(null=True, blank=True)
     updated_datetime = models.DateTimeField(null=True, blank=True)
+    workpackage_title = models.CharField(max_length=200, default='')        #this value is a copy of T_Workpackage_Relevantinformation_Tobememorized.memorizable_workpackage_relevantinformation_tobememorized
     associated_email_subject = models.CharField(null=True, max_length=1000, default='')
     associated_email_received_datetime = models.DateTimeField(null=True, blank=True)
     associated_email_received_account = models.CharField(max_length=1000, default='')
