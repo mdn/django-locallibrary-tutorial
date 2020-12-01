@@ -48,7 +48,7 @@ class BookAdmin(admin.ModelAdmin):
     """
     list_display = ('author', 'created_datetime', 'plan_duration_mins', 'due_datetime', 'filepath_for_readiness_enhancement', 'hyperlink_for_readiness_enhancement', 'associated_email_subject', 'associated_email_received_datetime', 'associated_email_received_account')
     fields = ['author', ('due_datetime', 'created_datetime', 'updated_datetime'), 'plan_duration_mins', 'filepath_for_readiness_enhancement', 'hyperlink_for_readiness_enhancement', 'associated_email_subject', 'associated_email_received_datetime', 'associated_email_received_account']
-#    inlines = [BooksInstanceInline]
+    inlines = [BooksInstanceInline]
 
 
 admin.site.register(Book, BookAdmin)

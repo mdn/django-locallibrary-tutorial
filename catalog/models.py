@@ -183,6 +183,11 @@ class Book(models.Model):
     # Genre class has already been defined so we can specify the object above.
     language = models.ForeignKey('Language', on_delete=models.SET_NULL, null=True)
 
+    class Meta:
+        ordering = ['created_datetime']
+        db_table = 't_workpackage'
+        verbose_name = 'T_Workpackage'
+
     def display_genre(self):
         """Creates a string for the Genre. This is required to display genre in Admin."""
         return ', '.join([genre.name for genre in self.genre.all()[:3]])
@@ -195,12 +200,7 @@ class Book(models.Model):
 
     def __str__(self):
         """String for representing the Model object."""
-        return self.associated_email_subject
-
-    class Meta:
-        ordering = ['created_datetime']
-        db_table = 't_workpackage'
-        verbose_name = 'T_Workpackage'
+        return self.workpackage_title
 
 
 class T_Workpackage_Actual_Duration_Timeseries(models.Model):
@@ -282,7 +282,8 @@ class BookInstance(models.Model):
 
     def __str__(self):
         """String for representing the Model object."""
-        return '{0} ({1})'.format(self.id, self.book.title)
+        return self.memorizable_workpackage_relevantinformation_tobememorized
+#        return '{0} ({1})'.format(str(self.id_asinteger), self.book.workpackage_title)
 
 
 
@@ -636,7 +637,7 @@ class T_Memory_Palace_Type_Location_Number(models.Model):
 
     def __str__(self):
         """String for representing the Model object."""
-        return self.memory_palace_number
+        return str(self.memory_palace_number)
 
 
 class T_Memory_Palace_Type_Location_Daytime(models.Model):
