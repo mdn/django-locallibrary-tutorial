@@ -319,28 +319,28 @@ class AuthorCreateViewTest(TestCase):
         test_author = Author.objects.create(first_name='John', last_name='Smith')
 
     def test_redirect_if_not_logged_in(self):
-        response = self.client.get(reverse('author_create'))
+        response = self.client.get(reverse('author-create'))
         self.assertRedirects(response, '/accounts/login/?next=/catalog/author/create/')
 
     def test_forbidden_if_logged_in_but_not_correct_permission(self):
         login = self.client.login(username='testuser1', password='1X<ISRUkw+tuK')
-        response = self.client.get(reverse('author_create'))
+        response = self.client.get(reverse('author-create'))
         self.assertEqual(response.status_code, 403)
 
     def test_logged_in_with_permission(self):
         login = self.client.login(username='testuser2', password='2HJ1vRV0Z&3iD')
-        response = self.client.get(reverse('author_create'))
+        response = self.client.get(reverse('author-create'))
         self.assertEqual(response.status_code, 200)
 
     def test_uses_correct_template(self):
         login = self.client.login(username='testuser2', password='2HJ1vRV0Z&3iD')
-        response = self.client.get(reverse('author_create'))
+        response = self.client.get(reverse('author-create'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'catalog/author_form.html')
 
     def test_form_date_of_death_initially_set_to_expected_date(self):
         login = self.client.login(username='testuser2', password='2HJ1vRV0Z&3iD')
-        response = self.client.get(reverse('author_create'))
+        response = self.client.get(reverse('author-create'))
         self.assertEqual(response.status_code, 200)
 
         expected_initial_date = datetime.date(2020, 6, 11)
@@ -350,7 +350,7 @@ class AuthorCreateViewTest(TestCase):
 
     def test_redirects_to_detail_view_on_success(self):
         login = self.client.login(username='testuser2', password='2HJ1vRV0Z&3iD')
-        response = self.client.post(reverse('author_create'),
+        response = self.client.post(reverse('author-create'),
                                     {'first_name': 'Christian Name', 'last_name': 'Surname'})
         # Manually check redirect because we don't know what author was created
         self.assertEqual(response.status_code, 302)
