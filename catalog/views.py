@@ -15,7 +15,7 @@ def index(request):
     num_authors = Author.objects.count()  # The 'all()' is implied by default.
 
     # Number of visits to this view, as counted in the session variable.
-    num_visits = request.session.get('num_visits', 0)
+    num_visits = request.session.get('num_visits', 1)
     request.session['num_visits'] = num_visits+1
 
     # Render the HTML template index.html with the data in the context variable.
