@@ -94,7 +94,7 @@ class T_Memory_Palace_Or_Cards_Memorization_Timeseries(models.Model):
 
     def __str__(self):
         """String for representing the Model object."""
-        return self.action_datetime
+        return str(self.action_datetime)
 
 
 class T_Memory_Palace_Or_Cards_Memorization_Timeseries_Action(models.Model):
@@ -131,7 +131,7 @@ class T_Day_Target_Sequence_Timeseries(models.Model):
 
     def __str__(self):
         """String for representing the Model object."""
-        return self.sequence_proposed_for_day_target_memory_palace
+        return str(self.sequence_proposed_for_day_target_memory_palace)
 
 
 class T_Wt_Is_Excluded_From_Dt_Mp_Assignment_On_Weekday_Timeseries(models.Model):
@@ -149,7 +149,7 @@ class T_Wt_Is_Excluded_From_Dt_Mp_Assignment_On_Weekday_Timeseries(models.Model)
 
     def __str__(self):
         """String for representing the Model object."""
-        return self.week_target_isnot_potential_day_target_on_weekday_date
+        return str(self.week_target_isnot_potential_day_target_on_weekday_date)
 
 
 # class T_Workpackage(models.Model):
@@ -218,7 +218,7 @@ class T_Workpackage_Actual_Duration_Timeseries(models.Model):
 
     def __str__(self):
         """String for representing the Model object."""
-        return self.measurement_datetime
+        return str(self.measurement_datetime)
 
 
 
@@ -326,7 +326,7 @@ class T_Information_Item_Tobeoperationalized_Memor_Timeseries(models.Model):
 
     def __str__(self):
         """String for representing the Model object."""
-        return self.action_datetime
+        return str(self.action_datetime)
 
 
 class T_Information_Item_Tobeoperationalized_Memor_Timeseries_Act(models.Model):
@@ -376,7 +376,7 @@ class T_Category_Table_Predicate_Asverb(models.Model):
 
     def __str__(self):
         """String for representing the Model object."""
-        return self.category_name
+        return self.predicate_asverb
 
 
 class T_Category_Table_Entry(models.Model):
@@ -416,7 +416,7 @@ class T_Category_Timeseries(models.Model):
 
     def __str__(self):
         """String for representing the Model object."""
-        return self.created_datetime
+        return str(self.created_datetime)
 
 
 class T_Calendar(models.Model):
@@ -482,7 +482,7 @@ class T_Ausatemmuskulatur_Isnot_Entspannt_Dueto_Strategyrefinemt(models.Model):
 
     def __str__(self):
         """String for representing the Model object."""
-        return self.created_datetime
+        return str(self.created_datetime)
 
 
 class T_Ausatemmuskulatur_Strategyrefinement_Conflict_Phase(models.Model):
@@ -617,7 +617,7 @@ class T_Memory_Palace_Type_Location_Packageassignment_Timeseries(models.Model):
 
     def __str__(self):
         """String for representing the Model object."""
-        return self.assignment_to_memorization_package_datetime
+        return str(self.assignment_to_memorization_package_datetime)
 
 
 class T_Memory_Palace_Type_Location_Number(models.Model):
@@ -655,4 +655,4 @@ class T_Memory_Palace_Type_Location_Daytime(models.Model):
 
     def __str__(self):
         """String for representing the Model object."""
-        return self.memory_palace_daytime
+        return str(self.memory_palace_daytime)
