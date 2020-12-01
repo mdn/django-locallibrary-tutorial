@@ -1,3 +1,4 @@
 {
-    "python.pythonPath": "C:\\Apps\\Python\\Python39\\python.exe"
+    "python.pythonPath": "C:\\Apps\\Python\\Python39\\python.exe",
+    "python.linting.enabled": false
 }
