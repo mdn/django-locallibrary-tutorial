@@ -17,6 +17,8 @@
   <dd>Due: {{book.due_datetime}}</dd>
 {% endfor %}
 </dl>
+<!--Hier weiter: Arbeitspaket einfügen mit vorausgefülltem Feld für Wochenziel-->
+<a href="{% url 'book_create' %}">Neues Arbeitspaket für dieses Wochenziel</a>
 
 </div>
 {% endblock %}
