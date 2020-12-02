@@ -31,6 +31,7 @@ To get this project up and running locally on your computer:
    python3 manage.py collectstatic
    python3 manage.py test # Run the standard tests. These should all pass.
    python3 manage.py createsuperuser # Create a superuser
+   python3 manage.py loaddata */fixtures/initial.json
    python3 manage.py runserver
    ```
 1. Open a browser to `http://127.0.0.1:8000/admin/` to open the admin site

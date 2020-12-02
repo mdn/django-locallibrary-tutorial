@@ -1,0 +1,13 @@
+[
+    {
+      "model": "catalog.author",
+      "pk": 1,
+      "fields": { "first_name": "Stephen", "last_name": "King", "date_of_birth": "1947-09-21" }
+    },
+    {
+      "model": "catalog.author",
+      "pk": 2,
+      "fields": { "first_name": "Andrea", "last_name": "Hirata", "date_of_birth": "1967-10-24" }
+    }
+  ]
+  
