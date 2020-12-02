@@ -86,3 +86,10 @@ urlpatterns += [
     path('book/<int:pk>/update/', views.BookUpdate.as_view(), name='book_update'),
     path('book/<int:pk>/delete/', views.BookDelete.as_view(), name='book_delete'),
 ]
+
+# Add URLConf to create, update, and delete t_category_tables
+urlpatterns += [
+    path('t_category_table/create/', views.T_Category_TableCreate.as_view(), name='t_category_table_create'),
+    path('t_category_table/<int:pk>/update/', views.T_Category_TableUpdate.as_view(), name='t_category_table_update'),
+    path('t_category_table/<int:pk>/delete/', views.T_Category_TableDelete.as_view(), name='t_category_table_delete'),
+]

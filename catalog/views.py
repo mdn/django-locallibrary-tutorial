@@ -405,3 +405,19 @@ class BookDelete(PermissionRequiredMixin, DeleteView):
     model = Book
     success_url = reverse_lazy('books')
     permission_required = 'catalog.can_mark_returned'
+
+
+class T_Category_TableCreate(PermissionRequiredMixin, CreateView):
+    model = T_Category_Table
+    fields = '__all__'
+    permission_required = 'catalog.can_mark_returned'
+
+class T_Category_TableUpdate(PermissionRequiredMixin, UpdateView):
+    model = T_Category_Table
+    fields = '__all__'
+    permission_required = 'catalog.can_mark_returned'
+
+class T_Category_TableDelete(PermissionRequiredMixin, DeleteView):
+    model = T_Category_Table
+    success_url = reverse_lazy('authors')
+    permission_required = 'catalog.can_mark_returned'
