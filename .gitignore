@@ -3,6 +3,7 @@
 
 #Database
 *.sqlite3
+virtualenv
 
 
 # Byte-compiled / optimized / DLL files
