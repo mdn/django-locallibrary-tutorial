@@ -33,31 +33,42 @@
    {% if user.is_authenticated %}
      <li>User: {{ user.get_username }}</li>
 
-    <li><a href="{% url 'authors' %}">Alle Wochenziele</a></li>
-    <li><a href="{% url 't_wt_is_excluded_from_dt_mp_assignment_on_weekdays_timeseries' %}">Alle Ausschlusstage Zeitreihen</a></li>
-    <li><a href="{% url 't_day_targets_sequence_timeseries' %}">Alle Tagesziel Zeitreihen</a></li>
-    <li><a href="{% url 'books' %}">Alle Arbeitspakete</a></li>
-    <li><a href="{% url 't_workpackages_actual_duration_timeseries' %}">Alle Arbeitspaket-Ist Zeitreihen</a></li>
-    <li><a href="{% url 't_information_items_tobeoperationalized' %}">Alle ITBO</a></li>
-    <li><a href="{% url 't_information_items_tobeoperationalized_memor_timeseries' %}">Alle ITBO Zeitreihen</a></li>
-    <li><a href="{% url 't_information_items_tobeoperationalized_memor_timeseries_act' %}">Alle ITBO Aktionen</a></li>
-    <li><a href="{% url 't_calendars' %}">Alle Termine</a></li>
-    <li><a href="{% url 't_conflicts' %}">Alle Konflikte</a></li>
-    <li><a href="{% url 't_ausatemmuskulatur_isnot_entspannt_dueto_strategyrefinemts' %}">Alle Konflikt Zeitreihen</a></li>
-    <li><a href="{% url 't_ausatemmuskulatur_strategyrefinement_conflict_phases' %}">Alle Konfliktphasen</a></li>
-    <li><a href="{% url 't_conflict_strategy_categorys' %}">Alle Konfliktkategorien</a></li>
-    <li><a href="{% url 't_conflict_strategy_category_measures' %}">Alle Konfliktmassnahmen</a></li>
-    <li><a href="{% url 't_category_tables' %}">Alle Kategorietabellen</a></li>
-    <li><a href="{% url 't_category_table_predicates_asverb' %}">Alle Kategorieprädikate</a></li>
-    <li><a href="{% url 't_category_table_entries' %}">Alle Kategorieeinträge</a></li>
-    <li><a href="{% url 't_categorys_timeseries' %}">Alle Kategorie Zeitreihen</a></li>
-    <li><a href="{% url 't_memory_palaces_type' %}">Alle Gedächtnispalast Typen</a></li>
-    <li><a href="{% url 't_memory_palaces_type_location' %}">Alle Gedächtnispalast Orte</a></li>
-    <li><a href="{% url 't_memory_palaces_type_location_packageassignment_timeseries' %}">Alle Gedächtnispalast Zeitreihen</a></li>
-    <li><a href="{% url 't_memorization_packages_memory_palace_or_cards_technique' %}">Alle Memorization Packages</a></li>
-    <li><a href="{% url 't_memory_palaces_or_cards_memorization_timeseries' %}">Alle Auswendiglern Zeitreihen</a></li>
-    <li><a href="{% url 't_memory_palace_or_cards_memorization_timeseries_actions' %}">Alle Auswendiglern Aktionen</a></li>
-
+    <li><a href="{% url 'authors' %}">Wochenziele</a></li>
+<!--
+    <li><a href="{% url 't_wt_is_excluded_from_dt_mp_assignment_on_weekdays_timeseries' %}">Ausschlusstage Zeitreihen</a></li>
+    <li><a href="{% url 't_day_targets_sequence_timeseries' %}">Tagesziel Zeitreihen</a></li>
+-->
+    <li><a href="{% url 'books' %}">Arbeitspakete</a></li>
+<!--
+    <li><a href="{% url 't_workpackages_actual_duration_timeseries' %}">Arbeitspaket-Ist Zeitreihen</a></li>
+    <li><a href="{% url 't_information_items_tobeoperationalized' %}">ITBO</a></li>
+    <li><a href="{% url 't_information_items_tobeoperationalized_memor_timeseries' %}">ITBO Zeitreihen</a></li>
+    <li><a href="{% url 't_information_items_tobeoperationalized_memor_timeseries_act' %}">ITBO Aktionen</a></li>
+-->
+    <li><a href="{% url 't_calendars' %}">Termine</a></li>
+    <li><a href="{% url 't_conflicts' %}">Konflikte</a></li>
+<!--
+    <li><a href="{% url 't_ausatemmuskulatur_isnot_entspannt_dueto_strategyrefinemts' %}">Konflikt Zeitreihen</a></li>
+    <li><a href="{% url 't_ausatemmuskulatur_strategyrefinement_conflict_phases' %}">Konfliktphasen</a></li>
+    <li><a href="{% url 't_conflict_strategy_categorys' %}">Konfliktkategorien</a></li>
+    <li><a href="{% url 't_conflict_strategy_category_measures' %}">Konfliktmassnahmen</a></li>
+-->
+<!--
+    <li><a href="{% url 't_category_tables' %}">Kategorietabellen</a></li>
+    <li><a href="{% url 't_category_table_predicates_asverb' %}">Kategorieprädikate</a></li>
+    <li><a href="{% url 't_category_table_entries' %}">Kategorieeinträge</a></li>
+    <li><a href="{% url 't_categorys_timeseries' %}">Kategorie Zeitreihen</a></li>
+-->
+<!--
+    <li><a href="{% url 't_memory_palaces_type' %}">Gedächtnispalast Typen</a></li>
+    <li><a href="{% url 't_memory_palaces_type_location' %}">Gedächtnispalast Orte</a></li>
+-->
+<!--
+    <li><a href="{% url 't_memory_palaces_type_location_packageassignment_timeseries' %}">Gedächtnispalast Zeitreihen</a></li>
+    <li><a href="{% url 't_memorization_packages_memory_palace_or_cards_technique' %}">Memorization Packages</a></li>
+    <li><a href="{% url 't_memory_palaces_or_cards_memorization_timeseries' %}">Auswendiglern Zeitreihen</a></li>
+    <li><a href="{% url 't_memory_palace_or_cards_memorization_timeseries_actions' %}">Auswendiglern Aktionen</a></li>
+-->
      <li><a href="{% url 'my-borrowed' %}">My Borrowed</a></li>
      <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>   
    {% else %}
