@@ -1,0 +1,15 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Wochenziel: {{work_package.author.memorizable_week_target}}</h1>
+<!--
+    <p>Arbeitspaket: {{work_package.workpackage_title}}</p>
+-->    
+    <form action="" method="post">
+        {% csrf_token %}
+        <table>
+        {{ form.as_table }}
+        </table>
+        <input type="submit" value="Submit" />
+    </form>
+{% endblock %}

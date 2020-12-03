@@ -327,9 +327,7 @@ from django.urls import reverse
 import datetime
 from django.contrib.auth.decorators import permission_required
 
-# from .forms import RenewBookForm
 from catalog.forms import RenewBookForm
-
 
 @permission_required('catalog.can_mark_returned')
 def renew_book_librarian(request, pk):
@@ -363,6 +361,43 @@ def renew_book_librarian(request, pk):
     }
 
     return render(request, 'catalog/book_renew_librarian.html', context)
+
+
+from catalog.forms import CreateWorkPackage_WithProposedWeekTarget_Form
+
+@permission_required('catalog.can_mark_returned')
+def book_create_proposed_week_target(request, pk):
+    """View function for creating a new work package for a specific week target."""
+    work_package = get_object_or_404(Book, pk=pk)
+
+    # If this is a POST request then process the Form data
+    if request.method == 'POST':
+
+        # Create a form instance and populate it with data from the request (binding):
+        form = CreateWorkPackage_WithProposedWeekTarget_Form(request.POST)
+
+        # Check if the form is valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required (here we just write it to the model due_back field)
+            work_package.hyperlink_for_readiness_enhancement = form.cleaned_data['test_character_field']
+            work_package.save()
+
+            # redirect to a new URL:
+            return HttpResponseRedirect(reverse('books'))
+
+    # If this is a GET (or any other method) create the default form
+    else:
+        proposed_week_target = Author.objects.get(pk=pk)
+        form = CreateWorkPackage_WithProposedWeekTarget_Form(initial={'test_character_field': proposed_week_target})
+
+    context = {
+        'form': form,
+        'work_package': work_package,
+    }
+
+    return render(request, 'catalog/book_create_proposed_week_target.html', context)
+
+
 
 
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
