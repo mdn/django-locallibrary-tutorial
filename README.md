@@ -1,5 +1,8 @@
 # Django Local Library
 
+![Unit Test](https://github.com/PMPL-Arieken/django-locallibrary-tutorial/workflows/Unit%20Test/badge.svg)
+[![Coverage](https://codecov.io/github/PMPL-Arieken/django-locallibrary-tutorial/coverage.svg)](https://codecov.io/github/PMPL-Arieken/django-locallibrary-tutorial)
+
 Tutorial "Local Library" website written in Django.
 
 For detailed information about this project see the associated [MDN tutorial home page](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Tutorial_local_library_website).
