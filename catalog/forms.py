@@ -12,6 +12,7 @@ class RenewBookForm(forms.Form):
     """Form for a librarian to renew books."""
     renewal_date = forms.DateTimeField(input_formats=['%d/%m/%Y %H:%M'],
             help_text="Enter a date between now and 4 weeks (default 3).", widget=XDSoftDateTimePickerInput())
+    test_character_field = forms.CharField()
 
     def clean_renewal_date(self):
         data = self.cleaned_data['renewal_date']

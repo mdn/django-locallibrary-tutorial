@@ -354,7 +354,8 @@ def renew_book_librarian(request, pk):
     # If this is a GET (or any other method) create the default form
     else:
         proposed_renewal_date = datetime.date.today() + datetime.timedelta(weeks=3)
-        form = RenewBookForm(initial={'renewal_date': proposed_renewal_date})
+        proposed_test_character_field = Book.objects.get(pk=pk)
+        form = RenewBookForm(initial={'renewal_date': proposed_renewal_date, 'test_character_field': proposed_test_character_field})
 
     context = {
         'form': form,
