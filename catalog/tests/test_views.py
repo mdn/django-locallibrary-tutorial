@@ -1,11 +1,25 @@
 from django.test import TestCase
 
 # Create your tests here.
+from catalog.models import Book, Author, BookInstance, Genre
+from catalog.views import index
 
-
-from catalog.models import Author
+class IndexViewTest(TestCase):
+    def test_counts_for_numbooks_numinstances_and_numauthors_on_index(self):
+        login = self.client.login(username='user', password='letkenp4ss')
+        response = self.client.get('/catalog/')
+        
+        num_books = Book.objects.all().count()
+        num_instances = BookInstance.objects.all().count()
+        num_instances_available = BookInstance.objects.filter(status__exact='a').count()
+        num_authors = Author.objects.count()
+        
+        self.assertEqual(num_books, Book.objects.all().count())
+        self.assertEqual(num_instances, BookInstance.objects.all().count())
+        self.assertEqual(num_instances_available, BookInstance.objects.filter(status__exact='a').count())
+        self.assertEqual(num_authors, Author.objects.count())
+        
 from django.urls import reverse
-
 
 class AuthorListViewTest(TestCase):
 
