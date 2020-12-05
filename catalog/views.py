@@ -370,7 +370,7 @@ from django import forms
 def book_create_proposed_week_target(request, pk):
     """View function for creating a new work package for a specific week target."""
     week_target = get_object_or_404(Author, pk=pk)
-    work_package = Book(workpackage_title="Neuer Arbeitspaket Titel", filepath_for_readiness_enhancement="filepath123")
+    work_package = Book()   #workpackage_title="Neuer Arbeitspaket Titel", filepath_for_readiness_enhancement="filepath123"
 #funzt:     datetime_start = forms.IntegerField(widget=forms.Select(choices=T_Calendar.objects.all().values_list()))
 
     # If this is a POST request then process the Form data
@@ -385,8 +385,16 @@ def book_create_proposed_week_target(request, pk):
 #            work_package.author_id = form.cleaned_data['week_target_workpackagecreation'].id
             work_package.author_id = pk
             work_package.t_calendar_id = form.cleaned_data['datetime_start'].id
-
+            work_package.created_datetime = datetime.datetime.now()
+            work_package.workpackage_title = form.cleaned_data['workpackage_title_workpackagecreation']
+            work_package.associated_email_subject = form.cleaned_data['associated_email_subject_workpackagecreation']
+            work_package.associated_email_received_datetime = form.cleaned_data['associated_email_received_datetime_workpackagecreation']
+            work_package.associated_email_received_account = form.cleaned_data['associated_email_received_account_workpackagecreation']
+            work_package.filepath_for_readiness_enhancement = form.cleaned_data['filepath_for_readiness_enhancement_workpackagecreation']
+            work_package.hyperlink_for_readiness_enhancement = form.cleaned_data['hyperlink_for_readiness_enhancement_workpackagecreation']
+            work_package.is_shown_at_next_time_measurement_stop = form.cleaned_data['is_shown_at_next_time_measurement_stop_workpackagecreation']
             work_package.plan_duration_mins = form.cleaned_data['plan_duration_mins_workpackagecreation']
+            due_datetime = form.cleaned_data['due_datetime_workpackagecreation']
             work_package.save()
 
             # redirect to a new URL:
