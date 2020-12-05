@@ -435,6 +435,7 @@ class T_Calendar(models.Model):
     hypothetic_conflict_appointment_association_description = models.CharField(max_length=255, default='')
 
     class Meta:
+        ordering = ['datetime_start']
         db_table = 't_calendar'
 
     def get_absolute_url(self):
