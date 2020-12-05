@@ -384,7 +384,8 @@ def book_create_proposed_week_target(request, pk):
             # process the data in form.cleaned_data as required (here we just write it to the model due_back field)
 #            work_package.author_id = form.cleaned_data['week_target_workpackagecreation'].id
             work_package.author_id = pk
-            work_package.t_calendar_id = form.cleaned_data['datetime_start'].id
+            if form.cleaned_data['datetime_start'] is not None:
+                work_package.t_calendar_id = form.cleaned_data['datetime_start'].id
             work_package.created_datetime = datetime.datetime.now()
             work_package.workpackage_title = form.cleaned_data['workpackage_title_workpackagecreation']
             work_package.associated_email_subject = form.cleaned_data['associated_email_subject_workpackagecreation']

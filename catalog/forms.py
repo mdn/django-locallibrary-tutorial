@@ -34,7 +34,7 @@ class CreateWorkPackage_WithProposedWeekTarget_Form(forms.Form):
     """Form for a librarian to renew books."""
 #    week_target_workpackagecreation = forms.CharField()
     week_target_workpackagecreation = forms.ModelChoiceField(queryset=Author.objects.all(), label="Author", widget=forms.Select(), initial=0)
-    datetime_start = forms.ModelChoiceField(queryset=T_Calendar.objects.all(), label="T_Calendar", widget=forms.Select(), initial=0)
+    datetime_start = forms.ModelChoiceField(queryset=T_Calendar.objects.all(), label="T_Calendar", widget=forms.Select(), initial=0, empty_label='', required=False)
     workpackage_title_workpackagecreation = forms.CharField()
     associated_email_subject_workpackagecreation = forms.CharField()
     associated_email_received_datetime_workpackagecreation = forms.DateTimeField(input_formats=['%d/%m/%Y %H:%M'], widget=XDSoftDateTimePickerInput())
