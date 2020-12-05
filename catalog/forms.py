@@ -7,6 +7,8 @@ utc=pytz.UTC
 
 from django import forms
 from .widgets import XDSoftDateTimePickerInput
+from .widgets import SimpleForm
+from .models import T_Calendar
 
 class RenewBookForm(forms.Form):
     """Form for a librarian to renew books."""
@@ -34,6 +36,8 @@ class CreateWorkPackage_WithProposedWeekTarget_Form(forms.Form):
 #    renewal_date = forms.DateTimeField(input_formats=['%d/%m/%Y %H:%M'],
 #            help_text="Enter a date between now and 4 weeks (default 3).", widget=XDSoftDateTimePickerInput())
     test_character_field = forms.CharField()
+    datetime_start = forms.ModelChoiceField(queryset=T_Calendar.objects.all(), label="T_Calendar", widget=forms.RadioSelect(), initial=0)
+    plan_duration_mins_workpackagecreation = forms.IntegerField()
 
     def clean_renewal_date(self):
         data = self.cleaned_data['renewal_date']

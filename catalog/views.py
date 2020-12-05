@@ -364,11 +364,14 @@ def renew_book_librarian(request, pk):
 
 
 from catalog.forms import CreateWorkPackage_WithProposedWeekTarget_Form
+from django import forms
 
 @permission_required('catalog.can_mark_returned')
 def book_create_proposed_week_target(request, pk):
     """View function for creating a new work package for a specific week target."""
-    work_package = get_object_or_404(Book, pk=pk)
+    week_target = get_object_or_404(Author, pk=pk)
+    work_package = Book(workpackage_title="Neuer Arbeitspaket Titel", filepath_for_readiness_enhancement="filepath123")
+#funzt:     datetime_start = forms.IntegerField(widget=forms.Select(choices=T_Calendar.objects.all().values_list()))
 
     # If this is a POST request then process the Form data
     if request.method == 'POST':
@@ -380,7 +383,11 @@ def book_create_proposed_week_target(request, pk):
         if form.is_valid():
             # process the data in form.cleaned_data as required (here we just write it to the model due_back field)
             work_package.hyperlink_for_readiness_enhancement = form.cleaned_data['test_character_field']
+            work_package.t_calendar_id = form.cleaned_data['datetime_start'].id
+            work_package.author_id = pk
+            work_package.plan_duration_mins = form.cleaned_data['plan_duration_mins_workpackagecreation']
             work_package.save()
+            print(work_package.author_id)
 
             # redirect to a new URL:
             return HttpResponseRedirect(reverse('books'))
@@ -388,7 +395,8 @@ def book_create_proposed_week_target(request, pk):
     # If this is a GET (or any other method) create the default form
     else:
         proposed_week_target = Author.objects.get(pk=pk)
-        form = CreateWorkPackage_WithProposedWeekTarget_Form(initial={'test_character_field': proposed_week_target})
+        t_calendar = 'dummyfordefinition' #T_Calendar.objects.filter(pk=pk)
+        form = CreateWorkPackage_WithProposedWeekTarget_Form(initial={'test_character_field': proposed_week_target, 'datetime_start': t_calendar})
 
     context = {
         'form': form,
