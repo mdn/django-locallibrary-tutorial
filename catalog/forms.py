@@ -7,7 +7,6 @@ utc=pytz.UTC
 
 from django import forms
 from .widgets import XDSoftDateTimePickerInput
-from .widgets import SimpleForm
 from .models import T_Calendar
 
 class RenewBookForm(forms.Form):

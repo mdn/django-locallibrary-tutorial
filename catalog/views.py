@@ -387,7 +387,6 @@ def book_create_proposed_week_target(request, pk):
             work_package.author_id = pk
             work_package.plan_duration_mins = form.cleaned_data['plan_duration_mins_workpackagecreation']
             work_package.save()
-            print(work_package.author_id)
 
             # redirect to a new URL:
             return HttpResponseRedirect(reverse('books'))
