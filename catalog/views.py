@@ -382,9 +382,10 @@ def book_create_proposed_week_target(request, pk):
         # Check if the form is valid:
         if form.is_valid():
             # process the data in form.cleaned_data as required (here we just write it to the model due_back field)
-            work_package.hyperlink_for_readiness_enhancement = form.cleaned_data['test_character_field']
-            work_package.t_calendar_id = form.cleaned_data['datetime_start'].id
+#            work_package.author_id = form.cleaned_data['week_target_workpackagecreation'].id
             work_package.author_id = pk
+            work_package.t_calendar_id = form.cleaned_data['datetime_start'].id
+
             work_package.plan_duration_mins = form.cleaned_data['plan_duration_mins_workpackagecreation']
             work_package.save()
 
@@ -393,9 +394,9 @@ def book_create_proposed_week_target(request, pk):
 
     # If this is a GET (or any other method) create the default form
     else:
-        proposed_week_target = Author.objects.get(pk=pk)
-        t_calendar = 'dummyfordefinition' #T_Calendar.objects.filter(pk=pk)
-        form = CreateWorkPackage_WithProposedWeekTarget_Form(initial={'test_character_field': proposed_week_target, 'datetime_start': t_calendar})
+        week_target_proposed = Author.objects.get(pk=pk)
+        t_calendar_proposed = T_Calendar.objects.latest('datetime_start')
+        form = CreateWorkPackage_WithProposedWeekTarget_Form(initial={'week_target_workpackagecreation': week_target_proposed, 'datetime_start': t_calendar_proposed})
 
     context = {
         'form': form,
