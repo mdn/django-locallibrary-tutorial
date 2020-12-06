@@ -363,7 +363,7 @@ def renew_book_librarian(request, pk):
     return render(request, 'catalog/book_renew_librarian.html', context)
 
 
-from catalog.forms import CreateWorkPackage_WithProposedWeekTarget_Form
+from catalog.forms import CreateWorkPackage_WithProposedWeekTarget_Form, CreateT_Workpackage_Relevantinformation_Tobememorized_WithProposedWorkpackage_Form
 from django import forms
 
 @permission_required('catalog.can_mark_returned')
@@ -415,6 +415,48 @@ def book_create_proposed_week_target(request, pk):
     return render(request, 'catalog/book_create_proposed_week_target.html', context)
 
 
+@permission_required('catalog.can_mark_returned')
+def bookinstance_create_proposed_workpackage(request, pk):
+    """View function for creating a new work package for a specific week target."""
+#    workpackage = get_object_or_404(Book, pk=pk)
+    t_workpackage_relevantinformation_tobememorized = BookInstance()
+
+    # If this is a POST request then process the Form data
+    if request.method == 'POST':
+
+        # Create a form instance and populate it with data from the request (binding):
+        form = CreateT_Workpackage_Relevantinformation_Tobememorized_WithProposedWorkpackage_Form(request.POST)
+
+        # Check if the form is valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required (here we just write it to the model due_back field)
+#            work_package.author_id = form.cleaned_data['week_target_workpackagecreation'].id
+            t_workpackage_relevantinformation_tobememorized.book_id = pk
+            t_workpackage_relevantinformation_tobememorized.created_datetime = datetime.datetime.now()
+#            t_workpackage_relevantinformation_tobememorized.target_group_question = form.cleaned_data['target_group_question_wpritbmcreation']
+            t_workpackage_relevantinformation_tobememorized.memorizable_workpackage_relevantinformation_tobememorized = form.cleaned_data['memorizable_workpackage_relevantinformation_tobememorized_wpritbmcreation']
+            t_workpackage_relevantinformation_tobememorized.relevantinformation_comment = form.cleaned_data['relevantinformation_comment_wpritbmcreation']
+            t_workpackage_relevantinformation_tobememorized.is_workpackage = form.cleaned_data['is_workpackage_wpritbmcreation']
+            t_workpackage_relevantinformation_tobememorized.save()
+
+            # redirect to a new URL:
+            return HttpResponseRedirect(reverse('books'))        #ToDo: will für das erste Arbeitspaket wieder auf der Übersicht mit Arbeitspaket UND relevanten AP-Informationen landen d.h. auf http://127.0.0.1:8000/catalog/book/1
+
+    # If this is a GET (or any other method) create the default form
+    else:
+        workpackage_proposed = Book.objects.get(pk=pk)
+        week_target_proposed = Author.objects.get(pk=workpackage_proposed.author_id)
+#        workpackage_proposed.author
+#        Author.objects.get(pk=pk)
+#        t_calendar_proposed = T_Calendar.objects.latest('datetime_start')
+        form = CreateT_Workpackage_Relevantinformation_Tobememorized_WithProposedWorkpackage_Form(initial={'workpackage_wpritbmcreation': workpackage_proposed, 'week_target_wpritbmcreation': week_target_proposed})
+
+    context = {
+        'form': form,
+        't_workpackage_relevantinformation_tobememorized': t_workpackage_relevantinformation_tobememorized,
+    }
+
+    return render(request, 'catalog/bookinstance_create_proposed_workpackage.html', context)
 
 
 from django.views.generic.edit import CreateView, UpdateView, DeleteView

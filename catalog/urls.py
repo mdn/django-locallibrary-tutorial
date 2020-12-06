@@ -88,6 +88,11 @@ urlpatterns += [
     path('book/<int:pk>/delete/', views.BookDelete.as_view(), name='book_delete'),
 ]
 
+# Add URLConf to create, update, and delete bookinstances
+urlpatterns += [
+    path('bookinstance/<int:pk>/create/', views.bookinstance_create_proposed_workpackage, name='bookinstance-create-proposed-workpackage'),
+]
+
 # Add URLConf to create, update, and delete t_category_tables
 urlpatterns += [
     path('t_category_table/create/', views.T_Category_TableCreate.as_view(), name='t_category_table_create'),

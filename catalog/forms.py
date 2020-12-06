@@ -7,7 +7,7 @@ utc=pytz.UTC
 
 from django import forms
 from .widgets import XDSoftDateTimePickerInput
-from .models import T_Calendar, Author
+from .models import T_Calendar, Author, Book
 
 class RenewBookForm(forms.Form):
     """Form for a librarian to renew books."""
@@ -44,6 +44,30 @@ class CreateWorkPackage_WithProposedWeekTarget_Form(forms.Form):
     is_shown_at_next_time_measurement_stop_workpackagecreation = forms.IntegerField()
     plan_duration_mins_workpackagecreation = forms.IntegerField()
     due_datetime_workpackagecreation = forms.DateTimeField(input_formats=['%d/%m/%Y %H:%M'], widget=XDSoftDateTimePickerInput())
+
+    def clean_renewal_date(self):
+        data = self.cleaned_data['renewal_date']
+
+        # Check date is not in past.
+        if data.replace(tzinfo=utc) < datetime.datetime.now().replace(tzinfo=utc):
+            raise ValidationError(_('Invalid date - renewal in past'))
+        # Check date is in range librarian allowed to change (+4 weeks)
+        if data.replace(tzinfo=utc) > datetime.datetime.now().replace(tzinfo=utc) + datetime.timedelta(weeks=4):
+            raise ValidationError(
+                _('Invalid date - renewal more than 4 weeks ahead'))
+
+        # Remember to always return the cleaned data.
+        return data
+
+
+class CreateT_Workpackage_Relevantinformation_Tobememorized_WithProposedWorkpackage_Form(forms.Form):
+    """Form to create T_Workpackage_Relevantinformation with proposed t_workpackage_id and t_week_target_id."""
+    week_target_wpritbmcreation = forms.ModelChoiceField(queryset=Author.objects.all(), label="Author", widget=forms.Select(), initial=0)
+    workpackage_wpritbmcreation = forms.ModelChoiceField(queryset=Book.objects.all(), label="Book", widget=forms.Select(), initial=0)
+#    target_group_question_wpritbmcreation = forms.CharField()
+    memorizable_workpackage_relevantinformation_tobememorized_wpritbmcreation = forms.CharField()
+    relevantinformation_comment_wpritbmcreation = forms.CharField(required=False)
+    is_workpackage_wpritbmcreation = forms.IntegerField(required=False)
 
     def clean_renewal_date(self):
         data = self.cleaned_data['renewal_date']
