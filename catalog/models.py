@@ -28,11 +28,29 @@ class Language(models.Model):
 
 
 
+class T_Memorization_Package_MP_Technique_Category(models.Model):
+    t_memorization_package_memory_palace_or_cards_technique_fk6 = models.ForeignKey('T_Memorization_Package_Memory_Palace_Or_Cards_Technique', on_delete=models.SET_NULL, null=True)
+    category_title = models.CharField(max_length=255, default='')   #1. Job 2. DHBW
+
+    class Meta:
+        ordering = ['category_title']
+        db_table = 't_memorization_package_mp_technique_category'
+
+    def get_absolute_url(self):
+        """Returns the url to access a particular t_memorization_package_mp_technique_category instance."""
+        return reverse('t_memorization_package_mp_technique_category-detail', args=[str(self.id)])
+
+    def __str__(self):
+        """String for representing the Model object."""
+        return self.category_title
+
+
 # class T_Week_Target(models.Model):
 class Author(models.Model):
     """Model representing an author."""
     t_memorization_package_memory_palace_or_cards_technique_fk = models.ForeignKey('T_Memorization_Package_Memory_Palace_Or_Cards_Technique', on_delete=models.SET_NULL, null=True)
     t_memory_palace_type_location_number = models.ForeignKey('T_Memory_Palace_Type_Location_Number', on_delete=models.SET_NULL, null=True)
+    t_memorization_package_mp_technique_category = models.ForeignKey('T_Memorization_Package_MP_Technique_Category', on_delete=models.SET_NULL, null=True)
     created_datetime = models.DateTimeField(null=True, blank=True)
     updated_datetime = models.DateTimeField(null=True, blank=True)
     date_frame_from_weekday = models.DateField(null=True, blank=True)
@@ -162,6 +180,8 @@ class Book(models.Model):
     created_datetime = models.DateTimeField(null=True, blank=True)
     updated_datetime = models.DateTimeField(null=True, blank=True)
     workpackage_title = models.CharField(max_length=200, default='')        #this value is a copy of T_Workpackage_Relevantinformation_Tobememorized.memorizable_workpackage_relevantinformation_tobememorized
+    is_included_in_memorization_package_creation = models.IntegerField(null=True, default=None)
+    is_separate_memory_palace = models.IntegerField(null=True, default=None)
     associated_email_subject = models.CharField(null=True, max_length=1000, default='')
     associated_email_received_datetime = models.DateTimeField(null=True, blank=True)
     associated_email_received_account = models.CharField(max_length=1000, default='')
@@ -238,7 +258,6 @@ class BookInstance(models.Model):
                           help_text="Unique ID for this particular book across whole library")
     book = models.ForeignKey('Book', on_delete=models.SET_NULL, null=True)
     t_information_item_tobeoperationalized = models.ForeignKey('T_Information_Item_Tobeoperationalized', on_delete=models.SET_NULL, null=True)
-    t_memorization_package_memory_palace_or_cards_technique_fk2 = models.ForeignKey('T_Memorization_Package_Memory_Palace_Or_Cards_Technique', on_delete=models.SET_NULL, null=True)
     t_memory_palace_type_location_number = models.ForeignKey('T_Memory_Palace_Type_Location_Number', on_delete=models.SET_NULL, null=True)
     created_datetime = models.DateTimeField(null=True, blank=True)
     updated_datetime = models.DateTimeField(null=True, blank=True)
@@ -247,6 +266,7 @@ class BookInstance(models.Model):
     relevantinformation_comment = models.CharField(max_length=2000, default='')
     memorization_sequence = models.IntegerField(null=True, default=None)
     memorization_sequence_is_fixed_because_memorized = models.IntegerField(null=True, default=None)
+    is_included_in_memorization_package_creation = models.IntegerField(null=True, default=None)
     is_workpackage = models.IntegerField(null=True, default=None)
 
 #Weitere zum Löschen:
