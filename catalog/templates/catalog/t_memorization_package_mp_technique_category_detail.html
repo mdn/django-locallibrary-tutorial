@@ -1,0 +1,19 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+<h1>Memorization Package Kategorie - Detail</h1>
+<p></p>
+<p><strong>{{ t_memorization_package_mp_technique_category.category_title }} </strong></p>
+
+<div style="margin-left:20px;margin-top:20px">
+<h4>Wochenziele</h4>
+
+{% for author in t_memorization_package_mp_technique_category.author_set.all %}
+<hr>
+<a href="{% url 'author-detail' author.pk %}">{{ author.memorizable_week_target }}</a>
+{% endfor %}
+
+</div>
+
+{% endblock %}
