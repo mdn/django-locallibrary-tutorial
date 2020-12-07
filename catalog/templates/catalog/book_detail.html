@@ -6,18 +6,13 @@
 <p>Title: {{ book.title }}</p>
 -->
 <h1>Arbeitspaket Detail</h1>   <!-- vorher: Book-Detail -->
-<p><strong>Plandauer:</strong> {{ book.plan_duration_mins }} Minuten </p>
-<p><strong>Due:</strong> {{ book.due_datetime }} </p>
-
-<p><strong>Work Readiness</strong></p>
-<p>Dateipfad: {{ book.filepath_for_readiness_enhancement }}</p> 
-<p>Hyperlink: {{ book.hyperlink_for_readiness_enhancement }}</p> 
-
-<p><strong>Email</strong></p>
-<p>Betreff: {{ book.associated_email_subject }} </p>
-<p>Erhalten am: {{ book.associated_email_received_datetime }} </p>
-<p>Account: {{ book.associated_email_received_account }}</p>
-<p><strong>Wochenziel:</strong> <a href="{% url 'author-detail' book.author.pk %}">{{ book.author }}</a></p>
+<p></p>
+<p><strong>Titel</strong> {{ book.workpackage_title }}</p>
+<p><strong>Wochenziel</strong> <a href="{% url 'author-detail' book.author.pk %}">{{ book.author }}</a></p>
+<p><strong>Plandauer</strong> {{ book.plan_duration_mins }} Minuten </p>
+<p><strong>Due</strong> {{ book.due_datetime }} </p>
+<p><strong>Pfad</strong> Datei: {{ book.filepath_for_readiness_enhancement }} Hyperlink: {{ book.hyperlink_for_readiness_enhancement }}</p> 
+<p><strong>Email </strong>Erhalten am: {{ book.associated_email_received_datetime }} Betreff: {{ book.associated_email_subject }} Account: {{ book.associated_email_received_account }}</p>
 <!--
 <p><strong>Summary:</strong> {{ book.summary }}</p>
 <p><strong>ISBN:</strong> {{ book.isbn }}</p> 
@@ -30,14 +25,15 @@
 {% for copy in book.bookinstance_set.all %}
 <hr>
 <p> {{copy.memorizable_workpackage_relevantinformation_tobememorized}}</p>
-<p><strong>Kommentar:</strong> {{copy.relevantinformation_comment}}</p>
-
+<font color="#b1b1b1"> {{copy.relevantinformation_comment}} </font>
+<p> {{ copy.t_memorization_package_memory_palace_or_cards_technique_fk2 }} </p>
 <!--Weitere zum Löschen:-->
+<!--
 <p class="{% if copy.status == 'a' %}text-success{% elif copy.status == 'd' %}text-danger{% else %}text-warning{% endif %}">{{ copy.get_status_display }}</p>
 {% if copy.status != 'a' %}<p><strong>Due to be returned:</strong> {{copy.due_back}}</p>{% endif %}
 <p>Imprint: {{copy.imprint}}</p>
 <p class="text-muted"><strong>Id:</strong> {{copy.id}}</p>
-
+-->
 {% endfor %}
 
 <p><a href="{% url 'bookinstance-create-proposed-workpackage' book.id %}">Neues Memorizable für dieses Arbeitspaket</a></p>
