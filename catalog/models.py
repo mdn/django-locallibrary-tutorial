@@ -29,7 +29,7 @@ class Language(models.Model):
 
 
 class T_Memorization_Package_MP_Technique_Category(models.Model):
-    t_memorization_package_memory_palace_or_cards_technique_fk6 = models.ForeignKey('T_Memorization_Package_Memory_Palace_Or_Cards_Technique', on_delete=models.SET_NULL, null=True)
+#    t_memorization_package_memory_palace_or_cards_technique_fk6 = models.ForeignKey('T_Memorization_Package_Memory_Palace_Or_Cards_Technique', on_delete=models.SET_NULL, null=True)
     category_title = models.CharField(max_length=255, default='')   #1. Job 2. DHBW
 
     class Meta:
@@ -564,6 +564,7 @@ class T_Conflict_Strategy_Category_Measure(models.Model):
 
 class T_Memorization_Package_Memory_Palace_Or_Cards_Technique(models.Model):
     t_memory_palace_type = models.ForeignKey('T_Memory_Palace_Type', on_delete=models.SET_NULL, null=True)
+    t_memorization_package_mp_technique_category = models.ForeignKey('T_Memorization_Package_MP_Technique_Category', on_delete=models.SET_NULL, null=True)
     created_datetime = models.DateTimeField(null=True, blank=True)
     updated_datetime = models.DateTimeField(null=True, blank=True)
     memorization_package_title = models.CharField(max_length=255, default='')

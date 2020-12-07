@@ -7,6 +7,17 @@
 <p><strong>{{ t_memorization_package_mp_technique_category.category_title }} </strong></p>
 
 <div style="margin-left:20px;margin-top:20px">
+
+<h4>Aktuelles Memorization Paket</h4>
+
+<dl>
+    {% for t_memorization_package_memory_palace_or_cards_technique in t_memorization_package_mp_technique_category.t_memorization_package_memory_palace_or_cards_technique_set.all %}
+      <dt><a href="{% url 't_memorization_package_memory_palace_or_cards_technique-detail' t_memorization_package_memory_palace_or_cards_technique.pk %}">{{t_memorization_package_memory_palace_or_cards_technique.memorization_package_title}}</a>
+    {% endfor %}
+    </dl>
+
+<p></p>
+
 <h4>Wochenziele</h4>
 
 {% for author in t_memorization_package_mp_technique_category.author_set.all %}
