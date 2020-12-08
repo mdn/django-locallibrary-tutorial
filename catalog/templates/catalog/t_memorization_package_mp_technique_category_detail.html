@@ -12,7 +12,9 @@
 
 <dl>
     {% for t_memorization_package_memory_palace_or_cards_technique in t_memorization_package_mp_technique_category.t_memorization_package_memory_palace_or_cards_technique_set.all %}
-      <dt><a href="{% url 't_memorization_package_memory_palace_or_cards_technique-detail' t_memorization_package_memory_palace_or_cards_technique.pk %}">{{t_memorization_package_memory_palace_or_cards_technique.memorization_package_title}}</a>
+        {% if forloop.last %}
+          <dt><a href="{% url 't_memorization_package_memory_palace_or_cards_technique-detail' t_memorization_package_memory_palace_or_cards_technique.pk %}">{{t_memorization_package_memory_palace_or_cards_technique.memorization_package_title}}</a>
+        {% endif %}
     {% endfor %}
     </dl>
 

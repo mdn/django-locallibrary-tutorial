@@ -576,7 +576,7 @@ class T_Memorization_Package_Memory_Palace_Or_Cards_Technique(models.Model):
     is_mct_t_information_item_tobeoperationalized = models.IntegerField(null=True, default=None)
 
     class Meta:
-        ordering = ['memorization_package_title']
+        ordering = ['created_datetime']
         db_table = 't_memorization_package_memory_palace_or_cards_technique'
 
     def get_absolute_url(self):
