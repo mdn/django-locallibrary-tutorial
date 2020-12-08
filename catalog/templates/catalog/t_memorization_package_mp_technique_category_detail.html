@@ -23,8 +23,10 @@
 <h4>Wochenziele (ToDo: An- und abwählen von Wochenzielen)</h4>
 
 {% for author in t_memorization_package_mp_technique_category.author_set.all %}
-<hr>
-<a href="{% url 'author-detail' author.pk %}">{{ author.memorizable_week_target }}</a>
+    <hr>
+    <a href="{% url 't_memory_palace_type_location_number-detail' author.t_memory_palace_type_location_number_id %}">{{ author.memorization_sequence }}</a> 
+    <a href="{% url 'author-detail' author.pk %}">{{ author.memorizable_week_target }}</a> 
+    
 {% endfor %}
 
 </div>
