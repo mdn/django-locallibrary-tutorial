@@ -24,7 +24,7 @@
 
 {% for copy in book.bookinstance_set.all %}
 <hr>
-<p> {{copy.memorizable_workpackage_relevantinformation_tobememorized}}</p>
+<a href="{% url 'bookinstance-detail' copy.pk %}">{{copy.memorizable_workpackage_relevantinformation_tobememorized}}</a>
 <font color="#b1b1b1"> {{copy.relevantinformation_comment}} </font>
 <!--Weitere zum Löschen:-->
 <!--

@@ -258,6 +258,7 @@ class BookInstance(models.Model):
                           help_text="Unique ID for this particular book across whole library")
     book = models.ForeignKey('Book', on_delete=models.SET_NULL, null=True)
     t_information_item_tobeoperationalized = models.ForeignKey('T_Information_Item_Tobeoperationalized', on_delete=models.SET_NULL, null=True)
+    t_memory_palace_type_location = models.ForeignKey('T_Memory_Palace_Type_Location', on_delete=models.SET_NULL, null=True)
     t_memory_palace_type_location_number = models.ForeignKey('T_Memory_Palace_Type_Location_Number', on_delete=models.SET_NULL, null=True)
     created_datetime = models.DateTimeField(null=True, blank=True)
     updated_datetime = models.DateTimeField(null=True, blank=True)

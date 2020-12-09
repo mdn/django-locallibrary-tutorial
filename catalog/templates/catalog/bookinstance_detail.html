@@ -1,0 +1,15 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+<h1>Arbeitspaket Memorizable Detail</h1>   <!-- vorher: Book-Detail -->
+<p></p>
+{% if bookinstance.is_workpackage == 1 %}
+    <p><strong>Arbeitspaketbeschreibung</strong></p>
+{% endif %}
+<p> {{ bookinstance.memorizable_workpackage_relevantinformation_tobememorized }}</p>
+<p><strong>Arbeitspaket</strong> <a href="{% url 'book-detail' bookinstance.book.pk %}">{{ bookinstance.book }}</a></p>
+<p><strong>Erstellungsdatum</strong> {{ bookinstance.created_datetime }}</p>
+<p><strong>Frage der Zielgruppe</strong> {{ bookinstance.target_group_question }}</p>
+<p><strong>Kommentar</strong> {{ bookinstance.relevantinformation_comment }}</p>
+{% endblock %}
