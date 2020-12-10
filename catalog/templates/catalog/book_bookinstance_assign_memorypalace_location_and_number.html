@@ -1,0 +1,31 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+<!--
+<p>Title: {{ book.title }}</p>
+-->
+<h1>Arbeitspaket Detail</h1>   <!-- vorher: Book-Detail -->
+<p></p>
+<p><strong>Titel</strong> {{ book.workpackage_title }}</p>
+<p><strong>Plandauer</strong> {{ book.plan_duration_mins }} Minuten </p>
+<p><strong>Due</strong> {{ book.due_datetime }} </p>
+<p><strong>Pfad</strong> Datei: {{ book.filepath_for_readiness_enhancement }} Hyperlink: {{ book.hyperlink_for_readiness_enhancement }}</p> 
+<p><strong>Email </strong>Erhalten am: {{ book.associated_email_received_datetime }} Betreff: {{ book.associated_email_subject }} Account: {{ book.associated_email_received_account }}</p>
+
+
+<div style="margin-left:20px;margin-top:20px">
+<h4>Memorizables assignment</h4>
+
+<p style="color:red">HIER WEITER: weitere Memorizables des Arbeitspakets hinzufügen (evtl. durch for-loop in View)</p>
+
+<form action="" method="post">
+    {% csrf_token %}
+    <table>
+    {{ form.as_table }}
+    </table>
+    <input type="submit" value="Submit" />
+</form>
+</div>
+{% endblock %}
+

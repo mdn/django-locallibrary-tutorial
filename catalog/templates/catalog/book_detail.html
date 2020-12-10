@@ -19,6 +19,8 @@
 <p><strong>Language:</strong> {{ book.language }}</p>  
 <p><strong>Genre:</strong> {{ book.genre.all|join:", " }}</p>
 -->
+<a href="{% url 'book-bookinstance-assign-memorypalace-location-and-number' book.pk %}">Assign</a>
+
 <div style="margin-left:20px;margin-top:20px">
 <h4>Memorizables</h4>
 
@@ -26,13 +28,7 @@
 <hr>
 <a href="{% url 'bookinstance-detail' copy.pk %}">{{copy.memorizable_workpackage_relevantinformation_tobememorized}}</a>
 <font color="#b1b1b1"> {{copy.relevantinformation_comment}} </font>
-<!--Weitere zum Löschen:-->
-<!--
-<p class="{% if copy.status == 'a' %}text-success{% elif copy.status == 'd' %}text-danger{% else %}text-warning{% endif %}">{{ copy.get_status_display }}</p>
-{% if copy.status != 'a' %}<p><strong>Due to be returned:</strong> {{copy.due_back}}</p>{% endif %}
-<p>Imprint: {{copy.imprint}}</p>
-<p class="text-muted"><strong>Id:</strong> {{copy.id}}</p>
--->
+<a href="{% url 'book-bookinstance-assign-memorypalace-location-and-number' copy.pk %}">{{copy.t_memory_palace_type_location_number.memory_palace_datapoint_description}}</a>
 {% endfor %}
 
 <p><a href="{% url 'bookinstance-create-proposed-workpackage' book.id %}">Neues Memorizable für dieses Arbeitspaket</a></p>

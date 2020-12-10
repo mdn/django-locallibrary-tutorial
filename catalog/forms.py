@@ -7,7 +7,7 @@ utc=pytz.UTC
 
 from django import forms
 from .widgets import XDSoftDateTimePickerInput
-from .models import T_Calendar, Author, Book
+from .models import T_Calendar, Author, Book, BookInstance
 
 class RenewBookForm(forms.Form):
     """Form for a librarian to renew books."""
@@ -68,6 +68,27 @@ class CreateT_Workpackage_Relevantinformation_Tobememorized_WithProposedWorkpack
     memorizable_workpackage_relevantinformation_tobememorized_wpritbmcreation = forms.CharField()
     relevantinformation_comment_wpritbmcreation = forms.CharField(required=False)
     is_workpackage_wpritbmcreation = forms.IntegerField(required=False)
+
+    def clean_renewal_date(self):
+        data = self.cleaned_data['renewal_date']
+
+        # Check date is not in past.
+        if data.replace(tzinfo=utc) < datetime.datetime.now().replace(tzinfo=utc):
+            raise ValidationError(_('Invalid date - renewal in past'))
+        # Check date is in range librarian allowed to change (+4 weeks)
+        if data.replace(tzinfo=utc) > datetime.datetime.now().replace(tzinfo=utc) + datetime.timedelta(weeks=4):
+            raise ValidationError(
+                _('Invalid date - renewal more than 4 weeks ahead'))
+
+        # Remember to always return the cleaned data.
+        return data
+
+
+class AssignT_Workpackage_Relevantinformation_Tobememorized_To_MemoryPalace_Location_And_Number_ForWorkpackage_Form(forms.Form):
+    """Form to assign a workpackage_relevantinformation to a memory palace location and number."""
+    workpackage_relevantinformation_tobememorized_memorization_sequence = forms.ModelChoiceField(queryset=BookInstance.objects.values_list('memorization_sequence', flat=True), label="Memorization sequence of workpackage relevant information to be memorized", widget=forms.Select(), initial=0)
+    workpackage_relevantinformation_tobememorized_t_memory_palace_type_location_id = forms.ModelChoiceField(queryset=BookInstance.objects.values_list('t_memory_palace_type_location_id', flat=True), label="Memory palace type location", widget=forms.Select(), initial=0)
+    workpackage_relevantinformation_tobememorized_t_memory_palace_type_location_number_id = forms.ModelChoiceField(queryset=BookInstance.objects.values_list('t_memory_palace_type_location_number_id', flat=True), label="Memory palace type location number", widget=forms.Select(), initial=0)
 
     def clean_renewal_date(self):
         data = self.cleaned_data['renewal_date']

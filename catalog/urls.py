@@ -91,9 +91,14 @@ urlpatterns += [
     path('book/<int:pk>/delete/', views.BookDelete.as_view(), name='book_delete'),
 ]
 
-# Add URLConf to create, update, and delete bookinstances
+# Add URLConf to create bookinstances
 urlpatterns += [
     path('bookinstance/<int:pk>/create/', views.bookinstance_create_proposed_workpackage, name='bookinstance-create-proposed-workpackage'),
+]
+
+# Add URLConf to assign bookinstances to memorypalace location and number
+urlpatterns += [
+    path('bookinstance/<int:pk>/assign/', views.book_bookinstance_assign_memorypalace_location_and_number, name='book-bookinstance-assign-memorypalace-location-and-number'),
 ]
 
 # Add URLConf to create, update, and delete t_category_tables
