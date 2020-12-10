@@ -1,0 +1,20 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+<h1>Memorization Package Assignment Typ - Detail</h1>
+<p></p>
+<p><strong>{{ t_memorization_package_mp_technique_assignmenttype.assignment_type_description }} </strong></p>
+
+<div style="margin-left:20px;margin-top:20px">
+
+<h4>Kategorien</h4>
+
+{% for category in t_memorization_package_mp_technique_assignmenttype.t_memorization_package_mp_technique_assignmenttype_category_set.all %}
+    <hr>
+    <a href="{% url 't_memorization_package_mp_technique_assignmenttype_category-detail' category.t_memorization_package_mp_technique_assignmenttype_id %}">{{ category.category_title }} </a> 
+    
+{% endfor %}
+
+</div>
+{% endblock %}
