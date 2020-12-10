@@ -3,12 +3,12 @@
 {% block content %}
     <h1>Memorization Package Kategorien</h1>
 
-    {% if t_memorization_package_mp_technique_category_list %}
+    {% if t_memorization_package_mp_technique_assignmenttype_category_list %}
     <ul>
 
-      {% for t_memorization_package_mp_technique_category in t_memorization_package_mp_technique_category_list %}
+      {% for t_memorization_package_mp_technique_assignmenttype_category in t_memorization_package_mp_technique_assignmenttype_category_list %}
       <li>
-        <a href="{{ t_memorization_package_mp_technique_category.get_absolute_url }}">{{ t_memorization_package_mp_technique_category.category_title }}</a>
+        <a href="{{ t_memorization_package_mp_technique_assignmenttype_category.get_absolute_url }}">{{ t_memorization_package_mp_technique_assignmenttype_category.category_title }}</a>
       </li>
       {% endfor %}
 

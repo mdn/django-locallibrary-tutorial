@@ -27,18 +27,34 @@ class Language(models.Model):
         return self.name
 
 
+class T_Memorization_Package_MP_Technique_Assignmenttype(models.Model):
+    assignment_type_description = models.CharField(max_length=1000, default='')   #e.g. Week targets and memorizables assigned to separate memory palaces
 
-class T_Memorization_Package_MP_Technique_Category(models.Model):
+    class Meta:
+        ordering = ['assignment_type_description']
+        db_table = 't_memorization_package_mp_technique_assignmenttype'
+
+    def get_absolute_url(self):
+        """Returns the url to access a particular t_memorization_package_mp_technique_assignmenttype instance."""
+        return reverse('t_memorization_package_mp_technique_assignmenttype-detail', args=[str(self.id)])
+
+    def __str__(self):
+        """String for representing the Model object."""
+        return self.assignment_type_description
+
+
+class T_Memorization_Package_MP_Technique_Assignmenttype_Category(models.Model):
 #    t_memorization_package_memory_palace_or_cards_technique_fk6 = models.ForeignKey('T_Memorization_Package_Memory_Palace_Or_Cards_Technique', on_delete=models.SET_NULL, null=True)
+    t_memorization_package_mp_technique_assignmenttype = models.ForeignKey('T_Memorization_Package_MP_Technique_Assignmenttype', on_delete=models.SET_NULL, null=True)
     category_title = models.CharField(max_length=255, default='')   #1. Job 2. DHBW
 
     class Meta:
         ordering = ['category_title']
-        db_table = 't_memorization_package_mp_technique_category'
+        db_table = 't_memorization_package_mp_technique_assignmenttype_category'
 
     def get_absolute_url(self):
-        """Returns the url to access a particular t_memorization_package_mp_technique_category instance."""
-        return reverse('t_memorization_package_mp_technique_category-detail', args=[str(self.id)])
+        """Returns the url to access a particular t_memorization_package_mp_technique_assignmenttype_category instance."""
+        return reverse('t_memorization_package_mp_technique_assignmenttype_category-detail', args=[str(self.id)])
 
     def __str__(self):
         """String for representing the Model object."""
@@ -50,7 +66,7 @@ class Author(models.Model):
     """Model representing an author."""
     t_memorization_package_memory_palace_or_cards_technique_fk = models.ForeignKey('T_Memorization_Package_Memory_Palace_Or_Cards_Technique', on_delete=models.SET_NULL, null=True)
     t_memory_palace_type_location_number = models.ForeignKey('T_Memory_Palace_Type_Location_Number', on_delete=models.SET_NULL, null=True)
-    t_memorization_package_mp_technique_category = models.ForeignKey('T_Memorization_Package_MP_Technique_Category', on_delete=models.SET_NULL, null=True)
+    t_memorization_package_mp_technique_assignmenttype_category = models.ForeignKey('T_Memorization_Package_MP_Technique_Assignmenttype_Category', on_delete=models.SET_NULL, null=True)
     created_datetime = models.DateTimeField(null=True, blank=True)
     updated_datetime = models.DateTimeField(null=True, blank=True)
     date_frame_from_weekday = models.DateField(null=True, blank=True)
@@ -565,7 +581,7 @@ class T_Conflict_Strategy_Category_Measure(models.Model):
 
 class T_Memorization_Package_Memory_Palace_Or_Cards_Technique(models.Model):
     t_memory_palace_type = models.ForeignKey('T_Memory_Palace_Type', on_delete=models.SET_NULL, null=True)
-    t_memorization_package_mp_technique_category = models.ForeignKey('T_Memorization_Package_MP_Technique_Category', on_delete=models.SET_NULL, null=True)
+    t_memorization_package_mp_technique_assignmenttype_category = models.ForeignKey('T_Memorization_Package_MP_Technique_Assignmenttype_Category', on_delete=models.SET_NULL, null=True)
     created_datetime = models.DateTimeField(null=True, blank=True)
     updated_datetime = models.DateTimeField(null=True, blank=True)
     memorization_package_title = models.CharField(max_length=255, default='')

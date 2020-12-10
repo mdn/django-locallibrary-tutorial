@@ -3,7 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
 
-from .models import Book, BookInstance, T_Workpackage_Actual_Duration_Timeseries, T_Memorization_Package_MP_Technique_Category, Author, T_Wt_Is_Excluded_From_Dt_Mp_Assignment_On_Weekday_Timeseries, T_Day_Target_Sequence_Timeseries, BookInstance, Genre, T_Calendar, T_Conflict, T_Ausatemmuskulatur_Isnot_Entspannt_Dueto_Strategyrefinemt, T_Ausatemmuskulatur_Strategyrefinement_Conflict_Phase, T_Conflict_Strategy_Category, T_Conflict_Strategy_Category_Measure, T_Information_Item_Tobeoperationalized, T_Information_Item_Tobeoperationalized_Memor_Timeseries, T_Information_Item_Tobeoperationalized_Memor_Timeseries_Act, T_Category_Table, T_Category_Table_Predicate_Asverb, T_Category_Table_Entry, T_Category_Timeseries, T_Memorization_Package_Memory_Palace_Or_Cards_Technique, T_Memory_Palace_Type, T_Memory_Palace_Type_Location, T_Memory_Palace_Type_Location_Packageassignment_Timeseries, T_Memory_Palace_Type_Location_Number, T_Memory_Palace_Type_Location_Daytime, T_Memory_Palace_Or_Cards_Memorization_Timeseries, T_Memory_Palace_Or_Cards_Memorization_Timeseries_Action
+from .models import Book, BookInstance, T_Workpackage_Actual_Duration_Timeseries, T_Memorization_Package_MP_Technique_Assignmenttype_Category, Author, T_Wt_Is_Excluded_From_Dt_Mp_Assignment_On_Weekday_Timeseries, T_Day_Target_Sequence_Timeseries, BookInstance, Genre, T_Calendar, T_Conflict, T_Ausatemmuskulatur_Isnot_Entspannt_Dueto_Strategyrefinemt, T_Ausatemmuskulatur_Strategyrefinement_Conflict_Phase, T_Conflict_Strategy_Category, T_Conflict_Strategy_Category_Measure, T_Information_Item_Tobeoperationalized, T_Information_Item_Tobeoperationalized_Memor_Timeseries, T_Information_Item_Tobeoperationalized_Memor_Timeseries_Act, T_Category_Table, T_Category_Table_Predicate_Asverb, T_Category_Table_Entry, T_Category_Timeseries, T_Memorization_Package_Memory_Palace_Or_Cards_Technique, T_Memory_Palace_Type, T_Memory_Palace_Type_Location, T_Memory_Palace_Type_Location_Packageassignment_Timeseries, T_Memory_Palace_Type_Location_Number, T_Memory_Palace_Type_Location_Daytime, T_Memory_Palace_Or_Cards_Memorization_Timeseries, T_Memory_Palace_Or_Cards_Memorization_Timeseries_Action
 
 
 def index(request):
@@ -55,14 +55,14 @@ class T_Workpackage_Actual_Duration_TimeseriesDetailView(LoginRequiredMixin, gen
     """Generic class-based detail view for a t_workpackage_actual_duration_timeseries."""
     model = T_Workpackage_Actual_Duration_Timeseries
 
-class T_Memorization_Package_MP_Technique_CategoryListView(LoginRequiredMixin, generic.ListView):
-    """Generic class-based list view for a list of t_memorization_package_mp_technique_categorys."""
-    model = T_Memorization_Package_MP_Technique_Category
+class T_Memorization_Package_MP_Technique_Assignmenttype_CategoryListView(LoginRequiredMixin, generic.ListView):
+    """Generic class-based list view for a list of t_memorization_package_mp_technique_assignmenttype_categorys."""
+    model = T_Memorization_Package_MP_Technique_Assignmenttype_Category
     paginate_by = 10
 
-class T_Memorization_Package_MP_Technique_CategoryDetailView(LoginRequiredMixin, generic .DetailView):
-    """Generic class-based detail view for an t_memorization_package_mp_technique_category."""
-    model = T_Memorization_Package_MP_Technique_Category
+class T_Memorization_Package_MP_Technique_Assignmenttype_CategoryDetailView(LoginRequiredMixin, generic .DetailView):
+    """Generic class-based detail view for an t_memorization_package_mp_technique_assignmenttype_category."""
+    model = T_Memorization_Package_MP_Technique_Assignmenttype_Category
 
 class AuthorListView(LoginRequiredMixin, generic.ListView):
     """Generic class-based list view for a list of authors."""
