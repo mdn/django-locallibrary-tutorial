@@ -98,9 +98,9 @@ urlpatterns += [
     path('bookinstance/<int:pk>/create/', views.bookinstance_create_proposed_workpackage, name='bookinstance-create-proposed-workpackage'),
 ]
 
-# Add URLConf to assign bookinstances to memorypalace location and number
+# Add URLConf to assign bookinstances to memorypalace location and number for specific workpackage
 urlpatterns += [
-    path('bookinstance/<int:pk>/assign/', views.book_bookinstance_assign_memorypalace_location_and_number, name='book-bookinstance-assign-memorypalace-location-and-number'),
+    path('bookinstance/<int:pk>/assign/', views.book_bookinstance_assign_memorypalace_location_and_number_for_specific_workpackage, name='book-bookinstance-assign-memorypalace-location-and-number-for-specific-workpackage'),
 ]
 
 # Add URLConf to create, update, and delete t_category_tables

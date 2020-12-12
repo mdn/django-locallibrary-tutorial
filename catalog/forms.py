@@ -84,7 +84,7 @@ class CreateT_Workpackage_Relevantinformation_Tobememorized_WithProposedWorkpack
         return data
 
 
-class AssignT_Workpackage_Relevantinformation_Tobememorized_To_MemoryPalace_Location_And_Number_ForWorkpackage_Form(forms.Form):
+class AssignT_Workpackage_Relevantinformation_Tobememorized_To_MemoryPalace_Location_And_Number_ForSpecificWorkpackage_Form(forms.Form):
     """Form to assign a workpackage_relevantinformation to a memory palace location and number."""
     workpackage_relevantinformation_tobememorized_memorization_sequence = forms.ModelChoiceField(queryset=BookInstance.objects.values_list('memorization_sequence', flat=True), label="Memorization sequence of workpackage relevant information to be memorized", widget=forms.Select(), initial=0)
     workpackage_relevantinformation_tobememorized_t_memory_palace_type_location_id = forms.ModelChoiceField(queryset=BookInstance.objects.values_list('t_memory_palace_type_location_id', flat=True), label="Memory palace type location", widget=forms.Select(), initial=0)
