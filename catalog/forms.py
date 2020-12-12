@@ -7,7 +7,7 @@ utc=pytz.UTC
 
 from django import forms
 from .widgets import XDSoftDateTimePickerInput
-from .models import T_Calendar, Author, Book, BookInstance
+from .models import T_Calendar, Author, Book, BookInstance, T_Conflict
 
 class RenewBookForm(forms.Form):
     """Form for a librarian to renew books."""
@@ -89,6 +89,30 @@ class AssignT_Workpackage_Relevantinformation_Tobememorized_To_MemoryPalace_Loca
     workpackage_relevantinformation_tobememorized_memorization_sequence = forms.ModelChoiceField(queryset=BookInstance.objects.values_list('memorization_sequence', flat=True), label="Memorization sequence of workpackage relevant information to be memorized", widget=forms.Select(), initial=0)
     workpackage_relevantinformation_tobememorized_t_memory_palace_type_location_id = forms.ModelChoiceField(queryset=BookInstance.objects.values_list('t_memory_palace_type_location_id', flat=True), label="Memory palace type location", widget=forms.Select(), initial=0)
     workpackage_relevantinformation_tobememorized_t_memory_palace_type_location_number_id = forms.ModelChoiceField(queryset=BookInstance.objects.values_list('t_memory_palace_type_location_number_id', flat=True), label="Memory palace type location number", widget=forms.Select(), initial=0)
+
+    def clean_renewal_date(self):
+        data = self.cleaned_data['renewal_date']
+
+        # Check date is not in past.
+        if data.replace(tzinfo=utc) < datetime.datetime.now().replace(tzinfo=utc):
+            raise ValidationError(_('Invalid date - renewal in past'))
+        # Check date is in range librarian allowed to change (+4 weeks)
+        if data.replace(tzinfo=utc) > datetime.datetime.now().replace(tzinfo=utc) + datetime.timedelta(weeks=4):
+            raise ValidationError(
+                _('Invalid date - renewal more than 4 weeks ahead'))
+
+        # Remember to always return the cleaned data.
+        return data
+
+
+class Assign_Memorizable_Set_To_Memorypalace_Locations_And_Numbers_Form(forms.Form):
+    """Form to assign a memorizable set to memory palace locations and their respective numbers."""
+    is_job_week_targets = forms.IntegerField()
+    is_job_workpackages_relevantinformation_tobememorized = forms.IntegerField()
+    is_private_week_targets = forms.IntegerField()
+    is_private_workpackages_relevantinformation_tobememorized = forms.IntegerField()
+    conflict_measures = forms.ModelChoiceField(queryset=T_Conflict.objects.values_list('general_conflict_konfliktgegenstand_titel', flat=True).order_by('id'), label="Konflikt auswählen", widget=forms.Select(), initial=0, empty_label='', required=False)
+
 
     def clean_renewal_date(self):
         data = self.cleaned_data['renewal_date']

@@ -384,7 +384,7 @@ def renew_book_librarian(request, pk):
     return render(request, 'catalog/book_renew_librarian.html', context)
 
 
-from catalog.forms import CreateWorkPackage_WithProposedWeekTarget_Form, CreateT_Workpackage_Relevantinformation_Tobememorized_WithProposedWorkpackage_Form, AssignT_Workpackage_Relevantinformation_Tobememorized_To_MemoryPalace_Location_And_Number_ForSpecificWorkpackage_Form
+from catalog.forms import CreateWorkPackage_WithProposedWeekTarget_Form, CreateT_Workpackage_Relevantinformation_Tobememorized_WithProposedWorkpackage_Form, AssignT_Workpackage_Relevantinformation_Tobememorized_To_MemoryPalace_Location_And_Number_ForSpecificWorkpackage_Form, Assign_Memorizable_Set_To_Memorypalace_Locations_And_Numbers_Form
 from django import forms
 
 @permission_required('catalog.can_mark_returned')
@@ -490,34 +490,13 @@ def bookinstance_create_proposed_workpackage(request, pk):
 
     return render(request, 'catalog/bookinstance_create_proposed_workpackage.html', context)
 
-from django.db.models import FilteredRelation, Q
+
 
 @permission_required('catalog.can_mark_returned')
 def book_bookinstance_assign_memorypalace_location_and_number_for_specific_workpackage(request, pk):
     """View function for assigning a workpackage_relevantinformation to a memory palace location and number."""
     t_workpackage_relevantinformation_tobememorized_tobeassigned = get_object_or_404(BookInstance, pk=pk)
-#    e = BookInstance.objects.select_related('book').get(pk=pk)
-#    f = BookInstance.objects.select_related('book__author').get(pk=1)
-#    g = BookInstance.objects.select_related('book__author')
-#    h = BookInstance.objects.all().prefetch_related('book_set', 'book__author_set').values()
-#    i = BookInstance.objects.filter(pk=1).select_related('book__author')
-#    j = BookInstance.objects.annotate(t=FilteredRelation('id_asinteger', condition=Q(id_asinteger__book=1))).filter(book_bookinstance__)
-#    k = BookInstance.objects.filter(book__bookinstance=1)
-#    n = BookInstance.objects.filter(book=1)
-#    o = BookInstance.objects.filter(book__author=3)
 
-    #Separate MP:
-    # memorizable_set_tobeassignedto_mp_locations
-    r = Author.objects.filter(t_memorization_package_mp_technique_assignmenttype_category__t_memorization_package_mp_technique_assignmenttype=1)
-    # memorizable_set_tobeassignedto_mp_locations
-    s = BookInstance.objects.filter(book__author__t_memorization_package_mp_technique_assignmenttype_category__t_memorization_package_mp_technique_assignmenttype=1).values('memorization_sequence', 'memorizable_workpackage_relevantinformation_tobememorized')
-
-    #Same MP:
-    # memorizable_set_tobeassignedto_mp_locations
-    q = Author.objects.filter(t_memorization_package_mp_technique_assignmenttype_category__t_memorization_package_mp_technique_assignmenttype=2)
-    p = BookInstance.objects.filter(book__author__t_memorization_package_mp_technique_assignmenttype_category__t_memorization_package_mp_technique_assignmenttype=2).values('memorization_sequence', 'memorizable_workpackage_relevantinformation_tobememorized')
-    
-    
 
     # If this is a POST request then process the Form data
     if request.method == 'POST':
@@ -557,6 +536,83 @@ def book_bookinstance_assign_memorypalace_location_and_number_for_specific_workp
     }
 
     return render(request, 'catalog/book_bookinstance_assign_memorypalace_location_and_number_for_specific_workpackage.html', context)
+
+
+#from django.db.models import FilteredRelation, Q
+
+@permission_required('catalog.can_mark_returned')
+def assign_memorizable_set_to_memorypalace_locations_and_numbers(request):
+    """View function for assigning a workpackage_relevantinformation to a memory palace location and number."""
+    #Separate MP:
+    # memorizable_set_tobeassignedto_mp_locations
+    memorizable_set_tobeassignedto_mp_locations__separate_memorypalace__week_target__object_list = Author.objects.filter(t_memorization_package_mp_technique_assignmenttype_category__t_memorization_package_mp_technique_assignmenttype=1) #.order_by(memorization_sequence)
+    # memorizable_set_tobeassignedto_mp_locations
+    memorizable_set_tobeassignedto_mp_locations__separate_memorypalace__workpackage_relevantinformation_tobememorized__object_list = BookInstance.objects.filter(book__author__t_memorization_package_mp_technique_assignmenttype_category__t_memorization_package_mp_technique_assignmenttype=1).values('memorization_sequence', 'memorizable_workpackage_relevantinformation_tobememorized')  #.order_by(memorization_sequence)
+
+    #Same MP:
+    # memorizable_set_tobeassignedto_mp_locations
+#    memorizable_set_tobeassignedto_mp_locations__same_memorypalace__week_target_and_workpackage_relevantinformation_tobememorized__object_list = 
+
+#    memorizable_set_tobeassignedto_mp_locations__same_memorypalace__week_target__object_list = Author.objects.filter(t_memorization_package_mp_technique_assignmenttype_category__t_memorization_package_mp_technique_assignmenttype=2).order_by(memorization_sequence)
+#    memorizable_set_tobeassignedto_mp_locations__same_memorypalace__workpackage_relevantinformation_tobememorized__object_list = BookInstance.objects.filter(book__author__t_memorization_package_mp_technique_assignmenttype_category__t_memorization_package_mp_technique_assignmenttype=2).values('memorization_sequence', 'memorizable_workpackage_relevantinformation_tobememorized').order_by(memorization_sequence)
+    
+    
+
+#    t_workpackage_relevantinformation_tobememorized_tobeassigned = get_object_or_404(BookInstance, pk=pk)
+
+#    e = BookInstance.objects.select_related('book').get(pk=pk)
+#    f = BookInstance.objects.select_related('book__author').get(pk=1)
+#    g = BookInstance.objects.select_related('book__author')
+#    h = BookInstance.objects.all().prefetch_related('book_set', 'book__author_set').values()
+#    i = BookInstance.objects.filter(pk=1).select_related('book__author')
+#    j = BookInstance.objects.annotate(t=FilteredRelation('id_asinteger', condition=Q(id_asinteger__book=1))).filter(book_bookinstance__)
+#    k = BookInstance.objects.filter(book__bookinstance=1)
+#    n = BookInstance.objects.filter(book=1)
+#    o = BookInstance.objects.filter(book__author=3)
+
+
+
+    # If this is a POST request then process the Form data
+    if request.method == 'POST':
+
+        # Create a form instance and populate it with data from the request (binding):
+        form = Assign_Memorizable_Set_To_Memorypalace_Locations_And_Numbers_Form(request.POST)
+
+        # Check if the form is valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required (here we just write it to the model due_back field)
+#            work_package.author_id = form.cleaned_data['week_target_workpackagecreation'].id
+#            t_workpackage_relevantinformation_tobememorized.book_id = pk
+#            t_workpackage_relevantinformation_tobememorized.created_datetime = datetime.datetime.now()
+#            t_workpackage_relevantinformation_tobememorized.target_group_question = form.cleaned_data['target_group_question_wpritbmcreation']
+#            t_workpackage_relevantinformation_tobememorized.memorizable_workpackage_relevantinformation_tobememorized = form.cleaned_data['memorizable_workpackage_relevantinformation_tobememorized_wpritbmcreation']
+#            t_workpackage_relevantinformation_tobememorized.relevantinformation_comment = form.cleaned_data['relevantinformation_comment_wpritbmcreation']
+#            t_workpackage_relevantinformation_tobememorized.is_workpackage = form.cleaned_data['is_workpackage_wpritbmcreation']
+#            t_workpackage_relevantinformation_tobememorized.save()
+
+            # redirect to a new URL:
+            return HttpResponseRedirect(reverse('books'))        #ToDo: will für das erste Arbeitspaket wieder auf der Übersicht mit Arbeitspaket UND relevanten AP-Informationen landen d.h. auf http://127.0.0.1:8000/catalog/book/1
+
+    # If this is a GET (or any other method) create the default form
+    else:
+#        workpackage_relevantinformation_tobememorized_proposed = BookInstance.objects.get(pk=pk)
+#        workpackage_relevantinformation_tobememorized_memorization_sequence_proposed = workpackage_relevantinformation_tobememorized_proposed.memorization_sequence
+#        workpackage_relevantinformation_tobememorized_t_memory_palace_type_location_id_proposed = workpackage_relevantinformation_tobememorized_proposed.t_memory_palace_type_location_id
+#        workpackage_relevantinformation_tobememorized_t_memory_palace_type_location_number_id_proposed = workpackage_relevantinformation_tobememorized_proposed.t_memory_palace_type_location_number_id
+
+#        workpackage_relevantinformation_tobememorized_t_memory_palace_type_location_id_proposed = t_memory_palace_type_location.objects.get(pk=workpackage_proposed.author_id)
+#        workpackage_relevantinformation_tobememorized_t_memory_palace_type_location_number_id_proposed = t_memory_palace_type_location_number.objects.get(pk=workpackage_proposed.author_id)
+        form = Assign_Memorizable_Set_To_Memorypalace_Locations_And_Numbers_Form()
+#        form = Assign_Memorizable_Set_To_Memorypalace_Locations_And_Numbers_Form(initial={'workpackage_relevantinformation_tobememorized_memorization_sequence': workpackage_relevantinformation_tobememorized_memorization_sequence_proposed, 'workpackage_relevantinformation_tobememorized_t_memory_palace_type_location_id': workpackage_relevantinformation_tobememorized_t_memory_palace_type_location_id_proposed, 'workpackage_relevantinformation_tobememorized_t_memory_palace_type_location_number_id': workpackage_relevantinformation_tobememorized_t_memory_palace_type_location_number_id_proposed})
+
+    context = {
+        'form': form,
+        'memorizable_set_tobeassignedto_mp_locations__separate_memorypalace__week_target__object_list': memorizable_set_tobeassignedto_mp_locations__separate_memorypalace__week_target__object_list,
+        'memorizable_set_tobeassignedto_mp_locations__separate_memorypalace__workpackage_relevantinformation_tobememorized__object_list': memorizable_set_tobeassignedto_mp_locations__separate_memorypalace__workpackage_relevantinformation_tobememorized__object_list,
+    }
+
+    return render(request, 'catalog/assign_memorizable_set_to_memorypalace_locations_and_numbers.html', context)
+
 
 
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
