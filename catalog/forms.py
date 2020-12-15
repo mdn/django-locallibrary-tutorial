@@ -7,7 +7,7 @@ utc=pytz.UTC
 
 from django import forms
 from .widgets import XDSoftDateTimePickerInput
-from .models import T_Calendar, Author, Book, BookInstance, T_Conflict
+from .models import T_Calendar, Author, Book, BookInstance, T_Conflict, T_Memory_Palace_Type_Location
 
 class RenewBookForm(forms.Form):
     """Form for a librarian to renew books."""
@@ -105,15 +105,33 @@ class AssignT_Workpackage_Relevantinformation_Tobememorized_To_MemoryPalace_Loca
         return data
 
 
+from django.db.models import Value, CharField, Count, Max, Min
+
 class Assign_Memorizable_Set_To_Memorypalace_Locations_And_Numbers_Form(forms.Form):
     """Form to assign a memorizable set to memory palace locations and their respective numbers."""
-    is_job_week_targets = forms.IntegerField()
-    is_job_workpackages_relevantinformation_tobememorized = forms.IntegerField()
-    is_private_week_targets = forms.IntegerField()
-    is_private_workpackages_relevantinformation_tobememorized = forms.IntegerField()
-    conflict_measures = forms.ModelChoiceField(queryset=T_Conflict.objects.values_list('general_conflict_konfliktgegenstand_titel', flat=True).order_by('id'), label="Konflikt auswählen", widget=forms.Select(), initial=0, empty_label='', required=False)
+#    is_job_week_targets = forms.IntegerField()
+#    is_job_workpackages_relevantinformation_tobememorized = forms.IntegerField()
+#    is_private_week_targets = forms.IntegerField()
+#    is_private_workpackages_relevantinformation_tobememorized = forms.IntegerField()
+#    conflict_measures = forms.ModelChoiceField(queryset=T_Conflict.objects.values_list('general_conflict_konfliktgegenstand_titel', flat=True).order_by('id'), label="Konflikt auswählen", widget=forms.Select(), initial=0, empty_label='', required=False)
+
+    #Separate MP:
+#    memorizable_set_tobeassignedto_mp_locations__separate_memorypalace__week_target__object_list = forms.ModelChoiceField(queryset=Author.objects.filter(t_memorization_package_mp_technique_assignmenttype_category__t_memorization_package_mp_technique_assignmenttype=1).values('memorization_sequence', 'memorizable_week_target', 't_memory_palace_type_location__memory_palace_type_location', 't_memory_palace_type_location_number__memory_palace_datapoint_description').order_by('memorization_sequence').annotate(origination_table=Value('t_week_target', output_field=CharField())).values_list('memorization_sequence', 'memorizable_week_target', 't_memory_palace_type_location__memory_palace_type_location', 't_memory_palace_type_location_number__memory_palace_datapoint_description', 'origination_table'), label="memorizable_set_tobeassignedto_mp_locations__separate_memorypalace__week_target", widget=forms.Select(), initial=0, empty_label='', required=False)
+    #Proposed memory palaces:
+###    assigned_memory_palace = T_Memory_Palace_Type_Location.objects.filter(t_memory_palace_type=1).order_by('id').annotate(number_of_memorypalace_datapoints_perlocation = Count('t_memory_palace_type_location_number', distinct=True)).annotate(lastusage_date = Max('t_memory_palace_type_location_packageassignment_timeseries__assignment_to_memorization_package_datetime')).values('memory_palace_type_location', 'number_of_memorypalace_datapoints_perlocation', 'lastusage_date')
+    assigned_memory_palace = forms.ModelChoiceField(T_Memory_Palace_Type_Location.objects.filter(t_memory_palace_type=1).order_by('id').annotate(number_of_memorypalace_datapoints_perlocation = Count('t_memory_palace_type_location_number', distinct=True)).annotate(lastusage_date = Max('t_memory_palace_type_location_packageassignment_timeseries__assignment_to_memorization_package_datetime')), label="assigned_memory_palace", widget=forms.Select(), initial=0)
+#    workpackage_wpritbmcreation = forms.ModelChoiceField(queryset=Book.objects.all(), label="Book", widget=forms.Select(), initial=0)
+#    test = assigned_memory_palace.values
+#    assigned_memory_palace_choices = [('')] + [(id.memory_palace_type_location) for id in assigned_memory_palace]
+#    a, b, c = assigned_memory_palace
+#    assigned_memory_palace_choices_form = forms.ChoiceField(assigned_memory_palace_choices, required=False, widget=forms.Select())
+##    assigned_memory_palace = forms.ModelChoiceField(queryset=T_Memory_Palace_Type_Location.objects.filter(t_memory_palace_type=1).values('memory_palace_type_location').order_by('id').annotate(number_of_memorypalace_datapoints_perlocation = Count('t_memory_palace_type_location_number', distinct=True)).annotate(lastusage_date = Max('t_memory_palace_type_location_packageassignment_timeseries__assignment_to_memorization_package_datetime')).values_list('memory_palace_type_location', 'number_of_memorypalace_datapoints_perlocation', 'lastusage_date'), label="assigned_memory_palace", widget=forms.Select(), initial=0, empty_label='', required=False)
+#    assigned_memory_palace_sss = forms.MultipleChoiceField(assigned_memory_palace, widget=forms.Select(), required=False)
+
+    a = 1
 
 
+    # ToDo: noch anpassen
     def clean_renewal_date(self):
         data = self.cleaned_data['renewal_date']
 

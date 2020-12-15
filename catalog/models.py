@@ -65,6 +65,7 @@ class T_Memorization_Package_MP_Technique_Assignmenttype_Category(models.Model):
 class Author(models.Model):
     """Model representing an author."""
     t_memorization_package_memory_palace_or_cards_technique_fk = models.ForeignKey('T_Memorization_Package_Memory_Palace_Or_Cards_Technique', on_delete=models.SET_NULL, null=True)
+    t_memory_palace_type_location = models.ForeignKey('T_Memory_Palace_Type_Location', on_delete=models.SET_NULL, null=True)
     t_memory_palace_type_location_number = models.ForeignKey('T_Memory_Palace_Type_Location_Number', on_delete=models.SET_NULL, null=True)
     t_memorization_package_mp_technique_assignmenttype_category = models.ForeignKey('T_Memorization_Package_MP_Technique_Assignmenttype_Category', on_delete=models.SET_NULL, null=True)
     created_datetime = models.DateTimeField(null=True, blank=True)
