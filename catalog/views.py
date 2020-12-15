@@ -611,12 +611,8 @@ def assign_memorizable_set_to_memorypalace_locations_and_numbers(request):
             
             #HIER WEITER: Relevante Wochenziele auswählen:
 
-            assigned_memory_palace = form.cleaned_data['assigned_memory_palace']
-            s = assigned_memory_palace.id
-#            q = memorizable_set_tobeassignedto_mp_locations__separate_memorypalace__week_target__object_list.t_memory_palace_type_location_id
-#            t.id = assigned_memory_palace.id
-            t.update(t_memory_palace_type_location_id=s)
-            r = t
+            t.update(t_memory_palace_type_location_id=form.cleaned_data['assigned_memory_palace'].id)
+
 #            work_package.author_id = form.cleaned_data['week_target_workpackagecreation'].id
 #            t_workpackage_relevantinformation_tobememorized.book_id = pk
 #            t_workpackage_relevantinformation_tobememorized.created_datetime = datetime.datetime.now()
