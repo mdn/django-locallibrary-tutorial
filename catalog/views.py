@@ -547,57 +547,8 @@ def assign_memorizable_set_to_memorypalace_locations_and_numbers(request):
     """View function for assigning a workpackage_relevantinformation to a memory palace location and number."""
     #Separate MP:
     memorizable_set_tobeassignedto_mp_locations__separate_memorypalace__week_target__object_list = Author.objects.filter(t_memorization_package_mp_technique_assignmenttype_category__t_memorization_package_mp_technique_assignmenttype=1).values('memorization_sequence', 'memorizable_week_target', 't_memory_palace_type_location__memory_palace_type_location', 't_memory_palace_type_location_number__memory_palace_datapoint_description').order_by('memorization_sequence').annotate(origination_table=Value('t_week_target', output_field=CharField())).values_list('memorization_sequence', 'memorizable_week_target', 't_memory_palace_type_location__memory_palace_type_location', 't_memory_palace_type_location_number__memory_palace_datapoint_description', 'origination_table')
-    t = Author.objects.filter(t_memorization_package_mp_technique_assignmenttype_category__t_memorization_package_mp_technique_assignmenttype=1)
-#    u = get_object_or_404(t)
-#    memorizable_set_tobeassignedto_mp_locations__separate_memorypalace__week_target__object_list = Author.objects.filter(t_memorization_package_mp_technique_assignmenttype_category__t_memorization_package_mp_technique_assignmenttype=1).values('memorization_sequence', 'memorizable_week_target', 't_memory_palace_type_location_id', 't_memory_palace_type_location_number_id').order_by('memorization_sequence').annotate(origination_table=Value('t_week_target', output_field=CharField()))
+    memorizable_objects_tobeassignedto_mp_locations__separate_memorypalace__week_target = Author.objects.filter(t_memorization_package_mp_technique_assignmenttype_category__t_memorization_package_mp_technique_assignmenttype=1)
     memorizable_set_tobeassignedto_mp_locations__separate_memorypalace__workpackage_relevantinformation_tobememorized__object_list = BookInstance.objects.filter(book__author__t_memorization_package_mp_technique_assignmenttype_category__t_memorization_package_mp_technique_assignmenttype=1).values('memorization_sequence', 'memorizable_workpackage_relevantinformation_tobememorized', 't_memory_palace_type_location_id', 't_memory_palace_type_location_number_id').order_by('memorization_sequence').annotate(origination_table=Value('t_workpackage_relevantinformation_tobememorized', output_field=CharField()))
-    
-
-    a = memorizable_set_tobeassignedto_mp_locations__separate_memorypalace__week_target__object_list
-    a_count = a.count()
-    b = memorizable_set_tobeassignedto_mp_locations__separate_memorypalace__workpackage_relevantinformation_tobememorized__object_list
-#    c = a.union(b).order_by('origination_table', 'memorization_sequence')
-#    d = c.values_list('memorization_sequence', 'memorizable_week_target', 't_memory_palace_type_location_id', 't_memory_palace_type_location_number_id', 'origination_table')
-#    f = d.count()
-#    h = c
-
-    #Proposed memory palaces:
-    proposed_memory_palaces__object_list = T_Memory_Palace_Type_Location.objects.filter(t_memory_palace_type=1).values('memory_palace_type_location').order_by('id')
-    g = proposed_memory_palaces__object_list.values_list('memory_palace_type_location')
-#    j = T_Memory_Palace_Type_Location.objects.filter(t_memory_palace_type=1).values('memory_palace_type_location').order_by('id').annotate(counti = Count('T_Memory_Palace_Type_Location__T_Memory_Palace_Type_Location_Number__t_memory_palace_type_location_number_id'))
-#    l = j
- #   k = l.values_list('memory_palace_type_location', counti)
-
-    #m soll in Form angezeigt werden:
-    m = T_Memory_Palace_Type_Location.objects.filter(t_memory_palace_type=1).values('memory_palace_type_location').order_by('id').annotate(number_of_memorypalace_datapoints_perlocation = Count('t_memory_palace_type_location_number', distinct=True)).annotate(lastusage_date = Max('t_memory_palace_type_location_packageassignment_timeseries__assignment_to_memorization_package_datetime'))
-    i = m.values_list('memory_palace_type_location', 'number_of_memorypalace_datapoints_perlocation', 'lastusage_date')
-
-    #Initialer Wert:
-    n = m.aggregate(Min('lastusage_date'))
-    o = n
-
-    #Same MP:
-    # memorizable_set_tobeassignedto_mp_locations
-#    memorizable_set_tobeassignedto_mp_locations__same_memorypalace__week_target_and_workpackage_relevantinformation_tobememorized__object_list = 
-
-#    memorizable_set_tobeassignedto_mp_locations__same_memorypalace__week_target__object_list = Author.objects.filter(t_memorization_package_mp_technique_assignmenttype_category__t_memorization_package_mp_technique_assignmenttype=2).order_by(memorization_sequence)
-#    memorizable_set_tobeassignedto_mp_locations__same_memorypalace__workpackage_relevantinformation_tobememorized__object_list = BookInstance.objects.filter(book__author__t_memorization_package_mp_technique_assignmenttype_category__t_memorization_package_mp_technique_assignmenttype=2).values('memorization_sequence', 'memorizable_workpackage_relevantinformation_tobememorized').order_by(memorization_sequence)
-    
-    
-
-#    t_workpackage_relevantinformation_tobememorized_tobeassigned = get_object_or_404(BookInstance, pk=pk)
-
-#    e = BookInstance.objects.select_related('book').get(pk=pk)
-#    f = BookInstance.objects.select_related('book__author').get(pk=1)
-#    g = BookInstance.objects.select_related('book__author')
-#    h = BookInstance.objects.all().prefetch_related('book_set', 'book__author_set').values()
-#    i = BookInstance.objects.filter(pk=1).select_related('book__author')
-#    j = BookInstance.objects.annotate(t=FilteredRelation('id_asinteger', condition=Q(id_asinteger__book=1))).filter(book_bookinstance__)
-#    k = BookInstance.objects.filter(book__bookinstance=1)
-#    n = BookInstance.objects.filter(book=1)
-#    o = BookInstance.objects.filter(book__author=3)
-
-
 
     # If this is a POST request then process the Form data
     if request.method == 'POST':
@@ -608,34 +559,34 @@ def assign_memorizable_set_to_memorypalace_locations_and_numbers(request):
         # Check if the form is valid:
         if form.is_valid():
             # process the data in form.cleaned_data as required (here we just write it to the model due_back field)
+            assigned_memory_palace_fromform_first = form.cleaned_data['assigned_memory_palace_first']
+            assigned_memory_palace_fromform_second = form.cleaned_data['assigned_memory_palace_second']
+            maximum_capacity_assigned_memory_palace_fromform_first = assigned_memory_palace_fromform_first.number_of_memorypalace_datapoints_perlocation        #.annotate(abc = Max('t_memory_palace_type_location_number__memory_palace_number'))
+            maximum_capacity_assigned_memory_palace_fromform_second = assigned_memory_palace_fromform_second.number_of_memorypalace_datapoints_perlocation        #.annotate(abc = Max('t_memory_palace_type_location_number__memory_palace_number'))
             
-            #HIER WEITER: Relevante Wochenziele auswählen:
-
-            t.update(t_memory_palace_type_location_id=form.cleaned_data['assigned_memory_palace'].id)
-
-#            work_package.author_id = form.cleaned_data['week_target_workpackagecreation'].id
-#            t_workpackage_relevantinformation_tobememorized.book_id = pk
-#            t_workpackage_relevantinformation_tobememorized.created_datetime = datetime.datetime.now()
-#            t_workpackage_relevantinformation_tobememorized.target_group_question = form.cleaned_data['target_group_question_wpritbmcreation']
-#            t_workpackage_relevantinformation_tobememorized.memorizable_workpackage_relevantinformation_tobememorized = form.cleaned_data['memorizable_workpackage_relevantinformation_tobememorized_wpritbmcreation']
-#            t_workpackage_relevantinformation_tobememorized.relevantinformation_comment = form.cleaned_data['relevantinformation_comment_wpritbmcreation']
-#            t_workpackage_relevantinformation_tobememorized.is_workpackage = form.cleaned_data['is_workpackage_wpritbmcreation']
-#            t_workpackage_relevantinformation_tobememorized.save()
+            #Initialize and start for-loop:
+            i = 1
+            for mem in memorizable_objects_tobeassignedto_mp_locations__separate_memorypalace__week_target:
+                if mem.memorization_sequence <= maximum_capacity_assigned_memory_palace_fromform_first:
+                    mem.t_memory_palace_type_location_id = assigned_memory_palace_fromform_first.id
+                    mem.t_memory_palace_type_location_number_id = T_Memory_Palace_Type_Location_Number.objects.get(t_memory_palace_type_location_id = assigned_memory_palace_fromform_first.id, memory_palace_number = i).id
+                    mem.save()
+                    i+=1
+                else:
+                    mem.t_memory_palace_type_location_id = assigned_memory_palace_fromform_second
+                    mem.t_memory_palace_type_location_number_id = T_Memory_Palace_Type_Location_Number.objects.get(t_memory_palace_type_location_id = assigned_memory_palace_fromform_second.id, memory_palace_number = i - maximum_capacity_assigned_memory_palace_fromform_first).id
+                    mem.save()
+                    i+=1
 
             # redirect to a new URL:
-            return HttpResponseRedirect(reverse('assign_memorizables_set_to_memorypalace_locations_and_numbers'))        #ToDo: will für das erste Arbeitspaket wieder auf der Übersicht mit Arbeitspaket UND relevanten AP-Informationen landen d.h. auf http://127.0.0.1:8000/catalog/book/1
+            return HttpResponseRedirect(reverse('assign_memorizables_set_to_memorypalace_locations_and_numbers'))
 
     # If this is a GET (or any other method) create the default form
     else:
-#        workpackage_relevantinformation_tobememorized_proposed = BookInstance.objects.get(pk=pk)
-#        workpackage_relevantinformation_tobememorized_memorization_sequence_proposed = workpackage_relevantinformation_tobememorized_proposed.memorization_sequence
-#        workpackage_relevantinformation_tobememorized_t_memory_palace_type_location_id_proposed = workpackage_relevantinformation_tobememorized_proposed.t_memory_palace_type_location_id
-#        workpackage_relevantinformation_tobememorized_t_memory_palace_type_location_number_id_proposed = workpackage_relevantinformation_tobememorized_proposed.t_memory_palace_type_location_number_id
+        assigned_memory_palace_proposed_first = T_Memory_Palace_Type_Location.objects.filter(t_memory_palace_type=1).annotate(number_of_memorypalace_datapoints_perlocation = Count('t_memory_palace_type_location_number', distinct=True)).annotate(lastusage_date = Max('t_memory_palace_type_location_packageassignment_timeseries__assignment_to_memorization_package_datetime')).order_by('lastusage_date')[0]
+        assigned_memory_palace_proposed_second = T_Memory_Palace_Type_Location.objects.filter(t_memory_palace_type=1).annotate(number_of_memorypalace_datapoints_perlocation = Count('t_memory_palace_type_location_number', distinct=True)).annotate(lastusage_date = Max('t_memory_palace_type_location_packageassignment_timeseries__assignment_to_memorization_package_datetime')).order_by('lastusage_date')[1]
 
-#        workpackage_relevantinformation_tobememorized_t_memory_palace_type_location_id_proposed = t_memory_palace_type_location.objects.get(pk=workpackage_proposed.author_id)
-#        workpackage_relevantinformation_tobememorized_t_memory_palace_type_location_number_id_proposed = t_memory_palace_type_location_number.objects.get(pk=workpackage_proposed.author_id)
-        form = Assign_Memorizable_Set_To_Memorypalace_Locations_And_Numbers_Form()
-#        form = Assign_Memorizable_Set_To_Memorypalace_Locations_And_Numbers_Form(initial={'workpackage_relevantinformation_tobememorized_memorization_sequence': workpackage_relevantinformation_tobememorized_memorization_sequence_proposed, 'workpackage_relevantinformation_tobememorized_t_memory_palace_type_location_id': workpackage_relevantinformation_tobememorized_t_memory_palace_type_location_id_proposed, 'workpackage_relevantinformation_tobememorized_t_memory_palace_type_location_number_id': workpackage_relevantinformation_tobememorized_t_memory_palace_type_location_number_id_proposed})
+        form = Assign_Memorizable_Set_To_Memorypalace_Locations_And_Numbers_Form(initial={'assigned_memory_palace_first': assigned_memory_palace_proposed_first,'assigned_memory_palace_second': assigned_memory_palace_proposed_second})
 
     context = {
         'form': form,
