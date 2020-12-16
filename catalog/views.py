@@ -546,9 +546,9 @@ from django.db.models import Value, CharField, Count, Max, Min
 def assign_memorizable_set_to_memorypalace_locations_and_numbers(request):
     """View function for assigning a workpackage_relevantinformation to a memory palace location and number."""
     #Separate MP:
-    memorizable_set_tobeassignedto_mp_locations__separate_memorypalace__week_target__object_list = Author.objects.filter(t_memorization_package_mp_technique_assignmenttype_category__t_memorization_package_mp_technique_assignmenttype=1).values('memorization_sequence', 'memorizable_week_target', 't_memory_palace_type_location__memory_palace_type_location', 't_memory_palace_type_location_number__memory_palace_datapoint_description').order_by('memorization_sequence').annotate(origination_table=Value('t_week_target', output_field=CharField())).values_list('memorization_sequence', 'memorizable_week_target', 't_memory_palace_type_location__memory_palace_type_location', 't_memory_palace_type_location_number__memory_palace_datapoint_description', 'origination_table')
+#    memorizable_set_tobeassignedto_mp_locations__separate_memorypalace__week_target__object_list = Author.objects.filter(t_memorization_package_mp_technique_assignmenttype_category__t_memorization_package_mp_technique_assignmenttype=1).values('memorization_sequence', 'memorizable_week_target', 't_memory_palace_type_location__memory_palace_type_location', 't_memory_palace_type_location_number__memory_palace_datapoint_description').order_by('memorization_sequence').annotate(origination_table=Value('t_week_target', output_field=CharField())).values_list('memorization_sequence', 'memorizable_week_target', 't_memory_palace_type_location__memory_palace_type_location', 't_memory_palace_type_location_number__memory_palace_datapoint_description', 'origination_table')
     memorizable_objects_tobeassignedto_mp_locations__separate_memorypalace__week_target = Author.objects.filter(t_memorization_package_mp_technique_assignmenttype_category__t_memorization_package_mp_technique_assignmenttype=1)
-    memorizable_set_tobeassignedto_mp_locations__separate_memorypalace__workpackage_relevantinformation_tobememorized__object_list = BookInstance.objects.filter(book__author__t_memorization_package_mp_technique_assignmenttype_category__t_memorization_package_mp_technique_assignmenttype=1).values('memorization_sequence', 'memorizable_workpackage_relevantinformation_tobememorized', 't_memory_palace_type_location_id', 't_memory_palace_type_location_number_id').order_by('memorization_sequence').annotate(origination_table=Value('t_workpackage_relevantinformation_tobememorized', output_field=CharField()))
+#    memorizable_set_tobeassignedto_mp_locations__separate_memorypalace__workpackage_relevantinformation_tobememorized__object_list = BookInstance.objects.filter(book__author__t_memorization_package_mp_technique_assignmenttype_category__t_memorization_package_mp_technique_assignmenttype=1).values('memorization_sequence', 'memorizable_workpackage_relevantinformation_tobememorized', 't_memory_palace_type_location_id', 't_memory_palace_type_location_number_id').order_by('memorization_sequence').annotate(origination_table=Value('t_workpackage_relevantinformation_tobememorized', output_field=CharField()))
 
     # If this is a POST request then process the Form data
     if request.method == 'POST':
@@ -590,8 +590,8 @@ def assign_memorizable_set_to_memorypalace_locations_and_numbers(request):
 
     context = {
         'form': form,
-        'memorizable_set_tobeassignedto_mp_locations__separate_memorypalace__week_target__object_list': memorizable_set_tobeassignedto_mp_locations__separate_memorypalace__week_target__object_list,
-        'memorizable_set_tobeassignedto_mp_locations__separate_memorypalace__workpackage_relevantinformation_tobememorized__object_list': memorizable_set_tobeassignedto_mp_locations__separate_memorypalace__workpackage_relevantinformation_tobememorized__object_list,
+#        'memorizable_set_tobeassignedto_mp_locations__separate_memorypalace__week_target__object_list': memorizable_set_tobeassignedto_mp_locations__separate_memorypalace__week_target__object_list,
+#        'memorizable_set_tobeassignedto_mp_locations__separate_memorypalace__workpackage_relevantinformation_tobememorized__object_list': memorizable_set_tobeassignedto_mp_locations__separate_memorypalace__workpackage_relevantinformation_tobememorized__object_list,
     }
 
     return render(request, 'catalog/assign_memorizable_set_to_memorypalace_locations_and_numbers.html', context)
