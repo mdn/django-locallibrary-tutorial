@@ -27,25 +27,25 @@ class Language(models.Model):
         return self.name
 
 
-class T_Memorization_Package_MP_Technique_Assignmenttype(models.Model):
-    assignment_type_description = models.CharField(max_length=1000, default='')   #e.g. Week targets and memorizables assigned to separate memory palaces
+#class T_Memorization_Package_MP_Technique_Assignmenttype(models.Model):
+#    assignment_type_description = models.CharField(max_length=1000, default='')   #e.g. Week targets and memorizables assigned to separate memory palaces
 
-    class Meta:
-        ordering = ['assignment_type_description']
-        db_table = 't_memorization_package_mp_technique_assignmenttype'
+#    class Meta:
+#        ordering = ['assignment_type_description']
+#        db_table = 't_memorization_package_mp_technique_assignmenttype'
 
-    def get_absolute_url(self):
-        """Returns the url to access a particular t_memorization_package_mp_technique_assignmenttype instance."""
-        return reverse('t_memorization_package_mp_technique_assignmenttype-detail', args=[str(self.id)])
+#    def get_absolute_url(self):
+#        """Returns the url to access a particular t_memorization_package_mp_technique_assignmenttype instance."""
+#        return reverse('t_memorization_package_mp_technique_assignmenttype-detail', args=[str(self.id)])
 
-    def __str__(self):
-        """String for representing the Model object."""
-        return self.assignment_type_description
+#    def __str__(self):
+#        """String for representing the Model object."""
+#        return self.assignment_type_description
 
 
 class T_Memorization_Package_MP_Technique_Assignmenttype_Category(models.Model):
 #    t_memorization_package_memory_palace_or_cards_technique_fk6 = models.ForeignKey('T_Memorization_Package_Memory_Palace_Or_Cards_Technique', on_delete=models.SET_NULL, null=True)
-    t_memorization_package_mp_technique_assignmenttype = models.ForeignKey('T_Memorization_Package_MP_Technique_Assignmenttype', on_delete=models.SET_NULL, null=True)
+#    t_memorization_package_mp_technique_assignmenttype = models.ForeignKey('T_Memorization_Package_MP_Technique_Assignmenttype', on_delete=models.SET_NULL, null=True)
     category_title = models.CharField(max_length=255, default='')   #1. Job 2. DHBW
 
     class Meta:
