@@ -103,7 +103,9 @@ urlpatterns += [
 
 # Add URLConf to assign memorizable set to memorypalace location and numbers
 urlpatterns += [
-    path('assign_memorizables_set_to_memorypalace_locations_and_numbers/', views.assign_memorizable_set_to_memorypalace_locations_and_numbers, name='assign_memorizables_set_to_memorypalace_locations_and_numbers'),
+    path('bbb/<int:pk>/assign/', views.aaa, name='assign-memorizables-set-to-memorypalace-locations-and-numbers'),
+#bbb=assign_memorizables_set_to_memorypalace_locations_and_numbers
+#aaa=assign_memorizable_set_to_memorypalace_locations_and_numbers
 ]
 
 

@@ -8,7 +8,7 @@
 
       {% for t_memorization_package_mp_technique_assignmenttype_category in t_memorization_package_mp_technique_assignmenttype_category_list %}
       <li>
-        <a href="{{ t_memorization_package_mp_technique_assignmenttype_category.get_absolute_url }}">{{ t_memorization_package_mp_technique_assignmenttype_category.category_title }}</a>
+        <a href="{% url 't_memorization_package_mp_technique_assignmenttype_category-detail' t_memorization_package_mp_technique_assignmenttype_category.id %}">{{ t_memorization_package_mp_technique_assignmenttype_category.category_title }}</a>
       </li>
       {% endfor %}
 
