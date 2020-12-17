@@ -580,7 +580,7 @@ def aaa(request, pk):
                     i+=1
 
             # redirect to a new URL:
-            return HttpResponseRedirect(reverse('t_memorization_package_mp_technique_assignmenttype_category-detail', kwargs={'pk': pk}))
+            return HttpResponseRedirect(reverse('assign-memorizables-set-to-memorypalace-locations-and-numbers', kwargs={'pk': pk}))
 #books=assign_memorizables_set_to_memorypalace_locations_and_numbers
     # If this is a GET (or any other method) create the default form
     else:
@@ -591,6 +591,7 @@ def aaa(request, pk):
 
     context = {
         'form': form,
+        'context_week_targets': memorizable_objects_tobeassignedto_mp_locations__separate_memorypalace__week_target
 #        'memorizable_set_tobeassignedto_mp_locations__separate_memorypalace__week_target__object_list': memorizable_set_tobeassignedto_mp_locations__separate_memorypalace__week_target__object_list,
 #        'memorizable_set_tobeassignedto_mp_locations__separate_memorypalace__workpackage_relevantinformation_tobememorized__object_list': memorizable_set_tobeassignedto_mp_locations__separate_memorypalace__workpackage_relevantinformation_tobememorized__object_list,
     }

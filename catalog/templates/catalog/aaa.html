@@ -2,7 +2,16 @@
 
 {% block content %}
 
-<h1>Assign memorizable set to memorypalace locations and respective numbers</h1>
+<h1>Memorization Package Kategorie - GP zuordnen</h1>
+
+<h4>Wochenziele</h4>
+
+{% for mem in context_week_targets %}
+    <dd><a href="{% url 'author-detail' mem.pk %}">{{ mem.memorizable_week_target }}</a> ({{mem.t_memory_palace_type_location_number.memory_palace_datapoint_description}})</dd>
+{% endfor %}
+
+
+<div style="margin-left:20px;margin-top:20px">
 
 <form action="" method="post">
     {% csrf_token %}
@@ -11,6 +20,8 @@
     </table>
     <input type="submit" value="Submit" />
 </form>
+
+</div>
 
 {% endblock %}
 
