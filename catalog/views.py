@@ -538,13 +538,11 @@ def book_bookinstance_assign_memorypalace_location_and_number_for_specific_workp
     return render(request, 'catalog/book_bookinstance_assign_memorypalace_location_and_number_for_specific_workpackage.html', context)
 
 
-#from django.db.models import FilteredRelation, Q
-#from itertools import chain
+
 from django.db.models import Value, CharField, Count, Max, Min
 
 @permission_required('catalog.can_mark_returned')
-def aaa(request, pk):
-#aaa=assign_memorizable_set_to_memorypalace_locations_and_numbers
+def assign_memorizables_to_mp_locations_and_numbers_week_target_fixed_category(request, pk):
     """View function for assigning a week_target to a memory palace location and number."""
     #Separate MP:
 #    memorizable_set_tobeassignedto_mp_locations__separate_memorypalace__week_target__object_list = Author.objects.filter(t_memorization_package_mp_technique_assignmenttype_category__t_memorization_package_mp_technique_assignmenttype=1).values('memorization_sequence', 'memorizable_week_target', 't_memory_palace_type_location__memory_palace_type_location', 't_memory_palace_type_location_number__memory_palace_datapoint_description').order_by('memorization_sequence').annotate(origination_table=Value('t_week_target', output_field=CharField())).values_list('memorization_sequence', 'memorizable_week_target', 't_memory_palace_type_location__memory_palace_type_location', 't_memory_palace_type_location_number__memory_palace_datapoint_description', 'origination_table')
@@ -580,8 +578,7 @@ def aaa(request, pk):
                     i+=1
 
             # redirect to a new URL:
-            return HttpResponseRedirect(reverse('assign-memorizables-set-to-memorypalace-locations-and-numbers', kwargs={'pk': pk}))
-#books=assign_memorizables_set_to_memorypalace_locations_and_numbers
+            return HttpResponseRedirect(reverse('assign-memorizables-to-mp-locations-and-numbers-week-target-fixed-category', kwargs={'pk': pk}))
     # If this is a GET (or any other method) create the default form
     else:
         assigned_memory_palace_proposed_first = T_Memory_Palace_Type_Location.objects.filter(t_memory_palace_type=1).annotate(number_of_memorypalace_datapoints_perlocation = Count('t_memory_palace_type_location_number', distinct=True)).annotate(lastusage_date = Max('t_memory_palace_type_location_packageassignment_timeseries__assignment_to_memorization_package_datetime')).order_by('lastusage_date')[0]
@@ -594,8 +591,7 @@ def aaa(request, pk):
         'context_week_targets': memorizable_objects_tobeassignedto_mp_locations__separate_memorypalace__week_target
     }
 
-    return render(request, 'catalog/aaa.html', context)
-#aaa=assign_memorizable_set_to_memorypalace_locations_and_numbers
+    return render(request, 'catalog/assign_memorizables_to_mp_locations_and_numbers_week_target_fixed_category.html', context)
 
 
 import sys
@@ -684,7 +680,6 @@ def assign_memorizables_to_mp_locations_and_numbers_workpackage_relevantinformat
 
             # redirect to a new URL:
             return HttpResponseRedirect(reverse('assign-memorizables-to-mp-locations-and-numbers-workpackage-relevantinformation-tobememorized-fixed-category', kwargs={'pk': pk}))
-#books=assign_memorizables_set_to_memorypalace_locations_and_numbers
     # If this is a GET (or any other method) create the default form
     else:
         assigned_memory_palace_proposed_first = T_Memory_Palace_Type_Location.objects.filter(t_memory_palace_type=1).annotate(number_of_memorypalace_datapoints_perlocation = Count('t_memory_palace_type_location_number', distinct=True)).annotate(lastusage_date = Max('t_memory_palace_type_location_packageassignment_timeseries__assignment_to_memorization_package_datetime')).order_by('lastusage_date')[0]
