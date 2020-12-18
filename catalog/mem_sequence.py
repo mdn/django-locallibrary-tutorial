@@ -1,7 +1,7 @@
-def calculate_memorization_sequence_workpackage_relevantinformation_tobememorized(request):
+#def calculate_memorization_sequence_workpackage_relevantinformation_tobememorized(request):
     """Function to calculate memorization sequence for t_workpackage_relevantinformation_tobememorized"""
     
-    
 
 
-    return 1
+
+#    return 1
