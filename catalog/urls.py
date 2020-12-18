@@ -101,13 +101,17 @@ urlpatterns += [
     path('bookinstance/<int:pk>/assign/', views.book_bookinstance_assign_memorypalace_location_and_number_for_specific_workpackage, name='book-bookinstance-assign-memorypalace-location-and-number-for-specific-workpackage'),
 ]
 
-# Add URLConf to assign memorizable set to memorypalace location and numbers
+# Add URLConf to assign memorizable set (week_targets) to memorypalace location and numbers
 urlpatterns += [
     path('bbb/<int:pk>/assign/', views.aaa, name='assign-memorizables-set-to-memorypalace-locations-and-numbers'),
 #bbb=assign_memorizables_set_to_memorypalace_locations_and_numbers
 #aaa=assign_memorizable_set_to_memorypalace_locations_and_numbers
 ]
 
+# Add URLConf to assign memorizable set (relevant_information_tobememorized) to memorypalace location and numbers
+urlpatterns += [
+    path('workpackage_relevantinformation/<int:pk>/assign/', views.assign_memorizables_to_mp_locations_and_numbers_workpackage_relevantinformation_tobememorized_fixed_category, name='assign-memorizables-to-mp-locations-and-numbers-workpackage-relevantinformation-tobememorized-fixed-category'),
+]
 
 # Add URLConf to create, update, and delete t_category_tables
 urlpatterns += [

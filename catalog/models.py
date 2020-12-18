@@ -197,7 +197,7 @@ class Book(models.Model):
     created_datetime = models.DateTimeField(null=True, blank=True)
     updated_datetime = models.DateTimeField(null=True, blank=True)
     workpackage_title = models.CharField(max_length=200, default='')        #this value is a copy of T_Workpackage_Relevantinformation_Tobememorized.memorizable_workpackage_relevantinformation_tobememorized
-    is_included_in_memorization_package_creation = models.IntegerField(null=True, default=None)
+    is_excluded_from_memorization = models.IntegerField(null=True, default=None)
     is_separate_memory_palace = models.IntegerField(null=True, default=None)
     associated_email_subject = models.CharField(null=True, max_length=1000, default='')
     associated_email_received_datetime = models.DateTimeField(null=True, blank=True)
@@ -284,7 +284,7 @@ class BookInstance(models.Model):
     relevantinformation_comment = models.CharField(max_length=2000, default='')
     memorization_sequence = models.IntegerField(null=True, default=None)
     memorization_sequence_is_fixed_because_memorized = models.IntegerField(null=True, default=None)
-    is_included_in_memorization_package_creation = models.IntegerField(null=True, default=None)
+    is_excluded_from_memorization = models.IntegerField(null=True, default=None)
     is_workpackage = models.IntegerField(null=True, default=None)
 
 #Weitere zum Löschen:
