@@ -384,7 +384,7 @@ def renew_book_librarian(request, pk):
     return render(request, 'catalog/book_renew_librarian.html', context)
 
 
-from catalog.forms import CreateWorkPackage_WithProposedWeekTarget_Form, CreateT_Workpackage_Relevantinformation_Tobememorized_WithProposedWorkpackage_Form, AssignT_Workpackage_Relevantinformation_Tobememorized_To_MemoryPalace_Location_And_Number_ForSpecificWorkpackage_Form, Assign_Memorizable_Set_To_Memorypalace_Locations_And_Numbers_Form, Assign_Memorizables_To_MP_Locations_And_Numbers_Workpackage_Relevantinformation_Tobememorized_Form
+from catalog.forms import CreateWorkPackage_WithProposedWeekTarget_Form, CreateT_Workpackage_Relevantinformation_Tobememorized_WithProposedWorkpackage_Form, AssignT_Workpackage_Relevantinformation_Tobememorized_To_MemoryPalace_Location_And_Number_ForSpecificWorkpackage_Form, Assign_Memorizables_To_MP_Locations_And_Numbers_Week_Target_Form, Assign_Memorizables_To_MP_Locations_And_Numbers_Workpackage_Relevantinformation_Tobememorized_Form
 from django import forms
 
 @permission_required('catalog.can_mark_returned')
@@ -555,7 +555,7 @@ def aaa(request, pk):
     if request.method == 'POST':
 
         # Create a form instance and populate it with data from the request (binding):
-        form = Assign_Memorizable_Set_To_Memorypalace_Locations_And_Numbers_Form(request.POST)
+        form = Assign_Memorizables_To_MP_Locations_And_Numbers_Week_Target_Form(request.POST)       #Muss noch angepasst werden (nicht: Week Targets Form sondern workpackage_relevantinformation_tobememorized)
 
         # Check if the form is valid:
         if form.is_valid():
@@ -587,7 +587,7 @@ def aaa(request, pk):
         assigned_memory_palace_proposed_first = T_Memory_Palace_Type_Location.objects.filter(t_memory_palace_type=1).annotate(number_of_memorypalace_datapoints_perlocation = Count('t_memory_palace_type_location_number', distinct=True)).annotate(lastusage_date = Max('t_memory_palace_type_location_packageassignment_timeseries__assignment_to_memorization_package_datetime')).order_by('lastusage_date')[0]
         assigned_memory_palace_proposed_second = T_Memory_Palace_Type_Location.objects.filter(t_memory_palace_type=1).annotate(number_of_memorypalace_datapoints_perlocation = Count('t_memory_palace_type_location_number', distinct=True)).annotate(lastusage_date = Max('t_memory_palace_type_location_packageassignment_timeseries__assignment_to_memorization_package_datetime')).order_by('lastusage_date')[1]
 
-        form = Assign_Memorizable_Set_To_Memorypalace_Locations_And_Numbers_Form(initial={'assigned_memory_palace_first': assigned_memory_palace_proposed_first,'assigned_memory_palace_second': assigned_memory_palace_proposed_second})
+        form = Assign_Memorizables_To_MP_Locations_And_Numbers_Week_Target_Form(initial={'assigned_memory_palace_first': assigned_memory_palace_proposed_first,'assigned_memory_palace_second': assigned_memory_palace_proposed_second})        #Muss noch angepasst werden (nicht: Week Targets Form sondern workpackage_relevantinformation_tobememorized)
 
     context = {
         'form': form,
