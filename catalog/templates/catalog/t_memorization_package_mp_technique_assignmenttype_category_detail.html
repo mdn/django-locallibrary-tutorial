@@ -5,13 +5,12 @@
 <h1>Memorization Package Kategorie - Detail</h1>
 <p></p>
 <p><strong>{{ t_memorization_package_mp_technique_assignmenttype_category.category_title }} </strong></p>
-<p>{{ t_memorization_package_mp_technique_assignmenttype_category.t_memorization_package_mp_technique_assignmenttype.assignment_type_description }} </p>
 
 <div style="margin-left:20px;margin-top:20px">
 <h4>Wochenziele</h4>
 
 {% for wt in t_memorization_package_mp_technique_assignmenttype_category.author_set.all %}
-    <dd><a href="{% url 'author-detail' wt.pk %}">{{wt.memorizable_week_target}}</a> ({{wt.t_memory_palace_type_location_number.memory_palace_datapoint_description}})</dd>
+    <dd><a href="{% url 'author-detail' wt.pk %}">{{wt.memorizable_week_target}}</a> ({{wt.t_memory_palace_type_location_number.memory_palace_datapoint_description}} - {{wt.t_memory_palace_type_location.memory_palace_type_location}})</dd>
 {% endfor %}
 
 <p></p>
