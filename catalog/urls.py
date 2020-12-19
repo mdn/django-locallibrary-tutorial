@@ -96,20 +96,26 @@ urlpatterns += [
     path('bookinstance/<int:pk>/create/', views.bookinstance_create_proposed_workpackage, name='bookinstance-create-proposed-workpackage'),
 ]
 
+#Assign memorizables to memory palaces:
 # Add URLConf to assign bookinstances to memorypalace location and number for specific workpackage
 urlpatterns += [
     path('bookinstance/<int:pk>/assign/', views.book_bookinstance_assign_memorypalace_location_and_number_for_specific_workpackage, name='book-bookinstance-assign-memorypalace-location-and-number-for-specific-workpackage'),
 ]
-
 # Add URLConf to assign memorizable set (week_targets) to memorypalace location and numbers
 urlpatterns += [
     path('week_target/<int:pk>/assign/', views.assign_memorizables_to_mp_locations_and_numbers_week_target_fixed_category, name='assign-memorizables-to-mp-locations-and-numbers-week-target-fixed-category'),
 ]
-
 # Add URLConf to assign memorizable set (relevant_information_tobememorized) to memorypalace location and numbers
 urlpatterns += [
     path('workpackage_relevantinformation/<int:pk>/assign/', views.assign_memorizables_to_mp_locations_and_numbers_workpackage_relevantinformation_tobememorized_fixed_category, name='assign-memorizables-to-mp-locations-and-numbers-workpackage-relevantinformation-tobememorized-fixed-category'),
 ]
+
+#Change memorization sequences:
+# Add URLConf to change memorization sequence of week_targets
+urlpatterns += [
+    path('week_target/<int:pk>/sequence/', views.change_memorization_sequence_week_targets_fixed_category, name='change-memorization-sequence-week-targets-fixed-category'),
+]
+
 
 # Add URLConf to create, update, and delete t_category_tables
 urlpatterns += [

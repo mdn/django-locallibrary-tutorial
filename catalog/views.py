@@ -384,7 +384,7 @@ def renew_book_librarian(request, pk):
     return render(request, 'catalog/book_renew_librarian.html', context)
 
 
-from catalog.forms import CreateWorkPackage_WithProposedWeekTarget_Form, CreateT_Workpackage_Relevantinformation_Tobememorized_WithProposedWorkpackage_Form, AssignT_Workpackage_Relevantinformation_Tobememorized_To_MemoryPalace_Location_And_Number_ForSpecificWorkpackage_Form, Assign_Memorizables_To_MP_Locations_And_Numbers_Week_Target_Form, Assign_Memorizables_To_MP_Locations_And_Numbers_Workpackage_Relevantinformation_Tobememorized_Form
+from catalog.forms import CreateWorkPackage_WithProposedWeekTarget_Form, CreateT_Workpackage_Relevantinformation_Tobememorized_WithProposedWorkpackage_Form, AssignT_Workpackage_Relevantinformation_Tobememorized_To_MemoryPalace_Location_And_Number_ForSpecificWorkpackage_Form, Assign_Memorizables_To_MP_Locations_And_Numbers_Week_Target_Form, Assign_Memorizables_To_MP_Locations_And_Numbers_Workpackage_Relevantinformation_Tobememorized_Form, Change_Memorization_Sequence_Week_Targets_Fixed_Category_Form
 from django import forms
 
 @permission_required('catalog.can_mark_returned')
@@ -594,7 +594,6 @@ def assign_memorizables_to_mp_locations_and_numbers_week_target_fixed_category(r
     return render(request, 'catalog/assign_memorizables_to_mp_locations_and_numbers_week_target_fixed_category.html', context)
 
 
-import sys
 
 @permission_required('catalog.can_mark_returned')
 def assign_memorizables_to_mp_locations_and_numbers_workpackage_relevantinformation_tobememorized_fixed_category(request, pk):
@@ -696,7 +695,62 @@ def assign_memorizables_to_mp_locations_and_numbers_workpackage_relevantinformat
         'context_workpackage_relevantinformation_tobememorized': memorizable_objects_tobeassignedto_mp_locations__workpackage_relevantinformation_tobememorized,
     }
 
-    return render(request, 'catalog/assign_memorizables_to_mp_locations_and_numbers_workpackage_relevantinformation_tobememorized.html', context)
+    return render(request, 'catalog/assign_memorizables_to_mp_locations_and_numbers_workpackage_relevantinformation_tobememorized_fixed_category.html', context)
+
+
+from django.forms.models import model_to_dict
+
+
+@permission_required('catalog.can_mark_returned')
+def change_memorization_sequence_week_targets_fixed_category(request, pk):
+    """View function for changing the memorization sequence for a specified category (e.g. Job, Private)."""
+#    memorizable_objects_tobeassignedto_mp_locations__separate_memorypalace__week_target = Author.objects.filter(t_memorization_package_mp_technique_assignmenttype_category=pk).order_by('memorization_sequence')
+#memorizable_objects_sequence_tobechanged__week_target
+#    week_target_tobeshifted_forward = Author.objects.filter(t_memorization_package_mp_technique_assignmenttype_category=pk).first()
+
+    # If this is a POST request then process the Form data
+    if request.method == 'POST':
+
+        # Create a form instance and populate it with data from the request (binding):
+        form = Change_Memorization_Sequence_Week_Targets_Fixed_Category_Form(request.POST)
+
+        # Check if the form is valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required (here we just write it to the model due_back field)
+            assigned_memory_palace_fromform_first = form.cleaned_data['assigned_memory_palace_first']
+            assigned_memory_palace_fromform_second = form.cleaned_data['assigned_memory_palace_second']
+            maximum_capacity_assigned_memory_palace_fromform_first = assigned_memory_palace_fromform_first.number_of_memorypalace_datapoints_perlocation        #.annotate(abc = Max('t_memory_palace_type_location_number__memory_palace_number'))
+            maximum_capacity_assigned_memory_palace_fromform_second = assigned_memory_palace_fromform_second.number_of_memorypalace_datapoints_perlocation        #.annotate(abc = Max('t_memory_palace_type_location_number__memory_palace_number'))
+            
+            #Initialize and start for-loop:
+            i = 1
+            for mem in memorizable_objects_tobeassignedto_mp_locations__separate_memorypalace__week_target:
+                if mem.memorization_sequence <= maximum_capacity_assigned_memory_palace_fromform_first:
+                    mem.t_memory_palace_type_location_id = assigned_memory_palace_fromform_first.id
+                    mem.t_memory_palace_type_location_number_id = T_Memory_Palace_Type_Location_Number.objects.get(t_memory_palace_type_location_id = assigned_memory_palace_fromform_first.id, memory_palace_number = i).id
+                    mem.save()
+                    i+=1
+                else:
+                    mem.t_memory_palace_type_location_id = assigned_memory_palace_fromform_second
+                    mem.t_memory_palace_type_location_number_id = T_Memory_Palace_Type_Location_Number.objects.get(t_memory_palace_type_location_id = assigned_memory_palace_fromform_second.id, memory_palace_number = i - maximum_capacity_assigned_memory_palace_fromform_first).id
+                    mem.save()
+                    i+=1
+
+            # redirect to a new URL:
+            return HttpResponseRedirect(reverse('assign-memorizables-to-mp-locations-and-numbers-week-target-fixed-category', kwargs={'pk': pk}))
+    # If this is a GET (or any other method) create the default form
+    else:
+        assigned_memory_palace_proposed_first = T_Memory_Palace_Type_Location.objects.filter(t_memory_palace_type=1).annotate(number_of_memorypalace_datapoints_perlocation = Count('t_memory_palace_type_location_number', distinct=True)).annotate(lastusage_date = Max('t_memory_palace_type_location_packageassignment_timeseries__assignment_to_memorization_package_datetime')).order_by('lastusage_date')[0]
+        assigned_memory_palace_proposed_second = T_Memory_Palace_Type_Location.objects.filter(t_memory_palace_type=1).annotate(number_of_memorypalace_datapoints_perlocation = Count('t_memory_palace_type_location_number', distinct=True)).annotate(lastusage_date = Max('t_memory_palace_type_location_packageassignment_timeseries__assignment_to_memorization_package_datetime')).order_by('lastusage_date')[1]
+        
+
+        form = Change_Memorization_Sequence_Week_Targets_Fixed_Category_Form(pk)
+
+    context = {
+        'form': form,
+    }
+
+    return render(request, 'catalog/change_memorization_sequence_week_targets_fixed_category.html', context)
 
 
 

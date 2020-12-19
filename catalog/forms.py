@@ -171,3 +171,27 @@ class Assign_Memorizables_To_MP_Locations_And_Numbers_Workpackage_Relevantinform
 
         # Remember to always return the cleaned data.
         return data
+
+
+class Change_Memorization_Sequence_Week_Targets_Fixed_Category_Form(forms.Form):
+    """Form to assign a memorizable set to memory palace locations and their respective numbers."""
+    week_target_tobeshifted_forward = forms.ModelChoiceField(Author.objects, widget=forms.Select(), initial=0)
+    def __init__(self,pk):
+        super(Change_Memorization_Sequence_Week_Targets_Fixed_Category_Form, self).__init__()
+        self.fields['week_target_tobeshifted_forward'].queryset = Author.objects.filter(t_memorization_package_mp_technique_assignmenttype_category_id=pk)
+
+
+    # ToDo: noch anpassen
+    def clean_renewal_date(self):
+        data = self.cleaned_data['renewal_date']
+
+        # Check date is not in past.
+        if data.replace(tzinfo=utc) < datetime.datetime.now().replace(tzinfo=utc):
+            raise ValidationError(_('Invalid date - renewal in past'))
+        # Check date is in range librarian allowed to change (+4 weeks)
+        if data.replace(tzinfo=utc) > datetime.datetime.now().replace(tzinfo=utc) + datetime.timedelta(weeks=4):
+            raise ValidationError(
+                _('Invalid date - renewal more than 4 weeks ahead'))
+
+        # Remember to always return the cleaned data.
+        return data
