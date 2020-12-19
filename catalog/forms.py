@@ -173,9 +173,17 @@ class Assign_Memorizables_To_MP_Locations_And_Numbers_Workpackage_Relevantinform
         return data
 
 
+from django.forms import ModelChoiceField
+
+#Custom ModelChoiceField for ModelChoiceField to return memorization_sequence rather than memorizable_week_target
+class ModelChoiceField_ReturnCustomField_Memorization_Sequence(ModelChoiceField):
+    def label_from_instance(self, obj):
+        return obj.memorization_sequence
+
+
 class Change_Memorization_Sequence_Week_Targets_Fixed_Category_Form(forms.Form):
     """Form to assign a memorizable set to memory palace locations and their respective numbers."""
-    week_target_tobeshifted_forward = forms.ModelChoiceField(Author.objects, widget=forms.Select(), initial=0)
+    week_target_tobeshifted_forward = ModelChoiceField_ReturnCustomField_Memorization_Sequence(Author.objects, widget=forms.Select(), initial=0)
     def __init__(self,pk):
         super(Change_Memorization_Sequence_Week_Targets_Fixed_Category_Form, self).__init__()
         self.fields['week_target_tobeshifted_forward'].queryset = Author.objects.filter(t_memorization_package_mp_technique_assignmenttype_category_id=pk)
