@@ -704,7 +704,7 @@ from django.forms.models import model_to_dict
 @permission_required('catalog.can_mark_returned')
 def change_memorization_sequence_week_targets_fixed_category(request, pk):
     """View function for changing the memorization sequence for a specified category (e.g. Job, Private)."""
-#    memorizable_objects_tobeassignedto_mp_locations__separate_memorypalace__week_target = Author.objects.filter(t_memorization_package_mp_technique_assignmenttype_category=pk).order_by('memorization_sequence')
+    week_targets_memorization_sequence_tobechanged = Author.objects.filter(t_memorization_package_mp_technique_assignmenttype_category=pk).order_by('memorization_sequence')
 #memorizable_objects_sequence_tobechanged__week_target
 #    week_target_tobeshifted_forward = Author.objects.filter(t_memorization_package_mp_technique_assignmenttype_category=pk).first()
 
@@ -740,14 +740,15 @@ def change_memorization_sequence_week_targets_fixed_category(request, pk):
             return HttpResponseRedirect(reverse('assign-memorizables-to-mp-locations-and-numbers-week-target-fixed-category', kwargs={'pk': pk}))
     # If this is a GET (or any other method) create the default form
     else:
-        assigned_memory_palace_proposed_first = T_Memory_Palace_Type_Location.objects.filter(t_memory_palace_type=1).annotate(number_of_memorypalace_datapoints_perlocation = Count('t_memory_palace_type_location_number', distinct=True)).annotate(lastusage_date = Max('t_memory_palace_type_location_packageassignment_timeseries__assignment_to_memorization_package_datetime')).order_by('lastusage_date')[0]
-        assigned_memory_palace_proposed_second = T_Memory_Palace_Type_Location.objects.filter(t_memory_palace_type=1).annotate(number_of_memorypalace_datapoints_perlocation = Count('t_memory_palace_type_location_number', distinct=True)).annotate(lastusage_date = Max('t_memory_palace_type_location_packageassignment_timeseries__assignment_to_memorization_package_datetime')).order_by('lastusage_date')[1]
+#        assigned_memory_palace_proposed_first = T_Memory_Palace_Type_Location.objects.filter(t_memory_palace_type=1).annotate(number_of_memorypalace_datapoints_perlocation = Count('t_memory_palace_type_location_number', distinct=True)).annotate(lastusage_date = Max('t_memory_palace_type_location_packageassignment_timeseries__assignment_to_memorization_package_datetime')).order_by('lastusage_date')[0]
+#        assigned_memory_palace_proposed_second = T_Memory_Palace_Type_Location.objects.filter(t_memory_palace_type=1).annotate(number_of_memorypalace_datapoints_perlocation = Count('t_memory_palace_type_location_number', distinct=True)).annotate(lastusage_date = Max('t_memory_palace_type_location_packageassignment_timeseries__assignment_to_memorization_package_datetime')).order_by('lastusage_date')[1]
         
 
         form = Change_Memorization_Sequence_Week_Targets_Fixed_Category_Form(pk)
 
     context = {
         'form': form,
+        'context_week_targets': week_targets_memorization_sequence_tobechanged,
     }
 
     return render(request, 'catalog/change_memorization_sequence_week_targets_fixed_category.html', context)
