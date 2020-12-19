@@ -175,8 +175,8 @@ class Assign_Memorizables_To_MP_Locations_And_Numbers_Workpackage_Relevantinform
 
 from django.forms import ModelChoiceField
 
-#Custom ModelChoiceField for ModelChoiceField to return memorization_sequence rather than memorizable_week_target
 class ModelChoiceField_ReturnCustomField_Memorization_Sequence(ModelChoiceField):
+    """Custom ModelChoiceField for ModelChoiceField to return memorization_sequence rather than memorizable_week_target (required for subsequent class Change_Memorization_Sequence_Week_Targets_Fixed_Category_Form)"""
     def label_from_instance(self, obj):
         return obj.memorization_sequence
 
