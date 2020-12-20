@@ -698,53 +698,49 @@ def assign_memorizables_to_mp_locations_and_numbers_workpackage_relevantinformat
     return render(request, 'catalog/assign_memorizables_to_mp_locations_and_numbers_workpackage_relevantinformation_tobememorized_fixed_category.html', context)
 
 
-from django.forms.models import model_to_dict
-
+#from django.forms.models import model_to_dict
+import time
 
 @permission_required('catalog.can_mark_returned')
 def change_memorization_sequence_week_targets_fixed_category(request, pk):
     """View function for changing the memorization sequence for a specified category (e.g. Job, Private)."""
+    #Required for week target listing on html-page and instantiation in this function:
     week_targets_memorization_sequence_tobechanged = Author.objects.filter(t_memorization_package_mp_technique_assignmenttype_category=pk).order_by('memorization_sequence')
-#memorizable_objects_sequence_tobechanged__week_target
-#    week_target_tobeshifted_forward = Author.objects.filter(t_memorization_package_mp_technique_assignmenttype_category=pk).first()
 
     # If this is a POST request then process the Form data
     if request.method == 'POST':
 
         # Create a form instance and populate it with data from the request (binding):
-        form = Change_Memorization_Sequence_Week_Targets_Fixed_Category_Form(request.POST)
+#        print(request.POST)
+        form = Change_Memorization_Sequence_Week_Targets_Fixed_Category_Form(pk, data=request.POST)
+#        time.sleep(2)
 
         # Check if the form is valid:
-        if form.is_valid():
-            # process the data in form.cleaned_data as required (here we just write it to the model due_back field)
-            assigned_memory_palace_fromform_first = form.cleaned_data['assigned_memory_palace_first']
-            assigned_memory_palace_fromform_second = form.cleaned_data['assigned_memory_palace_second']
-            maximum_capacity_assigned_memory_palace_fromform_first = assigned_memory_palace_fromform_first.number_of_memorypalace_datapoints_perlocation        #.annotate(abc = Max('t_memory_palace_type_location_number__memory_palace_number'))
-            maximum_capacity_assigned_memory_palace_fromform_second = assigned_memory_palace_fromform_second.number_of_memorypalace_datapoints_perlocation        #.annotate(abc = Max('t_memory_palace_type_location_number__memory_palace_number'))
+#        if form.is_valid():
+            # process the data in form.cleaned_data as required
+        week_target_tobeshifted_fromform = Author.objects.get(memorizable_week_target=form.fields['week_target_tobeshifted'])
+        week_target_tobeshifted_tobeaddedafter_fromform = Author.objects.get(memorizable_week_target=form.fields['week_target_tobeshifted_tobeaddedafter'])
             
-            #Initialize and start for-loop:
-            i = 1
-            for mem in memorizable_objects_tobeassignedto_mp_locations__separate_memorypalace__week_target:
-                if mem.memorization_sequence <= maximum_capacity_assigned_memory_palace_fromform_first:
-                    mem.t_memory_palace_type_location_id = assigned_memory_palace_fromform_first.id
-                    mem.t_memory_palace_type_location_number_id = T_Memory_Palace_Type_Location_Number.objects.get(t_memory_palace_type_location_id = assigned_memory_palace_fromform_first.id, memory_palace_number = i).id
-                    mem.save()
-                    i+=1
-                else:
-                    mem.t_memory_palace_type_location_id = assigned_memory_palace_fromform_second
-                    mem.t_memory_palace_type_location_number_id = T_Memory_Palace_Type_Location_Number.objects.get(t_memory_palace_type_location_id = assigned_memory_palace_fromform_second.id, memory_palace_number = i - maximum_capacity_assigned_memory_palace_fromform_first).id
-                    mem.save()
-                    i+=1
+            #Shift memorization sequence of week target
+        week_target_tobeshifted_fromform.memorization_sequence = week_target_tobeshifted_tobeaddedafter_fromform.memorization_sequence + 1
+        week_target_tobeshifted_fromform.save()
 
             # redirect to a new URL:
-            return HttpResponseRedirect(reverse('assign-memorizables-to-mp-locations-and-numbers-week-target-fixed-category', kwargs={'pk': pk}))
+        return HttpResponseRedirect(reverse('change-memorization-sequence-week-targets-fixed-category', kwargs={'pk': pk}))
     # If this is a GET (or any other method) create the default form
     else:
-#        assigned_memory_palace_proposed_first = T_Memory_Palace_Type_Location.objects.filter(t_memory_palace_type=1).annotate(number_of_memorypalace_datapoints_perlocation = Count('t_memory_palace_type_location_number', distinct=True)).annotate(lastusage_date = Max('t_memory_palace_type_location_packageassignment_timeseries__assignment_to_memorization_package_datetime')).order_by('lastusage_date')[0]
-#        assigned_memory_palace_proposed_second = T_Memory_Palace_Type_Location.objects.filter(t_memory_palace_type=1).annotate(number_of_memorypalace_datapoints_perlocation = Count('t_memory_palace_type_location_number', distinct=True)).annotate(lastusage_date = Max('t_memory_palace_type_location_packageassignment_timeseries__assignment_to_memorization_package_datetime')).order_by('lastusage_date')[1]
-        
+        #Initial display (not working yet):
+        week_target_tobeshifted_proposed = Author.objects.filter(t_memorization_package_mp_technique_assignmenttype_category=pk).order_by('memorization_sequence')[0]
+        week_target_tobeshifted_tobeaddedafter_proposed = Author.objects.filter(t_memorization_package_mp_technique_assignmenttype_category=pk).order_by('memorization_sequence')[1]
 
-        form = Change_Memorization_Sequence_Week_Targets_Fixed_Category_Form(pk)
+#        assigned_memory_palace_proposed_first = T_Memory_Palace_Type_Location.objects.filter(t_memory_palace_type=1).annotate(number_of_memorypalace_datapoints_perlocation = Count('t_memory_palace_type_location_number', distinct=True)).annotate(lastusage_date = Max('t_memory_palace_type_location_packageassignment_timeseries__assignment_to_memorization_package_datetime')).order_by('lastusage_date')[0]
+
+        #Form mit Wochenzielen für bestimmte Kategorie (z.B. Job, Privat) instanziieren
+#        print('PK', pk)
+        form = Change_Memorization_Sequence_Week_Targets_Fixed_Category_Form(pk)        #funktioniert nicht als weiteres Argument: initial={'week_target_tobeshifted': week_target_tobeshifted_proposed.id,'week_target_tobeshifted_tobeaddedafter': week_target_tobeshifted_tobeaddedafter_proposed.id}
+
+#        form = Assign_Memorizables_To_MP_Locations_And_Numbers_Workpackage_Relevantinformation_Tobememorized_Form()
+
 
     context = {
         'form': form,

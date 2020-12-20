@@ -13,7 +13,8 @@
             "args": [
                 "runserver",
             ],
-            "django": true
+            "django": true,
+            "justMyCode": false,
         },
         {
             "type": "pwa-chrome",

@@ -181,12 +181,38 @@ class ModelChoiceField_ReturnCustomField_Memorization_Sequence(ModelChoiceField)
         return obj.memorization_sequence
 
 
+#from django.conf import settings
+#settings.configure()
+#from django.http.request import QueryDict
+#q = QueryDict('foo=bar&foo=baz')
+
+#def test(**kwargs):
+#    print(kwargs)
+
+
 class Change_Memorization_Sequence_Week_Targets_Fixed_Category_Form(forms.Form):
     """Form to assign a memorizable set to memory palace locations and their respective numbers."""
-    week_target_tobeshifted_forward = ModelChoiceField_ReturnCustomField_Memorization_Sequence(Author.objects, widget=forms.Select(), initial=0)
-    def __init__(self,pk):
-        super(Change_Memorization_Sequence_Week_Targets_Fixed_Category_Form, self).__init__()
-        self.fields['week_target_tobeshifted_forward'].queryset = Author.objects.filter(t_memorization_package_mp_technique_assignmenttype_category_id=pk)
+    #Instantiate class attributes:
+    week_target_tobeshifted = ModelChoiceField_ReturnCustomField_Memorization_Sequence(queryset=Author.objects, widget=forms.Select(), initial=0, disabled=False)      #None = e.g. Author.objects
+    week_target_tobeshifted_tobeaddedafter = ModelChoiceField_ReturnCustomField_Memorization_Sequence(queryset=Author.objects, widget=forms.Select(), initial=0, disabled=False)
+    disabled = None
+
+    #Override Initial function to show week targets for specific category (e.g. Job, Private)
+##Funzt mit form = Change_Memorization_Sequence_Week_Targets_Fixed_Category_Form(request.POST, pk) in Funktion change_memorization_sequence_week_targets_fixed_category:
+    def __init__(self, *args, **kwargs):
+        super().__init__(self)
+        #request.POST:
+        if kwargs:
+            self.fields['week_target_tobeshifted'] = Author.objects.get(id=int(kwargs.get('data', {}).get('week_target_tobeshifted')))      #.queryset evtl. auf linke Seite hinzufügen
+            self.fields['week_target_tobeshifted_tobeaddedafter'] = Author.objects.get(id=int(kwargs.get('data', {}).get('week_target_tobeshifted_tobeaddedafter')))
+        #GET (only pk):
+        else:
+            self.fields['week_target_tobeshifted'].queryset = Author.objects.filter(t_memorization_package_mp_technique_assignmenttype_category_id=args[0]).order_by('memorization_sequence')
+            self.fields['week_target_tobeshifted_tobeaddedafter'].queryset = Author.objects.filter(t_memorization_package_mp_technique_assignmenttype_category_id=args[0]).order_by('memorization_sequence')
+#        super().__init__(self, pk, *args)
+    #Override is required for super().__init__(self) otherwise error pops up (get does not exist in class)
+    def get(*args, **kwargs):
+        return True
 
 
     # ToDo: noch anpassen
