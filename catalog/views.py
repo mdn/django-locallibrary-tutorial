@@ -722,8 +722,14 @@ def change_memorization_sequence_week_targets_fixed_category(request, pk):
         week_target_tobeshifted_tobeaddedafter_fromform = Author.objects.get(memorizable_week_target=form.fields['week_target_tobeshifted_tobeaddedafter'])
             
             #Shift memorization sequence of week target
-        week_target_tobeshifted_fromform.memorization_sequence = week_target_tobeshifted_tobeaddedafter_fromform.memorization_sequence + 1
+        week_target_tobeshifted_fromform.memorization_sequence = week_target_tobeshifted_tobeaddedafter_fromform.memorization_sequence
         week_target_tobeshifted_fromform.save()
+
+        #reduce all preceeding week targets by -1
+        for wt in week_targets_memorization_sequence_tobechanged:
+            if (wt.memorization_sequence <= week_target_tobeshifted_fromform.memorization_sequence and wt.id != week_target_tobeshifted_fromform.id):
+                wt.memorization_sequence -= 1
+                wt.save()
 
             # redirect to a new URL:
         return HttpResponseRedirect(reverse('change-memorization-sequence-week-targets-fixed-category', kwargs={'pk': pk}))
