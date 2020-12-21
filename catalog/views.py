@@ -778,12 +778,13 @@ def change_memorization_sequence_workpackage_relevantinformation_tobememorized_f
         workpackage_relevantinformation_tobememorized_tobeshifted_tobeaddedafter_fromform = BookInstance.objects.get(memorizable_workpackage_relevantinformation_tobememorized=form.fields['workpackage_relevantinformation_tobememorized_tobeshifted_tobeaddedafter'])
             
             #Shift memorization sequence of week target
+        workpackage_relevantinformation_tobememorized_tobeshifted_fromform.memorization_sequence_initial = workpackage_relevantinformation_tobememorized_tobeshifted_fromform.memorization_sequence
         workpackage_relevantinformation_tobememorized_tobeshifted_fromform.memorization_sequence = workpackage_relevantinformation_tobememorized_tobeshifted_tobeaddedafter_fromform.memorization_sequence
         workpackage_relevantinformation_tobememorized_tobeshifted_fromform.save()
 
         #reduce all preceeding week targets by -1 but those belonging to different workpackages
         for wpritbm in workpackage_relevantinformation_tobememorized_memorization_sequence_tobechanged:
-            if (wpritbm.memorization_sequence <= workpackage_relevantinformation_tobememorized_tobeshifted_fromform.memorization_sequence and wpritbm.memorization_sequence >= workpackage_relevantinformation_tobememorized_tobeshifted_tobeaddedafter_fromform.memorization_sequence and wpritbm.id_asinteger != workpackage_relevantinformation_tobememorized_tobeshifted_fromform.id_asinteger and wpritbm.book_id == workpackage_relevantinformation_tobememorized_tobeshifted_fromform.book_id):
+            if (wpritbm.memorization_sequence >= workpackage_relevantinformation_tobememorized_tobeshifted_fromform.memorization_sequence_initial and wpritbm.memorization_sequence <= workpackage_relevantinformation_tobememorized_tobeshifted_tobeaddedafter_fromform.memorization_sequence and wpritbm.id_asinteger != workpackage_relevantinformation_tobememorized_tobeshifted_fromform.id_asinteger and wpritbm.book_id == workpackage_relevantinformation_tobememorized_tobeshifted_fromform.book_id):
                 wpritbm.memorization_sequence -= 1
 #Validation noch hinzufügen: Wenn Sequenz für diese Kategorie (z.B. Job, Private) doppelte Werte enthält, dann Fehler ausgeben und NICHT speichern!
                 wpritbm.save()
