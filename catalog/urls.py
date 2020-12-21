@@ -116,6 +116,10 @@ urlpatterns += [
     path('week_target/<int:pk>/sequence/', views.change_memorization_sequence_week_targets_fixed_category, name='change-memorization-sequence-week-targets-fixed-category'),
 ]
 
+# Add URLConf to change memorization sequence of relevantinformation_tobememorized
+urlpatterns += [
+    path('relevantinformation_tobememorized/<int:pk>/sequence/', views.change_memorization_sequence_workpackage_relevantinformation_tobememorized_fixed_category, name='change-memorization-sequence-workpackage-relevantinformation-tobememorized-fixed-category'),
+]
 
 # Add URLConf to create, update, and delete t_category_tables
 urlpatterns += [

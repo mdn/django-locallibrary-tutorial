@@ -1,0 +1,38 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+<h1>Einprägreihenfolge ändern</h1>
+
+<h4>Relevante Informationen für Arbeitspakete</h4>
+<br>
+
+{% for mem_wt in week_targets_memorization_sequence_tobechanged %}
+    <dd><strong><a href="{% url 'author-detail' mem_wt.pk %}">{{ mem_wt.memorizable_week_target }}</a></strong><font color="#b1b1b1"> ({{mem_wt.t_memory_palace_type_location_number.memory_palace_datapoint_description}} - {{mem_wt.t_memory_palace_type_location.memory_palace_type_location}})</font></dd>
+        <div style="margin-left:20px;margin-top:10px">
+        {% for mem_wt_wp in mem_wt.book_set.all %}
+            <dd> <i> <a href="{% url 'book-detail' mem_wt_wp.pk %}">{{ mem_wt_wp }}</a> </i> </dd>
+                <div style="margin-left:50px;margin-top:10px">
+                {% for mem_wt_wp_ri in mem_wt_wp.bookinstance_set.all|dictsort:"memorization_sequence" %}
+                    <dd><strong>{{ mem_wt_wp_ri.memorization_sequence }}</strong> <a href="{% url 'bookinstance-detail' mem_wt_wp_ri.pk %}">{{ mem_wt_wp_ri }}</a> <font color="#b1b1b1"> ({{mem_wt_wp_ri.t_memory_palace_type_location_number.memory_palace_datapoint_description}} - {{mem_wt_wp_ri.t_memory_palace_type_location.memory_palace_type_location}})</font> </dd>
+                {% endfor %}
+                </div>
+            {% endfor %}
+        <br>
+        </div>
+{% endfor %}
+
+<div style="margin-left:20px;margin-top:20px">
+
+<form action="" method="post">
+    {% csrf_token %}
+    <table>
+    {{ form.as_table }}
+    </table>
+    <input type="submit" value="Submit" />
+</form>
+
+</div>
+
+{% endblock %}
+

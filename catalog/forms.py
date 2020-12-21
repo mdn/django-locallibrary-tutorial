@@ -229,3 +229,43 @@ class Change_Memorization_Sequence_Week_Targets_Fixed_Category_Form(forms.Form):
 
         # Remember to always return the cleaned data.
         return data
+
+
+
+class Change_Memorization_Sequence_Workpackage_Relevantinformation_Tobememorized_Fixed_Category_Form(forms.Form):
+    """Form to assign a memorizable set to memory palace locations and their respective numbers."""
+    #Instantiate class attributes:
+    workpackage_relevantinformation_tobememorized_tobeshifted = ModelChoiceField_ReturnCustomField_Memorization_Sequence(queryset=BookInstance.objects, widget=forms.Select(), initial=0, disabled=False)      #None = e.g. Author.objects
+    workpackage_relevantinformation_tobememorized_tobeshifted_tobeaddedafter = ModelChoiceField_ReturnCustomField_Memorization_Sequence(queryset=BookInstance.objects, widget=forms.Select(), initial=0, disabled=False)
+    disabled = None
+
+    #Override Initial function to show workpackage_relevantinformation_tobememorized for specific category (e.g. Job, Private)
+    def __init__(self, *args, **kwargs):
+        super().__init__(self)
+        #request.POST:
+        if kwargs:
+            self.fields['workpackage_relevantinformation_tobememorized_tobeshifted'] = BookInstance.objects.get(id_asinteger=int(kwargs.get('data', {}).get('workpackage_relevantinformation_tobememorized_tobeshifted')))
+            self.fields['workpackage_relevantinformation_tobememorized_tobeshifted_tobeaddedafter'] = BookInstance.objects.get(id_asinteger=int(kwargs.get('data', {}).get('workpackage_relevantinformation_tobememorized_tobeshifted_tobeaddedafter')))
+        #GET (only pk):
+        else:
+            self.fields['workpackage_relevantinformation_tobememorized_tobeshifted'].queryset = BookInstance.objects.filter(book__author__t_memorization_package_mp_technique_assignmenttype_category_id=args[0]).order_by('memorization_sequence')       #args[0]: pk
+            self.fields['workpackage_relevantinformation_tobememorized_tobeshifted_tobeaddedafter'].queryset = BookInstance.objects.filter(book__author__t_memorization_package_mp_technique_assignmenttype_category_id=args[0]).order_by('memorization_sequence')
+    #Override required for super().__init__(self) otherwise error pops up (get does not exist in class)
+    def get(*args, **kwargs):
+        return True
+
+
+    # ToDo: noch anpassen
+    def clean_renewal_date(self):
+        data = self.cleaned_data['renewal_date']
+
+        # Check date is not in past.
+        if data.replace(tzinfo=utc) < datetime.datetime.now().replace(tzinfo=utc):
+            raise ValidationError(_('Invalid date - renewal in past'))
+        # Check date is in range librarian allowed to change (+4 weeks)
+        if data.replace(tzinfo=utc) > datetime.datetime.now().replace(tzinfo=utc) + datetime.timedelta(weeks=4):
+            raise ValidationError(
+                _('Invalid date - renewal more than 4 weeks ahead'))
+
+        # Remember to always return the cleaned data.
+        return data

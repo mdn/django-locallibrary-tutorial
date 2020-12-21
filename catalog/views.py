@@ -384,7 +384,7 @@ def renew_book_librarian(request, pk):
     return render(request, 'catalog/book_renew_librarian.html', context)
 
 
-from catalog.forms import CreateWorkPackage_WithProposedWeekTarget_Form, CreateT_Workpackage_Relevantinformation_Tobememorized_WithProposedWorkpackage_Form, AssignT_Workpackage_Relevantinformation_Tobememorized_To_MemoryPalace_Location_And_Number_ForSpecificWorkpackage_Form, Assign_Memorizables_To_MP_Locations_And_Numbers_Week_Target_Form, Assign_Memorizables_To_MP_Locations_And_Numbers_Workpackage_Relevantinformation_Tobememorized_Form, Change_Memorization_Sequence_Week_Targets_Fixed_Category_Form
+from catalog.forms import CreateWorkPackage_WithProposedWeekTarget_Form, CreateT_Workpackage_Relevantinformation_Tobememorized_WithProposedWorkpackage_Form, AssignT_Workpackage_Relevantinformation_Tobememorized_To_MemoryPalace_Location_And_Number_ForSpecificWorkpackage_Form, Assign_Memorizables_To_MP_Locations_And_Numbers_Week_Target_Form, Assign_Memorizables_To_MP_Locations_And_Numbers_Workpackage_Relevantinformation_Tobememorized_Form, Change_Memorization_Sequence_Week_Targets_Fixed_Category_Form, Change_Memorization_Sequence_Workpackage_Relevantinformation_Tobememorized_Fixed_Category_Form
 from django import forms
 
 @permission_required('catalog.can_mark_returned')
@@ -699,7 +699,7 @@ def assign_memorizables_to_mp_locations_and_numbers_workpackage_relevantinformat
 
 
 #from django.forms.models import model_to_dict
-import time
+#import time
 
 @permission_required('catalog.can_mark_returned')
 def change_memorization_sequence_week_targets_fixed_category(request, pk):
@@ -722,12 +722,13 @@ def change_memorization_sequence_week_targets_fixed_category(request, pk):
         week_target_tobeshifted_tobeaddedafter_fromform = Author.objects.get(memorizable_week_target=form.fields['week_target_tobeshifted_tobeaddedafter'])
             
             #Shift memorization sequence of week target
+        week_target_tobeshifted_fromform.memorization_sequence_initial = week_target_tobeshifted_fromform.memorization_sequence
         week_target_tobeshifted_fromform.memorization_sequence = week_target_tobeshifted_tobeaddedafter_fromform.memorization_sequence
         week_target_tobeshifted_fromform.save()
 
         #reduce all preceeding week targets by -1
         for wt in week_targets_memorization_sequence_tobechanged:
-            if (wt.memorization_sequence <= week_target_tobeshifted_fromform.memorization_sequence and wt.id != week_target_tobeshifted_fromform.id):
+            if (wt.memorization_sequence >= week_target_tobeshifted_fromform.memorization_sequence_initial and wt.memorization_sequence <= week_target_tobeshifted_tobeaddedafter_fromform.memorization_sequence and wt.id != week_target_tobeshifted_fromform.id):
                 wt.memorization_sequence -= 1
                 wt.save()
 
@@ -754,6 +755,58 @@ def change_memorization_sequence_week_targets_fixed_category(request, pk):
     }
 
     return render(request, 'catalog/change_memorization_sequence_week_targets_fixed_category.html', context)
+
+
+@permission_required('catalog.can_mark_returned')
+def change_memorization_sequence_workpackage_relevantinformation_tobememorized_fixed_category(request, pk):
+    """View function for changing the memorization sequence for a specified category (e.g. Job, Private)."""
+    #Required for instantiation within this function:
+    workpackage_relevantinformation_tobememorized_memorization_sequence_tobechanged = BookInstance.objects.filter(book__author__t_memorization_package_mp_technique_assignmenttype_category=pk).order_by('memorization_sequence')
+    #Required for workpackage_relevantinformation_tobememorized listing on html-page
+    week_targets_memorization_sequence_tobechanged = Author.objects.filter(t_memorization_package_mp_technique_assignmenttype_category=pk).order_by('memorization_sequence')
+
+    # If this is a POST request then process the Form data
+    if request.method == 'POST':
+
+        # Create a form instance and populate it with data from the request (binding):
+        form = Change_Memorization_Sequence_Workpackage_Relevantinformation_Tobememorized_Fixed_Category_Form(pk, data=request.POST)
+
+        # Check if the form is valid:
+#        if form.is_valid():
+            # process the data in form.cleaned_data as required
+        workpackage_relevantinformation_tobememorized_tobeshifted_fromform = BookInstance.objects.get(memorizable_workpackage_relevantinformation_tobememorized=form.fields['workpackage_relevantinformation_tobememorized_tobeshifted'])
+        workpackage_relevantinformation_tobememorized_tobeshifted_tobeaddedafter_fromform = BookInstance.objects.get(memorizable_workpackage_relevantinformation_tobememorized=form.fields['workpackage_relevantinformation_tobememorized_tobeshifted_tobeaddedafter'])
+            
+            #Shift memorization sequence of week target
+        workpackage_relevantinformation_tobememorized_tobeshifted_fromform.memorization_sequence = workpackage_relevantinformation_tobememorized_tobeshifted_tobeaddedafter_fromform.memorization_sequence
+        workpackage_relevantinformation_tobememorized_tobeshifted_fromform.save()
+
+        #reduce all preceeding week targets by -1 but those belonging to different workpackages
+        for wpritbm in workpackage_relevantinformation_tobememorized_memorization_sequence_tobechanged:
+            if (wpritbm.memorization_sequence <= workpackage_relevantinformation_tobememorized_tobeshifted_fromform.memorization_sequence and wpritbm.memorization_sequence >= workpackage_relevantinformation_tobememorized_tobeshifted_tobeaddedafter_fromform.memorization_sequence and wpritbm.id_asinteger != workpackage_relevantinformation_tobememorized_tobeshifted_fromform.id_asinteger and wpritbm.book_id == workpackage_relevantinformation_tobememorized_tobeshifted_fromform.book_id):
+                wpritbm.memorization_sequence -= 1
+#Validation noch hinzufügen: Wenn Sequenz für diese Kategorie (z.B. Job, Private) doppelte Werte enthält, dann Fehler ausgeben und NICHT speichern!
+                wpritbm.save()
+
+            # redirect to a new URL:
+        return HttpResponseRedirect(reverse('change-memorization-sequence-workpackage-relevantinformation-tobememorized-fixed-category', kwargs={'pk': pk}))
+    # If this is a GET (or any other method) create the default form
+    else:
+        #Initial display (not working yet):
+        week_target_tobeshifted_proposed = BookInstance.objects.filter(book__author__t_memorization_package_mp_technique_assignmenttype_category=pk).order_by('memorization_sequence')[0]
+        week_target_tobeshifted_tobeaddedafter_proposed = BookInstance.objects.filter(book__author__t_memorization_package_mp_technique_assignmenttype_category=pk).order_by('memorization_sequence')[1]
+
+        #Form mit Wochenzielen für bestimmte Kategorie (z.B. Job, Privat) instanziieren
+        form = Change_Memorization_Sequence_Workpackage_Relevantinformation_Tobememorized_Fixed_Category_Form(pk)        #funktioniert nicht als weiteres Argument: initial={'week_target_tobeshifted': week_target_tobeshifted_proposed.id,'week_target_tobeshifted_tobeaddedafter': week_target_tobeshifted_tobeaddedafter_proposed.id}
+
+
+    context = {
+        'form': form,
+        'context_workpackage_relevantinformation_tobememorized': workpackage_relevantinformation_tobememorized_memorization_sequence_tobechanged,
+        'week_targets_memorization_sequence_tobechanged': week_targets_memorization_sequence_tobechanged
+    }
+
+    return render(request, 'catalog/change_memorization_sequence_workpackage_relevantinformation_tobememorized_fixed_category.html', context)
 
 
 
