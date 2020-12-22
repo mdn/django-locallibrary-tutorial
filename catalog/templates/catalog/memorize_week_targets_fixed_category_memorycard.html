@@ -1,0 +1,28 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+<h1>Auswendig lernen</h1>
+
+<h4>Wochenziele</h4>
+
+{% for mem in context_week_targets %}
+    <dd> <strong>{{ mem.memorization_sequence }}</strong> <a href="{% url 'author-detail' mem.pk %}">{{ mem.memorizable_week_target }}</a> ({{mem.t_memory_palace_type_location_number.memory_palace_datapoint_description}} - {{mem.t_memory_palace_type_location.memory_palace_type_location}})</dd>
+{% endfor %}
+
+
+<div style="margin-left:20px;margin-top:20px">
+<i><strong>Einstellungen:</strong></i>
+<p></p>
+<form action="" method="post">
+    {% csrf_token %}
+    <table>
+    {{ form.as_table }}
+    </table>
+    <input type="submit" value="Auswendiglernen starten" />
+</form>
+
+</div>
+
+{% endblock %}
+
