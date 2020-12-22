@@ -198,7 +198,7 @@ class Change_Memorization_Sequence_Week_Targets_Fixed_Category_Form(forms.Form):
     disabled = None
 
     #Override Initial function to show week targets for specific category (e.g. Job, Private)
-##Funzt mit form = Change_Memorization_Sequence_Week_Targets_Fixed_Category_Form(request.POST, pk) in Funktion change_memorization_sequence_week_targets_fixed_category:
+##Funzt mit form = Change_Memorization_Sequence_Week_Targets_Fixed_Category_Form(pk, data=request.POST) in Funktion change_memorization_sequence_week_targets_fixed_category:
     def __init__(self, *args, **kwargs):
         super().__init__(self)
         #request.POST:
@@ -267,5 +267,41 @@ class Change_Memorization_Sequence_Workpackage_Relevantinformation_Tobememorized
             raise ValidationError(
                 _('Invalid date - renewal more than 4 weeks ahead'))
 
+        # Remember to always return the cleaned data.
+        return data
+
+
+class Memorize_Week_Targets_Fixed_Category_List_Form(forms.Form):
+    """Form to enter settings of week target memorization."""
+    #Instantiate class attributes:
+    week_target_memorizationtobestarted = ModelChoiceField_ReturnCustomField_Memorization_Sequence(queryset=Author.objects, widget=forms.Select(), label="Starten mit", initial=0, disabled=False)      #None = e.g. Author.objects
+
+    OPTIONS=(
+#        ("notimer", "NoTimer"),
+        ("timer", "Timer"),
+    )
+#    memorization_mode = forms.ChoiceField(widget=forms.RadioSelect, choices=OPTIONS)
+
+
+    #Override Initial function to show week targets for specific category (e.g. Job, Private)
+    def __init__(self, *args, **kwargs):
+        super().__init__(self)
+        #request.POST:
+        if kwargs:
+            self.fields['week_target_memorizationtobestarted'] = Author.objects.get(id=int(kwargs.get('data', {}).get('week_target_memorizationtobestarted')))      #.queryset evtl. auf linke Seite hinzufügen
+        #GET (only pk):
+        else:
+            self.fields['week_target_memorizationtobestarted'].queryset = Author.objects.filter(t_memorization_package_mp_technique_assignmenttype_category_id=args[0]).order_by('memorization_sequence')
+    #Override is required for super().__init__(self) otherwise error pops up (get does not exist in class)
+    def get(*args, **kwargs):
+        return True
+
+
+
+    # ToDo: noch anpassen
+    def clean_renewal_date(self):
+        data = self.cleaned_data['renewal_date']
+        #Validation checks:
+        #...
         # Remember to always return the cleaned data.
         return data

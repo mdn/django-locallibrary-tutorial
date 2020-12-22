@@ -384,7 +384,7 @@ def renew_book_librarian(request, pk):
     return render(request, 'catalog/book_renew_librarian.html', context)
 
 
-from catalog.forms import CreateWorkPackage_WithProposedWeekTarget_Form, CreateT_Workpackage_Relevantinformation_Tobememorized_WithProposedWorkpackage_Form, AssignT_Workpackage_Relevantinformation_Tobememorized_To_MemoryPalace_Location_And_Number_ForSpecificWorkpackage_Form, Assign_Memorizables_To_MP_Locations_And_Numbers_Week_Target_Form, Assign_Memorizables_To_MP_Locations_And_Numbers_Workpackage_Relevantinformation_Tobememorized_Form, Change_Memorization_Sequence_Week_Targets_Fixed_Category_Form, Change_Memorization_Sequence_Workpackage_Relevantinformation_Tobememorized_Fixed_Category_Form
+from catalog.forms import CreateWorkPackage_WithProposedWeekTarget_Form, CreateT_Workpackage_Relevantinformation_Tobememorized_WithProposedWorkpackage_Form, AssignT_Workpackage_Relevantinformation_Tobememorized_To_MemoryPalace_Location_And_Number_ForSpecificWorkpackage_Form, Assign_Memorizables_To_MP_Locations_And_Numbers_Week_Target_Form, Assign_Memorizables_To_MP_Locations_And_Numbers_Workpackage_Relevantinformation_Tobememorized_Form, Change_Memorization_Sequence_Week_Targets_Fixed_Category_Form, Change_Memorization_Sequence_Workpackage_Relevantinformation_Tobememorized_Fixed_Category_Form, Memorize_Week_Targets_Fixed_Category_List_Form
 from django import forms
 
 @permission_required('catalog.can_mark_returned')
@@ -698,13 +698,11 @@ def assign_memorizables_to_mp_locations_and_numbers_workpackage_relevantinformat
     return render(request, 'catalog/assign_memorizables_to_mp_locations_and_numbers_workpackage_relevantinformation_tobememorized_fixed_category.html', context)
 
 
-#from django.forms.models import model_to_dict
-#import time
 
 @permission_required('catalog.can_mark_returned')
 def change_memorization_sequence_week_targets_fixed_category(request, pk):
     """View function for changing the memorization sequence for a specified category (e.g. Job, Private)."""
-    #Required for week target listing on html-page and instantiation in this function:
+    #Required for week target listing on html-page and instantiation within this function:
     week_targets_memorization_sequence_tobechanged = Author.objects.filter(t_memorization_package_mp_technique_assignmenttype_category=pk).order_by('memorization_sequence')
 
     # If this is a POST request then process the Form data
@@ -808,6 +806,42 @@ def change_memorization_sequence_workpackage_relevantinformation_tobememorized_f
     }
 
     return render(request, 'catalog/change_memorization_sequence_workpackage_relevantinformation_tobememorized_fixed_category.html', context)
+
+
+@permission_required('catalog.can_mark_returned')
+def memorize_week_targets_fixed_category_list(request, pk):
+    """View function for changing the memorization sequence for a specified category (e.g. Job, Private)."""
+    #Required for week target listing on html-page and instantiation in this function:
+    week_targets_tobememorized = Author.objects.filter(t_memorization_package_mp_technique_assignmenttype_category=pk).order_by('memorization_sequence')
+
+    # If this is a POST request then process the Form data
+    if request.method == 'POST':
+
+        # Create a form instance and populate it with data from the request (binding):
+        form = Memorize_Week_Targets_Fixed_Category_List_Form(pk, data=request.POST)
+
+        # Check if the form is valid:
+#        if form.is_valid():
+            # process the data in form.cleaned_data as required
+        week_target_memorizationtobestarted_fromform = Author.objects.get(memorizable_week_target=form.fields['week_target_memorizationtobestarted'])
+
+
+            # redirect to a new URL:
+        return HttpResponseRedirect(reverse('memorize-week-targets-fixed-category-list', kwargs={'pk': pk}))
+    # If this is a GET (or any other method) create the default form
+    else:
+        #Initial display (TODO: not working yet):
+        week_target_memorizationtobestarted_proposed = Author.objects.filter(t_memorization_package_mp_technique_assignmenttype_category=pk).order_by('memorization_sequence')[0]
+
+        #Form mit Wochenzielen für bestimmte Kategorie (z.B. Job, Privat) instanziieren
+        form = Memorize_Week_Targets_Fixed_Category_List_Form(pk)     #initial={'memorization_mode': 'notimer'}  oder initial={'week_target_memorizationtobestarted': 'week_target_memorizationtobestarted_proposed'}     
+
+    context = {
+        'form': form,
+        'context_week_targets': week_targets_tobememorized,
+    }
+
+    return render(request, 'catalog/memorize_week_targets_fixed_category_list.html', context)
 
 
 
