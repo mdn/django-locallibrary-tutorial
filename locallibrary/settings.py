@@ -82,7 +82,7 @@ WSGI_APPLICATION = 'locallibrary.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'rapptive',
+        'NAME': 'rappt',
         'USER': 'postgres',
         'PASSWORD': 'admin',
         'HOST': '127.0.0.1',
