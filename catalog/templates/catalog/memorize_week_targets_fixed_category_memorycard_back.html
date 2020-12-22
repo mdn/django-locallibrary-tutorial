@@ -7,7 +7,9 @@
 <h4>Wochenziele</h4>
 
 {% for mem in context_week_targets %}
-    <a href="{% url 'author-detail' mem.pk %}"><strong>{{ mem.memorization_sequence }}</strong> {{mem.t_memory_palace_type_location_number.memory_palace_datapoint_description}} - {{mem.t_memory_palace_type_location.memory_palace_type_location}}</a>
+    <a href="{% url 'memorize-week-targets-fixed-category-memorycard-front' mem.pk 1 %}">{{ mem.memorizable_week_target }}</a>
+    <p></p>
+    <a href="{% url 'memorize-week-targets-fixed-category-list' mem.pk %}"><i>Liste</i></a>
 {% endfor %}
 
 

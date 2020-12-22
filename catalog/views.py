@@ -827,7 +827,7 @@ def memorize_week_targets_fixed_category_list(request, pk, pkwt=1):
 
 
             # redirect to a new URL:
-        return HttpResponseRedirect(reverse('memorize-week-targets-fixed-category-memorycard', kwargs={'pk': pk, 'pkwt': 1}))
+        return HttpResponseRedirect(reverse('memorize-week-targets-fixed-category-memorycard-front', kwargs={'pk': pk, 'pkwt': 1}))
     # If this is a GET (or any other method) create the default form
     else:
         #Initial display (TODO: not working yet):
@@ -846,7 +846,7 @@ def memorize_week_targets_fixed_category_list(request, pk, pkwt=1):
 
 
 @permission_required('catalog.can_mark_returned')
-def memorize_week_targets_fixed_category_memorycard(request, pk, pkwt):
+def memorize_week_targets_fixed_category_memorycard_front(request, pk, pkwt=1):
     """View function for changing the memorization sequence for a specified category (e.g. Job, Private)."""
     #Required for week target listing on html-page and instantiation in this function:
     week_target_tobememorized = Author.objects.filter(t_memorization_package_mp_technique_assignmenttype_category=pk, id=pkwt)
@@ -878,8 +878,44 @@ def memorize_week_targets_fixed_category_memorycard(request, pk, pkwt):
         'context_week_targets': week_target_tobememorized,
     }
 
-    return render(request, 'catalog/memorize_week_targets_fixed_category_memorycard.html', context)
+    return render(request, 'catalog/memorize_week_targets_fixed_category_memorycard_front.html', context)
 
+
+
+@permission_required('catalog.can_mark_returned')
+def memorize_week_targets_fixed_category_memorycard_back(request, pk=1, pkwt=1):
+    """View function for changing the memorization sequence for a specified category (e.g. Job, Private)."""
+    #Required for week target listing on html-page and instantiation in this function:
+    week_target_tobememorized = Author.objects.filter(t_memorization_package_mp_technique_assignmenttype_category=pk, id=pkwt)
+
+    # If this is a POST request then process the Form data
+    if request.method == 'POST':
+
+        # Create a form instance and populate it with data from the request (binding):
+        form = Memorize_Week_Targets_Fixed_Category_List_Form(pk, data=request.POST)
+
+        # Check if the form is valid:
+#        if form.is_valid():
+            # process the data in form.cleaned_data as required
+        week_target_memorizationtobestarted_fromform = Author.objects.get(memorizable_week_target=form.fields['week_target_memorizationtobestarted'])
+
+
+            # redirect to a new URL:
+        return HttpResponseRedirect(reverse('memorize-week-targets-fixed-category-list', kwargs={'pk': pk}))
+    # If this is a GET (or any other method) create the default form
+    else:
+        #Initial display (TODO: not working yet):
+#        week_target_memorizationtobestarted_proposed = Author.objects.filter(t_memorization_package_mp_technique_assignmenttype_category=pk).order_by('memorization_sequence')[0]
+
+        #Form mit Wochenzielen für bestimmte Kategorie (z.B. Job, Privat) instanziieren
+        form = Memorize_Week_Targets_Fixed_Category_List_Form(pk)     #initial={'memorization_mode': 'notimer'}  oder initial={'week_target_memorizationtobestarted': 'week_target_memorizationtobestarted_proposed'}     
+
+    context = {
+        'form': form,
+        'context_week_targets': week_target_tobememorized,
+    }
+
+    return render(request, 'catalog/memorize_week_targets_fixed_category_memorycard_back.html', context)
 
 
 

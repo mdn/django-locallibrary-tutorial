@@ -124,8 +124,8 @@ urlpatterns += [
 # URLConf to memorize week_targets
 urlpatterns += [
     path('week_target/<int:pk>/memorization/', views.memorize_week_targets_fixed_category_list, name='memorize-week-targets-fixed-category-list'),
-    path('week_target/<int:pk>/memorize/<int:pkwt>/front', views.memorize_week_targets_fixed_category_memorycard, name='memorize-week-targets-fixed-category-memorycard'),
-#    path('week_target/<int:pk>/memorize/<int:pkwt>/back', views.memorize_week_targets_fixed_category_memorycard, name='memorize-week-targets-fixed-category-memorycard'),
+    path('week_target/<int:pk>/memorize/<int:pkwt>/front', views.memorize_week_targets_fixed_category_memorycard_front, name='memorize-week-targets-fixed-category-memorycard-front'),
+    path('week_target/<int:pk>/memorize/<int:pkwt>/back', views.memorize_week_targets_fixed_category_memorycard_back, name='memorize-week-targets-fixed-category-memorycard-back'),
 ]
 # URLConf to memorize relevantinformation_tobememorized
 urlpatterns += [

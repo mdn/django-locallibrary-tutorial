@@ -1,0 +1,31 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+<h1>Auswendig lernen</h1>
+
+<h4>Wochenziele</h4>
+
+{% for mem in context_week_targets %}
+    <a href="{% url 'memorize-week-targets-fixed-category-memorycard-back' mem.pk 1 %}"><strong>{{ mem.memorization_sequence }}</strong> {{mem.t_memory_palace_type_location_number.memory_palace_datapoint_description}} - {{mem.t_memory_palace_type_location.memory_palace_type_location}}</a>
+    <p></p>
+    <a href="{% url 'memorize-week-targets-fixed-category-list' mem.pk %}"><i>Liste</i></a>
+{% endfor %}
+
+
+
+
+<div style="margin-left:20px;margin-top:20px">
+<p></p>
+<form action="" method="post">
+    {% csrf_token %}
+    <table>
+    {{ form.as_table }}
+    </table>
+    <input type="submit" value="Submit" />
+</form>
+
+</div>
+
+{% endblock %}
+
