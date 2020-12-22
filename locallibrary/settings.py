@@ -82,11 +82,11 @@ WSGI_APPLICATION = 'locallibrary.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres'      #'rappt',   #'rapptive',
-        'USER': 'root'                  #'postgres',
-        'PASSWORD': 'root'                    #'admin',
-        'HOST': '/cloudsql/mobileapp0816:europe-west3:dbmobileapp221220'                        #'127.0.0.1',
-        'PORT': '3306'                      # '5432'
+        'NAME': 'postgres',      #'rappt',   #'rapptive',
+        'USER': 'root',                  #'postgres',
+        'PASSWORD': 'root',                    #'admin',
+        'HOST': '/cloudsql/mobileapp0816:europe-west3:dbmobileapp221220',                        #'127.0.0.1',
+        'PORT': '3306',                      # '5432'
     }
 }
 
