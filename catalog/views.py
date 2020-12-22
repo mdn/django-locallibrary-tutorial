@@ -809,7 +809,7 @@ def change_memorization_sequence_workpackage_relevantinformation_tobememorized_f
 
 
 @permission_required('catalog.can_mark_returned')
-def memorize_week_targets_fixed_category_list(request, pk):
+def memorize_week_targets_fixed_category_list(request, pk, pkwt=1):
     """View function for changing the memorization sequence for a specified category (e.g. Job, Private)."""
     #Required for week target listing on html-page and instantiation in this function:
     week_targets_tobememorized = Author.objects.filter(t_memorization_package_mp_technique_assignmenttype_category=pk).order_by('memorization_sequence')
@@ -827,7 +827,7 @@ def memorize_week_targets_fixed_category_list(request, pk):
 
 
             # redirect to a new URL:
-        return HttpResponseRedirect(reverse('memorize-week-targets-fixed-category-list', kwargs={'pk': pk}))
+        return HttpResponseRedirect(reverse('memorize-week-targets-fixed-category-memorycard', kwargs={'pk': pk, 'pkwt': 1}))
     # If this is a GET (or any other method) create the default form
     else:
         #Initial display (TODO: not working yet):
