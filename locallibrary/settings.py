@@ -81,13 +81,20 @@ WSGI_APPLICATION = 'locallibrary.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',      #'rappt',   #'rapptive',
-        'USER': 'root',                  #'postgres',
-        'PASSWORD': 'root',                    #'admin',
-        'HOST': '/cloudsql/mobileapp0816:europe-west3:dbmobileapp221220',                        #'127.0.0.1',
-        'PORT': '3306',                      # '5432'
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'USER': 'postgres',                  #'postgres',
+        'PASSWORD': 'admin',                    #'admin',
+        'NAME': 'rapptive',      #'postgres',   #'rapptive',
+        'HOST': 'localhost',                        #'127.0.0.1',                        #'/cloudsql/mobileapp0816:europe-west3:dbmobileapp221220',
+        'PORT': '5432',                      # '3306'
     }
+#        'ENGINE': 'django.db.backends.mysql',
+#        'NAME': 'world',
+#        'USER': 'root',
+#        'PASSWORD': 'admin',
+#        'HOST': 'localhost',
+#        'PORT': '3360',
+#    }
 }
 
 # Password validation
