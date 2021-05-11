@@ -35,7 +35,7 @@ class AuthorListViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTrue('is_paginated' in response.context)
         self.assertTrue(response.context['is_paginated'] is True)
-        self.assertTrue(len(response.context['author_list']) == 10)
+        self.assertEqual(len(response.context['author_list']), 10)
 
     def test_lists_all_authors(self):
         # Get second page and confirm it has (exactly) the remaining 3 items
@@ -43,7 +43,7 @@ class AuthorListViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTrue('is_paginated' in response.context)
         self.assertTrue(response.context['is_paginated'] is True)
-        self.assertTrue(len(response.context['author_list']) == 3)
+        self.assertEqual(len(response.context['author_list']), 3)
 
 
 import datetime
