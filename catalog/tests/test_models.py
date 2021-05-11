@@ -46,7 +46,7 @@ class AuthorModelTest(TestCase):
         author = Author.objects.get(id=1)
         expected_object_name = '{0}, {1}'.format(author.last_name, author.first_name)
 
-        self.assertEquals(expected_object_name, str(author))
+        self.assertEquals(str(author), expected_object_name)
 
     def test_get_absolute_url(self):
         author = Author.objects.get(id=1)
