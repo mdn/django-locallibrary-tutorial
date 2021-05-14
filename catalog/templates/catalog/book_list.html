@@ -8,7 +8,7 @@
 
       {% for book in book_list %}
       <li>
-        <a href="{{ book.get_absolute_url }}">{{ book.title }}</a> ({{book.author}})
+        <a href="{{ Book.get_absolute_url }}">{{ book.title }}</a> ({{book.author}})
       </li>
       {% endfor %}
 
