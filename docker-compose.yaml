@@ -1,0 +1,9 @@
+version: "3.8"
+services:
+  db:
+    image: "postgres:11"
+    restart: always
+    ports:
+      - "5432:5432"
+    env_file:
+      - compose.env

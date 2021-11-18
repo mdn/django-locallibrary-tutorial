@@ -1,0 +1,57 @@
+[
+  {
+    "model": "catalog.bookinstance",
+    "pk": "11bade31-785e-4069-b257-95eec92be1f3",
+    "fields": {
+      "book": 1,
+      "imprint": "abc",
+      "due_back": "2021-11-20",
+      "borrower": null,
+      "status": "a"
+    }
+  },
+  {
+    "model": "catalog.bookinstance",
+    "pk": "18cd366b-f97e-455d-b02d-0391108273e5",
+    "fields": {
+      "book": 5,
+      "imprint": "abc",
+      "due_back": "2021-11-20",
+      "borrower": null,
+      "status": "d"
+    }
+  },
+  {
+    "model": "catalog.bookinstance",
+    "pk": "4575e721-6a48-41ce-8d57-4932d0a477de",
+    "fields": {
+      "book": 2,
+      "imprint": "abc",
+      "due_back": "2021-11-09",
+      "borrower": null,
+      "status": "a"
+    }
+  },
+  {
+    "model": "catalog.bookinstance",
+    "pk": "50177ef7-4a70-43b8-be28-707ffcc35a1c",
+    "fields": {
+      "book": 2,
+      "imprint": "abc",
+      "due_back": "2021-12-16",
+      "borrower": 3,
+      "status": "r"
+    }
+  },
+  {
+    "model": "catalog.bookinstance",
+    "pk": "deae1ce0-398f-4a24-867a-1089fe823d34",
+    "fields": {
+      "book": 4,
+      "imprint": "3",
+      "due_back": "2021-11-21",
+      "borrower": 3,
+      "status": "o"
+    }
+  }
+]

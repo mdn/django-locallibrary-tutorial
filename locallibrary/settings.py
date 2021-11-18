@@ -79,11 +79,17 @@ WSGI_APPLICATION = 'locallibrary.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
+DATABASE_ENGINE = 'django.db.backends.postgresql_psycopg2'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'HOST': 'localhost',
+        'PORT': 5432,
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'NAME': 'qustodio',
+        'TEST': {'NAME': 'qustodio_testing'},
     }
 }
 
