@@ -1,9 +1,43 @@
 version: "3.8"
 services:
+
+  nginx:
+    image: "nginx:1.19.8"
+    restart: always
+    networks:
+      - catalog
+    ports:
+      - "80:80"
+    volumes:
+      - ./compose/nginx/nginx.conf:/etc/nginx/nginx.conf
+
+  catalog:
+    build: .
+    restart: always
+    env_file:
+      - compose.env
+    networks:
+      - catalog
+    volumes:
+      - .:/opt/catalog
+
+  catalog-admin:
+    build: .
+    restart: always
+    env_file:
+      - compose.env
+    networks:
+      - catalog
+    volumes:
+      - .:/opt/catalog
+
   db:
     image: "postgres:11"
     restart: always
-    ports:
-      - "5432:5432"
     env_file:
       - compose.env
+    networks:
+      - catalog
+
+networks:
+  catalog:

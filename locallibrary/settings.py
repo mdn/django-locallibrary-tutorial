@@ -24,12 +24,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 import os
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'cg#p$g+j9tax!#a3cup@1$8obt2_+&k3q+pmu)5%asj6yjpkag')
 
+DATABASE_HOST = os.environ.get('POSTGRES_HOST', '')
+DATABASE_USERNAME = os.environ.get('POSTGRES_USERNAME', '')
+DATABASE_PASSWORD = os.environ.get('POSTGRES_PASSWORD', '')
+DATABASE_PORT = os.environ.get('POSTGRES_PORT', '')
+DATABASE_DB_NAME = os.environ.get('POSTGRES_DB', '')
+
 # SECURITY WARNING: don't run with debug turned on in production!
 #DEBUG = True
 DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
 # Set hosts to allow any app on Heroku and the local testing URL
-ALLOWED_HOSTS = ['.herokuapp.com','127.0.0.1']
+ALLOWED_HOSTS = ['.herokuapp.com','127.0.0.1','localhost']
 
 
 # Application definition
@@ -83,13 +89,13 @@ DATABASE_ENGINE = 'django.db.backends.postgresql_psycopg2'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'HOST': 'localhost',
-        'PORT': 5432,
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'NAME': 'qustodio',
-        'TEST': {'NAME': 'qustodio_testing'},
+        'ENGINE': DATABASE_ENGINE,
+        'HOST': DATABASE_HOST,
+        'PORT': DATABASE_PORT,
+        'USER': DATABASE_USERNAME,
+        'PASSWORD': DATABASE_PASSWORD,
+        'NAME': DATABASE_DB_NAME,
+        'TEST': {'NAME': DATABASE_DB_NAME + '_testing'},
     }
 }
 

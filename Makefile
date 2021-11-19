@@ -1,3 +1,6 @@
+build:
+	@echo "Running docker compose locally..."
+	docker-compose build
 run:
 	@echo "Running docker compose locally..."
 	docker-compose up -d
@@ -13,16 +16,16 @@ clean:
 
 migrations:
 	@echo "Building migrations..."
-	python manage.py makemigrations
+	docker-compose exec -T catalog python manage.py makemigrations
 
 migrate:
 	@echo "Running migrations..."
-	python manage.py migrate
+	docker-compose exec -T catalog python manage.py migrate
 
 collectstatic:
 	@echo "Collecting static files..."
-	python manage.py collectstatic
+	docker-compose exec -T catalog python manage.py collectstatic
 
 fixtures:
 	@echo "Loading fixtures..."
-	python manage.py loaddata fixtures/*.json
+	docker-compose exec -T catalog sh -c "python manage.py loaddata fixtures/*.json"
