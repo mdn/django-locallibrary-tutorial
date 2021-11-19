@@ -1,6 +1,7 @@
 build:
 	@echo "Running docker compose locally..."
 	docker-compose build
+
 run:
 	@echo "Running docker compose locally..."
 	docker-compose up -d
