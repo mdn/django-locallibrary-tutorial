@@ -20,6 +20,8 @@ services:
       - catalog
     volumes:
       - .:/opt/catalog
+    depends_on:
+      - db
 
   catalog-admin:
     build: .
@@ -30,6 +32,8 @@ services:
       - catalog
     volumes:
       - .:/opt/catalog
+    depends_on:
+      - db
 
   db:
     image: "postgres:11"
