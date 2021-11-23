@@ -1,3 +1,6 @@
+import random
+
+from django.http.response import Http404, HttpResponseNotFound
 from django.shortcuts import render
 
 # Create your views here.
@@ -35,6 +38,54 @@ class BookListView(generic.ListView):
     """Generic class-based view for a list of books."""
     model = Book
     paginate_by = 10
+
+
+from catalog.models import User
+import logging
+class BookRecomendationsView(generic.ListView):
+    def get_queryset(self):
+        return Book.objects.all()
+
+    def filter_queryset(self, queryset, user_pk):
+        user = User.objects.get(pk=user_pk)
+        genres_retrieved = BookInstance.objects.filter(
+            borrower=user
+        ).prefetch_related('book__genre').values_list('book__genre', flat=True)
+        authors_retrieved = BookInstance.objects.filter(
+            borrower=user,
+        ).prefetch_related('book__author').values_list('book__author', flat=True)
+
+        return queryset.filter(
+            genre__in=genres_retrieved
+        ).union(
+            queryset.filter(
+                author__in=authors_retrieved
+            )
+        ).distinct()
+
+    def random_recomendations(self, length=2):
+        queryset = self.get_queryset()
+        random_pks = (
+            random.sample(
+                list(queryset.values_list('pk', flat=True)),
+                length
+            )
+        )
+        return queryset.filter(
+            pk__in=random_pks
+        )
+
+    def get(self, request, user_pk):
+        self.object_list = self.get_queryset()
+        try:
+            self.object_list = self.filter_queryset(self.object_list, user_pk)[:2]
+        except User.DoesNotExist:
+            return HttpResponseNotFound()
+        
+        if len(self.object_list) == 0:
+            self.object_list = self.random_recomendations()
+        context = self.get_context_data()
+        return self.render_to_response(context)
 
 
 class BookDetailView(generic.DetailView):
