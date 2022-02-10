@@ -1,0 +1,5 @@
+{% for book in books %}
+    {{ book.title }}
+{% empty %}
+    No Books in Database.
+{% endfor %}

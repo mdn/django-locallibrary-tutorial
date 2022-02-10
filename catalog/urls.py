@@ -38,3 +38,8 @@ urlpatterns += [
     path('book/<int:pk>/update/', views.BookUpdate.as_view(), name='book-update'),
     path('book/<int:pk>/delete/', views.BookDelete.as_view(), name='book-delete'),
 ]
+
+# Add URL to search Book Titles
+urlpatterns += [
+    path('book/search/title', views.book_title_search, name='book-title-search'),
+]

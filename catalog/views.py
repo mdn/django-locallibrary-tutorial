@@ -166,3 +166,12 @@ class BookDelete(PermissionRequiredMixin, DeleteView):
     model = Book
     success_url = reverse_lazy('books')
     permission_required = 'catalog.can_mark_returned'
+
+# Create Function View to Search Book Titles
+def book_title_search(request):
+
+    qs = Book.objects.all()
+
+    context = {"books": qs}
+
+    return render(request, 'catalog/book_title_search.html',context)
