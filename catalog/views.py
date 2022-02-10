@@ -170,8 +170,16 @@ class BookDelete(PermissionRequiredMixin, DeleteView):
 # Create Function View to Search Book Titles
 def book_title_search(request):
 
-    qs = Book.objects.all()
+    # Get Search Title
+    search_title = request.GET.get('title', None)
 
-    context = {"books": qs}
+    if search_title:
+        qs = Book.objects.all().filter(title=search_title)
+    else:    
+        qs = Book.objects.all()
 
-    return render(request, 'catalog/book_title_search.html',context)
+    context = {
+        "books": qs,
+        "search_title": search_title}
+
+    return render(request, 'catalog/book_title_search.html', context)
