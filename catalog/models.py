@@ -14,7 +14,7 @@ class Genre(models.Model):
 
     def __str__(self):
         """String for representing the Model object (in Admin site etc.)"""
-        return self.name
+        return f'{self.name}'
 
 
 class Language(models.Model):
@@ -24,7 +24,7 @@ class Language(models.Model):
 
     def __str__(self):
         """String for representing the Model object (in Admin site etc.)"""
-        return self.name
+        return f'{self.name}'
 
 
 class Book(models.Model):
@@ -58,7 +58,7 @@ class Book(models.Model):
 
     def __str__(self):
         """String for representing the Model object."""
-        return self.title
+        return f'{self.title}'
 
 
 import uuid  # Required for unique book instances
@@ -78,9 +78,8 @@ class BookInstance(models.Model):
 
     @property
     def is_overdue(self):
-        if self.due_back and date.today() > self.due_back:
-            return True
-        return False
+        """Derives whether the book is overdue given due data and current date."""
+        return bool(self.due_back and date.today() > self.due_back)
 
     LOAN_STATUS = (
         ('d', 'Maintenance'),
