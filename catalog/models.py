@@ -14,7 +14,7 @@ class Genre(models.Model):
 
     def __str__(self):
         """String for representing the Model object (in Admin site etc.)"""
-        return f'{self.name}'
+        return self.name
 
 
 class Language(models.Model):
@@ -24,7 +24,7 @@ class Language(models.Model):
 
     def __str__(self):
         """String for representing the Model object (in Admin site etc.)"""
-        return f'{self.name}'
+        return self.name
 
 
 class Book(models.Model):
@@ -58,7 +58,7 @@ class Book(models.Model):
 
     def __str__(self):
         """String for representing the Model object."""
-        return f'{self.title}'
+        return self.title
 
 
 import uuid  # Required for unique book instances
