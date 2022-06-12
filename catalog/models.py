@@ -78,7 +78,7 @@ class BookInstance(models.Model):
 
     @property
     def is_overdue(self):
-        """Derives whether the book is overdue given due data and current date."""
+        """Determines if the book is overdue based on due date and current date."""
         return bool(self.due_back and date.today() > self.due_back)
 
     LOAN_STATUS = (
