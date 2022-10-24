@@ -28,8 +28,11 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'cg#p$g+j9tax!#a3cup@1$8obt2_+&
 #DEBUG = True
 DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
-# Set hosts to allow any app on Heroku and the local testing URL
-ALLOWED_HOSTS = ['.herokuapp.com','127.0.0.1']
+# Set hosts to allow any app on Railway and the local testing URL
+ALLOWED_HOSTS = ['.railway.app','127.0.0.1']
+
+# Set CSRF trusted origins to allow any app on Railway and the local testing URL
+CSRF_TRUSTED_ORIGINS = ['https://*.railway.app','https://*.127.0.0.1']
 
 
 # Application definition
@@ -128,7 +131,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
 
-# Heroku: Update database configuration from $DATABASE_URL.
+# Update database configuration from $DATABASE_URL environment variable (if defined)
 import dj_database_url
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
