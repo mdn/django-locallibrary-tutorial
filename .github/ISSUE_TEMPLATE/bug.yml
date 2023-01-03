@@ -5,17 +5,25 @@ body:
   - type: markdown
     attributes:
       value: |
-        ### Before you start
-
         **Want to fix the problem yourself?** This project is open source and we welcome fixes and improvements from the community!
 
         ↩ Check the project [CONTRIBUTING.md](../blob/main/CONTRIBUTING.md) guide to see how to get started.
-
-        ---
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: "Before submitting the issue, check you have done the following:"
+      description: Make sure you have provided all the information below so we can help resolve your issue.
+      options:
+        - label: Issue can be reproduced on this repository following [quick-start instructions](https://github.com/mdn/django-locallibrary-tutorial#quick-start).
+          required: true
+        - label: I am using a clean/fresh database
+          required: true
+        - label: I have included output logs and information about my environment setup below.
+          required: true
   - type: textarea
     id: problem
     attributes:
-      label: What information was incorrect, unhelpful, or incomplete?
+      label: What was incorrect, unhelpful, or unexpected?
     validations:
       required: true
   - type: textarea
@@ -25,10 +33,13 @@ body:
     validations:
       required: true
   - type: textarea
-    id: references
+    id: logs
     attributes:
-      label: Do you have any supporting links, references, or citations?
-      description: Link to information that helps us confirm your issue.
+      label: Output logs
+      description: |
+        Share any logs that describe the problem you are seeing. If you are seeing an error, please include the full error message.
+      placeholder: |
+        You can paste the output directly or upload it as an attachment.
   - type: textarea
     id: more-info
     attributes:
