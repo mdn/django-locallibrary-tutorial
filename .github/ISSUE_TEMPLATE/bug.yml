@@ -16,7 +16,7 @@ body:
       options:
         - label: Issue can be reproduced on this repository following [quick-start instructions](https://github.com/mdn/django-locallibrary-tutorial#quick-start).
           required: true
-        - label: I am using a clean/fresh database
+        - label: I am using a clean/fresh database.
           required: true
         - label: I have included output logs and information about my environment setup below.
           required: true
