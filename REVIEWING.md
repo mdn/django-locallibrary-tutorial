@@ -1,11 +1,7 @@
 # Reviewing guide
 
-## Values and guidelines
-
-All reviewers must abide by the [Code of Conduct](CODE_OF_CONDUCT.md); they are also protected by the Code of Conduct.
-A reviewer should not tolerate poor behavior and is encouraged to [report any behavior](CODE_OF_CONDUCT.md#Reporting_violations) that violates the Code of Conduct.
-
-Everyone participating must follow our [Community Participation Guidelines](CODE_OF_CONDUCT.md#Community_Participation_Guidelines)
+All reviewers must abide by the [code of conduct](CODE_OF_CONDUCT.md); they are also protected by the code of conduct.
+A reviewer should not tolerate poor behavior and is encouraged to [report any behavior](CODE_OF_CONDUCT.md#Reporting_violations) that violates the code of conduct.
 
 ## Review process
 
