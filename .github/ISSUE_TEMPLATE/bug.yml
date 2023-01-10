@@ -1,0 +1,49 @@
+name: "Issue report"
+description: Report an unexpected problem or unintended behavior.
+labels: ["needs triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Want to fix the problem yourself?** This project is open source and we welcome fixes and improvements from the community!
+
+        ↩ Check the project [CONTRIBUTING.md](../blob/main/CONTRIBUTING.md) guide to see how to get started.
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: "Before submitting the issue, confirm that you've checked everything in the following list, and mark them as completed here:"
+      description: Make sure you have provided all the information below so we can help resolve your issue.
+      options:
+        - label: Issue is reproducible on this repository by following the [quick-start instructions](https://github.com/mdn/django-locallibrary-tutorial#quick-start).
+          required: true
+        - label: A clean/fresh database was used when the issue was encountered.
+          required: true
+        - label: Information about the environment setup when the issue was encountered is included in the issue.
+          required: true
+        - label: Output logs are included in the issue.
+          required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What was incorrect, unhelpful, or unexpected?
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect to see?
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Output logs
+      description: |
+        Share any logs that describe the problem you are seeing. If you are seeing an error, please include the full error message.
+      placeholder: |
+        You can paste the output directly or upload it as an attachment.
+  - type: textarea
+    id: more-info
+    attributes:
+      label: Do you have anything more you want to share?
+      description: For example, steps to reproduce, screenshots, screen recordings, or sample code.
