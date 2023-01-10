@@ -11,14 +11,16 @@ body:
   - type: checkboxes
     id: checklist
     attributes:
-      label: "Before submitting the issue, check you have done the following:"
+      label: "Before submitting the issue, confirm that you've checked everything in the following list, and mark them as completed here:"
       description: Make sure you have provided all the information below so we can help resolve your issue.
       options:
-        - label: Issue can be reproduced on this repository following [quick-start instructions](https://github.com/mdn/django-locallibrary-tutorial#quick-start).
+        - label: Issue is reproducible on this repository by following the [quick-start instructions](https://github.com/mdn/django-locallibrary-tutorial#quick-start).
           required: true
-        - label: I am using a clean/fresh database.
+        - label: A clean/fresh database was used when the issue was encountered.
           required: true
-        - label: I have included output logs and information about my environment setup below.
+        - label: Information about the environment setup when the issue was encountered is included in the issue.
+          required: true
+        - label: Output logs are included in the issue.
           required: true
   - type: textarea
     id: problem
