@@ -280,7 +280,7 @@ class RenewBookInstancesViewTest(TestCase):
 
     def test_form_invalid_renewal_date_future(self):
         login = self.client.login(username='testuser2', password='2HJ1vRV0Z&3iD')
-        
+
         invalid_date_in_future = datetime.date.today() + datetime.timedelta(weeks=5)
         response = self.client.post(reverse('renew-book-librarian', kwargs={'pk': self.test_bookinstance1.pk}),
                                     {'renewal_date': invalid_date_in_future})
