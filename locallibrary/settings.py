@@ -20,7 +20,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+<<<<<<< HEAD
 # SECRET_KEY = 'django-insecure-&psk#na5l=p3q8_a+-$4w1f^lt3lx1c@d*p4x$ymm_rn7pwb87'
+=======
+SECRET_KEY = 'django-insecure-&psk#na5l=p3q8_a+-$4w1f^lt3lx1c@d*p4x$ymm_rn7pwb87'
+
+>>>>>>> dc87cb8 (Minimal changes for 4.2 - inc use STORAGES)
 import os
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-&psk#na5l=p3q8_a+-$4w1f^lt3lx1c@d*p4x$ymm_rn7pwb87')
 
@@ -44,7 +49,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Add our new application 
+    # Add our new application
     'catalog.apps.CatalogConfig', #This object was created for us in /catalog/apps.py
 ]
 
@@ -149,8 +154,13 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'  #. os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 
 
+
 # Static file serving.
+<<<<<<< HEAD
 # https://whitenoise.readthedocs.io/en/stable/django.html#add-compression-and-caching-support
+=======
+# http://whitenoise.evans.io/en/stable/django.html#django-middleware
+>>>>>>> dc87cb8 (Minimal changes for 4.2 - inc use STORAGES)
 STORAGES = {
     # ...
     "staticfiles": {
