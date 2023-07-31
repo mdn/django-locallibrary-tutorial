@@ -21,7 +21,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # SECRET_KEY = 'django-insecure-&psk#na5l=p3q8_a+-$4w1f^lt3lx1c@d*p4x$ymm_rn7pwb87'
+<<<<<<< HEAD
 
+=======
+>>>>>>> a608553 (Add settings 4.2 for dj url:)
 import os
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-&psk#na5l=p3q8_a+-$4w1f^lt3lx1c@d*p4x$ymm_rn7pwb87')
 
@@ -151,15 +154,7 @@ STATIC_URL = '/static/'
 
 
 # Static file serving.
-<<<<<<< HEAD
-<<<<<<< HEAD
 # https://whitenoise.readthedocs.io/en/stable/django.html#add-compression-and-caching-support
-=======
-# http://whitenoise.evans.io/en/stable/django.html#django-middleware
->>>>>>> dc87cb8 (Minimal changes for 4.2 - inc use STORAGES)
-=======
-# https://whitenoise.readthedocs.io/en/stable/django.html#add-compression-and-caching-support
->>>>>>> 82dcc41 (Update requirements and fixup whitenoise link)
 STORAGES = {
     # ...
     "staticfiles": {
