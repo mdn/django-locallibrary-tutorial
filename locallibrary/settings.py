@@ -147,9 +147,8 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'  #. os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 
 
-
 # Static file serving.
-# http://whitenoise.evans.io/en/stable/django.html#django-middleware
+# https://whitenoise.readthedocs.io/en/stable/django.html#add-compression-and-caching-support
 STORAGES = {
     # ...
     "staticfiles": {
