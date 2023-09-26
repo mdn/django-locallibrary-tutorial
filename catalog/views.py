@@ -1,8 +1,20 @@
+from .models import Author
+from django.urls import reverse_lazy
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from catalog.forms import RenewBookForm
+from django.contrib.auth.decorators import login_required, permission_required
+import datetime
+from django.urls import reverse
+from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404
+from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views import generic
 from django.shortcuts import render
 
 # Create your views here.
 
-from .models import Book, Author, BookInstance, Genre
+from .models import Book, Author, BookInstance, Genre, Language
 
 
 def index(request):
@@ -11,7 +23,8 @@ def index(request):
     num_books = Book.objects.all().count()
     num_instances = BookInstance.objects.all().count()
     # Available copies of books
-    num_instances_available = BookInstance.objects.filter(status__exact='a').count()
+    num_instances_available = BookInstance.objects.filter(
+        status__exact='a').count()
     num_authors = Author.objects.count()  # The 'all()' is implied by default.
 
     # Number of visits to this view, as counted in the session variable.
@@ -26,9 +39,6 @@ def index(request):
                  'num_instances_available': num_instances_available, 'num_authors': num_authors,
                  'num_visits': num_visits},
     )
-
-
-from django.views import generic
 
 
 class BookListView(generic.ListView):
@@ -53,7 +63,37 @@ class AuthorDetailView(generic.DetailView):
     model = Author
 
 
-from django.contrib.auth.mixins import LoginRequiredMixin
+class GenreDetailView(generic.DetailView):
+    """Generic class-based detail view for a genre."""
+    model = Genre
+
+
+class GenreListView(generic.ListView):
+    """Generic class-based list view for a list of genres."""
+    model = Genre
+    paginate_by = 10
+
+
+class LanguageDetailView(generic.DetailView):
+    """Generic class-based detail view for a genre."""
+    model = Language
+
+
+class LanguageListView(generic.ListView):
+    """Generic class-based list view for a list of genres."""
+    model = Language
+    paginate_by = 10
+
+
+class BookInstanceListView(generic.ListView):
+    """Generic class-based view for a list of books."""
+    model = BookInstance
+    paginate_by = 10
+
+
+class BookInstanceDetailView(generic.DetailView):
+    """Generic class-based detail view for a book."""
+    model = BookInstance
 
 
 class LoanedBooksByUserListView(LoginRequiredMixin, generic.ListView):
@@ -71,7 +111,6 @@ class LoanedBooksByUserListView(LoginRequiredMixin, generic.ListView):
 
 
 # Added as part of challenge!
-from django.contrib.auth.mixins import PermissionRequiredMixin
 
 
 class LoanedBooksAllListView(PermissionRequiredMixin, generic.ListView):
@@ -85,14 +124,7 @@ class LoanedBooksAllListView(PermissionRequiredMixin, generic.ListView):
         return BookInstance.objects.filter(status__exact='o').order_by('due_back')
 
 
-from django.shortcuts import get_object_or_404
-from django.http import HttpResponseRedirect
-from django.urls import reverse
-import datetime
-from django.contrib.auth.decorators import login_required, permission_required
-
 # from .forms import RenewBookForm
-from catalog.forms import RenewBookForm
 
 
 @login_required
@@ -129,11 +161,6 @@ def renew_book_librarian(request, pk):
     return render(request, 'catalog/book_renew_librarian.html', context)
 
 
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.urls import reverse_lazy
-from .models import Author
-
-
 class AuthorCreate(PermissionRequiredMixin, CreateView):
     model = Author
     fields = ['first_name', 'last_name', 'date_of_birth', 'date_of_death']
@@ -143,7 +170,8 @@ class AuthorCreate(PermissionRequiredMixin, CreateView):
 
 class AuthorUpdate(PermissionRequiredMixin, UpdateView):
     model = Author
-    fields = '__all__' # Not recommended (potential security issue if more fields added)
+    # Not recommended (potential security issue if more fields added)
+    fields = '__all__'
     permission_required = 'catalog.can_mark_returned'
 
 
@@ -169,4 +197,59 @@ class BookUpdate(PermissionRequiredMixin, UpdateView):
 class BookDelete(PermissionRequiredMixin, DeleteView):
     model = Book
     success_url = reverse_lazy('books')
+    permission_required = 'catalog.can_mark_returned'
+
+
+class GenreCreate(PermissionRequiredMixin, CreateView):
+    model = Genre
+    fields = ['name', ]
+    permission_required = 'catalog.can_mark_returned'
+
+
+class GenreUpdate(PermissionRequiredMixin, UpdateView):
+    model = Genre
+    fields = ['name', ]
+    permission_required = 'catalog.can_mark_returned'
+
+
+class GenreDelete(PermissionRequiredMixin, DeleteView):
+    model = Genre
+    success_url = reverse_lazy('genres')
+    permission_required = 'catalog.can_mark_returned'
+
+
+class LanguageCreate(PermissionRequiredMixin, CreateView):
+    model = Language
+    fields = ['name', ]
+    permission_required = 'catalog.can_mark_returned'
+
+
+class LanguageUpdate(PermissionRequiredMixin, UpdateView):
+    model = Language
+    fields = ['name', ]
+    permission_required = 'catalog.can_mark_returned'
+
+
+class LanguageDelete(PermissionRequiredMixin, DeleteView):
+    model = Language
+    success_url = reverse_lazy('languages')
+    permission_required = 'catalog.can_mark_returned'
+
+
+class BookInstanceCreate(PermissionRequiredMixin, CreateView):
+    model = BookInstance
+    fields = ['book','imprint', 'due_back', 'borrower', 'status']
+    permission_required = 'catalog.can_mark_returned'
+
+
+class BookInstanceUpdate(PermissionRequiredMixin, UpdateView):
+    model = BookInstance
+    # fields = "__all__"
+    fields = ['imprint', 'due_back', 'borrower', 'status']
+    permission_required = 'catalog.can_mark_returned'
+
+
+class BookInstanceDelete(PermissionRequiredMixin, DeleteView):
+    model = BookInstance
+    success_url = reverse_lazy('bookinstances')
     permission_required = 'catalog.can_mark_returned'

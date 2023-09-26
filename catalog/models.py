@@ -12,6 +12,10 @@ class Genre(models.Model):
         help_text="Enter a book genre (e.g. Science Fiction, French Poetry etc.)"
         )
 
+    def get_absolute_url(self):
+        """Returns the url to access a particular genre instance."""
+        return reverse('genre-detail', args=[str(self.id)])
+
     def __str__(self):
         """String for representing the Model object (in Admin site etc.)"""
         return self.name
@@ -21,6 +25,10 @@ class Language(models.Model):
     """Model representing a Language (e.g. English, French, Japanese, etc.)"""
     name = models.CharField(max_length=200,
                             help_text="Enter the book's natural language (e.g. English, French, Japanese etc.)")
+
+    def get_absolute_url(self):
+        """Returns the url to access a particular language instance."""
+        return reverse('language-detail', args=[str(self.id)])
 
     def __str__(self):
         """String for representing the Model object (in Admin site etc.)"""
@@ -42,7 +50,7 @@ class Book(models.Model):
     # ManyToManyField used because a genre can contain many books and a Book can cover many genres.
     # Genre class has already been defined so we can specify the object above.
     language = models.ForeignKey('Language', on_delete=models.SET_NULL, null=True)
-    
+
     class Meta:
         ordering = ['title', 'author']
 
@@ -53,7 +61,7 @@ class Book(models.Model):
     display_genre.short_description = 'Genre'
 
     def get_absolute_url(self):
-        """Returns the url to access a particular book instance."""
+        """Returns the url to access a particular book record."""
         return reverse('book-detail', args=[str(self.id)])
 
     def __str__(self):
@@ -98,6 +106,10 @@ class BookInstance(models.Model):
     class Meta:
         ordering = ['due_back']
         permissions = (("can_mark_returned", "Set book as returned"),)
+
+    def get_absolute_url(self):
+        """Returns the url to access a particular book instance."""
+        return reverse('bookinstance-detail', args=[str(self.id)])
 
     def __str__(self):
         """String for representing the Model object."""

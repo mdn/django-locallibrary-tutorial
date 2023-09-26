@@ -1,0 +1,18 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+<h1>Language List</h1>
+
+<ul>
+  {% for language in language_list %}
+  <li>
+    <a href="{{ language.get_absolute_url }}">{{ language }}</a>
+  </li>
+  {% empty %}
+  <li>There are no languages available.</li>
+  {% endfor %}
+</ul>
+
+{% endblock %}
+
