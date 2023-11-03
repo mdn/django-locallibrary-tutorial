@@ -40,7 +40,6 @@ urlpatterns += [
 ]
 
 
-
 # Add URLConf to list, view, create, update, and delete genre
 urlpatterns += [
     path('genres/', views.GenreListView.as_view(), name='genres'),
@@ -53,17 +52,24 @@ urlpatterns += [
 # Add URLConf to list, view, create, update, and delete languages
 urlpatterns += [
     path('languages/', views.LanguageListView.as_view(), name='languages'),
-    path('language/<int:pk>', views.LanguageDetailView.as_view(), name='language-detail'),
+    path('language/<int:pk>', views.LanguageDetailView.as_view(),
+         name='language-detail'),
     path('language/create/', views.LanguageCreate.as_view(), name='language-create'),
-    path('language/<int:pk>/update/', views.LanguageUpdate.as_view(), name='language-update'),
-    path('language/<int:pk>/delete/', views.LanguageDelete.as_view(), name='language-delete'),
+    path('language/<int:pk>/update/',
+         views.LanguageUpdate.as_view(), name='language-update'),
+    path('language/<int:pk>/delete/',
+         views.LanguageDelete.as_view(), name='language-delete'),
 ]
 
 # Add URLConf to list, view, create, update, and delete bookinstances
 urlpatterns += [
     path('bookinstances/', views.BookInstanceListView.as_view(), name='bookinstances'),
-    path('bookinstance/<uuid:pk>', views.BookInstanceDetailView.as_view(), name='bookinstance-detail'),
-    path('bookinstance/create/', views.BookInstanceCreate.as_view(), name='bookinstance-create'),
-    path('bookinstance/<uuid:pk>/update/', views.BookInstanceUpdate.as_view(), name='bookinstance-update'),
-    path('bookinstance/<uuid:pk>/delete/', views.BookInstanceDelete.as_view(), name='bookinstance-delete'),
+    path('bookinstance/<uuid:pk>', views.BookInstanceDetailView.as_view(),
+         name='bookinstance-detail'),
+    path('bookinstance/create/', views.BookInstanceCreate.as_view(),
+         name='bookinstance-create'),
+    path('bookinstance/<uuid:pk>/update/',
+         views.BookInstanceUpdate.as_view(), name='bookinstance-update'),
+    path('bookinstance/<uuid:pk>/delete/',
+         views.BookInstanceDelete.as_view(), name='bookinstance-delete'),
 ]
