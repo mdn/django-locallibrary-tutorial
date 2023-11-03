@@ -198,11 +198,9 @@ class RenewBookInstancesViewTest(TestCase):
     def setUp(self):
         # Create a user
         test_user1 = User.objects.create_user(username='testuser1', password='1X<ISRUkw+tuK')
-
         test_user1.save()
 
         test_user2 = User.objects.create_user(username='testuser2', password='2HJ1vRV0Z&3iD')
-
         test_user2.save()
         permission = Permission.objects.get(name='Set book as returned')
         test_user2.user_permissions.add(permission)
