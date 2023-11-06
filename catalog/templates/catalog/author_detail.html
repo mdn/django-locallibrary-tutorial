@@ -12,8 +12,25 @@
 {% for book in author.book_set.all %}
   <dt><a href="{% url 'book-detail' book.pk %}">{{book}}</a> ({{book.bookinstance_set.all.count}})</dt>
   <dd>{{book.summary}}</dd>
+  {% empty %}
+  <p>This author has no books.</p>
 {% endfor %}
 </dl>
 
 </div>
+{% endblock %}
+
+{% block sidebar %}
+  {{ block.super }}
+
+  {% if perms.catalog.can_mark_returned %}
+  <hr>
+  <ul class="sidebar-nav">
+    <li><a href="{% url 'author-update' author.id %}">Update Author</a></li>
+      {% if not author.book_set.all %}
+        <li><a href="{% url 'author-delete' author.id %}">Delete Author</a></li>
+      {% endif %}
+    </ul>
+  {% endif %}
+
 {% endblock %}
