@@ -27,25 +27,22 @@ def index(request):
                  'num_visits': num_visits},
     )
 
-
 from django.views import generic
+
 
 class BookListView(generic.ListView):
     """Generic class-based view for a list of books."""
     model = Book
     paginate_by = 10
 
-
 class BookDetailView(generic.DetailView):
     """Generic class-based detail view for a book."""
     model = Book
-
 
 class AuthorListView(generic.ListView):
     """Generic class-based list view for a list of authors."""
     model = Author
     paginate_by = 10
-
 
 class AuthorDetailView(generic.DetailView):
     """Generic class-based detail view for an author."""
@@ -56,29 +53,24 @@ class GenreDetailView(generic.DetailView):
     """Generic class-based detail view for a genre."""
     model = Genre
 
-
 class GenreListView(generic.ListView):
     """Generic class-based list view for a list of genres."""
     model = Genre
     paginate_by = 10
 
-
 class LanguageDetailView(generic.DetailView):
     """Generic class-based detail view for a genre."""
     model = Language
-
 
 class LanguageListView(generic.ListView):
     """Generic class-based list view for a list of genres."""
     model = Language
     paginate_by = 10
 
-
 class BookInstanceListView(generic.ListView):
     """Generic class-based view for a list of books."""
     model = BookInstance
     paginate_by = 10
-
 
 class BookInstanceDetailView(generic.DetailView):
     """Generic class-based detail view for a book."""
@@ -99,9 +91,9 @@ class LoanedBooksByUserListView(LoginRequiredMixin, generic.ListView):
             .order_by('due_back')
         )
 
-
 # Added as part of challenge!
 from django.contrib.auth.mixins import PermissionRequiredMixin
+
 
 class LoanedBooksAllListView(PermissionRequiredMixin, generic.ListView):
     """Generic class-based view listing all books on loan. Only visible to users with can_mark_returned permission."""
@@ -113,13 +105,13 @@ class LoanedBooksAllListView(PermissionRequiredMixin, generic.ListView):
     def get_queryset(self):
         return BookInstance.objects.filter(status__exact='o').order_by('due_back')
 
-
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 import datetime
 from django.contrib.auth.decorators import login_required, permission_required
 from catalog.forms import RenewBookForm
+
 
 @login_required
 @permission_required('catalog.can_mark_returned', raise_exception=True)
@@ -159,6 +151,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from .models import Author
 
+
 class AuthorCreate(PermissionRequiredMixin, CreateView):
     model = Author
     fields = ['first_name', 'last_name', 'date_of_birth', 'date_of_death']
@@ -178,8 +171,9 @@ class AuthorDelete(PermissionRequiredMixin, DeleteView):
     success_url = reverse_lazy('authors')
     permission_required = 'catalog.can_mark_returned'
 
-
 # Classes created for the forms challenge
+
+
 class BookCreate(PermissionRequiredMixin, CreateView):
     model = Book
     fields = ['title', 'author', 'summary', 'isbn', 'genre', 'language']
@@ -205,6 +199,7 @@ class BookDelete(PermissionRequiredMixin, DeleteView):
             return HttpResponseRedirect(
                 reverse("book-delete", kwargs={"pk": self.object.pk})
             )
+
 
 class GenreCreate(PermissionRequiredMixin, CreateView):
     model = Genre
@@ -244,7 +239,7 @@ class LanguageDelete(PermissionRequiredMixin, DeleteView):
 
 class BookInstanceCreate(PermissionRequiredMixin, CreateView):
     model = BookInstance
-    fields = ['book','imprint', 'due_back', 'borrower', 'status']
+    fields = ['book', 'imprint', 'due_back', 'borrower', 'status']
     permission_required = 'catalog.can_mark_returned'
 
 
