@@ -332,7 +332,7 @@ class RenewBookInstancesViewTest(TestCase):
             reverse('renew-book-librarian', kwargs={'pk': test_uid}))
         self.assertEqual(response.status_code, 404)
 
-
+from django.contrib.contenttypes.models import ContentType
 class AuthorCreateViewTest(TestCase):
     """Test case for the AuthorCreate view (Created as Challenge)."""
 
@@ -346,8 +346,21 @@ class AuthorCreateViewTest(TestCase):
         test_user1.save()
         test_user2.save()
 
-        permission = Permission.objects.get(name='Set book as returned')
-        test_user2.user_permissions.add(permission)
+        content_typeBook = ContentType.objects.get_for_model(Book)
+
+        permAddBook = Permission.objects.get(
+            codename="add_book",
+            content_type=content_typeBook,
+        )
+
+        content_typeAuthor = ContentType.objects.get_for_model(Author)
+        permAddAuthor = Permission.objects.get(
+            codename="add_author",
+            content_type=content_typeAuthor,
+        )
+
+
+        test_user2.user_permissions.add(permAddBook, permAddAuthor)
         test_user2.save()
 
         # Create a book
@@ -384,7 +397,7 @@ class AuthorCreateViewTest(TestCase):
         response = self.client.get(reverse('author-create'))
         self.assertEqual(response.status_code, 200)
 
-        expected_initial_date = datetime.date(2020, 6, 11)
+        expected_initial_date = datetime.date(2023, 11, 11)
         response_date = response.context['form'].initial['date_of_death']
         response_date = datetime.datetime.strptime(
             response_date, "%d/%m/%Y").date()
