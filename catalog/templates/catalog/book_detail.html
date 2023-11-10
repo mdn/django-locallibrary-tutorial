@@ -29,13 +29,15 @@
 {% block sidebar %}
   {{ block.super }}
 
-  {% if perms.catalog.can_mark_returned %}
+  {% if perms.catalog.change_book or perms.catalog.delete_book %}
   <hr>
   <ul class="sidebar-nav">
-    <li><a href="{% url 'book-update' book.id %}">Update Book</a></li>
-      {% if not book.bookinstance_set.all %}
-        <li><a href="{% url 'book-delete' book.id %}">Delete Book</a></li>
-      {% endif %}
+    {% if perms.catalog.change_book %}
+      <li><a href="{% url 'book-update' book.id %}">Update Book</a></li>
+    {% endif %}
+    {% if not book.bookinstance_set.all and perms.catalog.delete_book %}
+      <li><a href="{% url 'book-delete' book.id %}">Delete Book</a></li>
+    {% endif %}
     </ul>
   {% endif %}
 

@@ -23,13 +23,15 @@
 {% block sidebar %}
   {{ block.super }}
 
-  {% if perms.catalog.can_mark_returned %}
+  {% if perms.catalog.change_genre or perms.catalog.delete_genre %}
   <hr>
   <ul class="sidebar-nav">
+    {% if perms.catalog.change_genre %}
     <li><a href="{% url 'genre-update' genre.id %}">Update Genre</a></li>
-      {% if not genre.book_set.all %}
-        <li><a href="{% url 'genre-delete' genre.id %}">Delete Genre</a></li>
-      {% endif %}
+    {% endif %}
+    {% if not genre.book_set.all and perms.catalog.delete_genre %}
+      <li><a href="{% url 'genre-delete' genre.id %}">Delete Genre</a></li>
+    {% endif %}
     </ul>
   {% endif %}
 

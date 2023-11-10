@@ -155,21 +155,19 @@ from .models import Author
 class AuthorCreate(PermissionRequiredMixin, CreateView):
     model = Author
     fields = ['first_name', 'last_name', 'date_of_birth', 'date_of_death']
-    initial = {'date_of_death': '11/06/2020'}
-    permission_required = 'catalog.can_mark_returned'
-
+    initial = {'date_of_death': '11/11/2023'}
+    permission_required = 'catalog.add_author'
 
 class AuthorUpdate(PermissionRequiredMixin, UpdateView):
     model = Author
     # Not recommended (potential security issue if more fields added)
     fields = '__all__'
-    permission_required = 'catalog.can_mark_returned'
-
+    permission_required = 'catalog.change_author'
 
 class AuthorDelete(PermissionRequiredMixin, DeleteView):
     model = Author
     success_url = reverse_lazy('authors')
-    permission_required = 'catalog.can_mark_returned'
+    permission_required = 'catalog._author'
 
     def form_valid(self, form):
         try:
@@ -186,19 +184,19 @@ class AuthorDelete(PermissionRequiredMixin, DeleteView):
 class BookCreate(PermissionRequiredMixin, CreateView):
     model = Book
     fields = ['title', 'author', 'summary', 'isbn', 'genre', 'language']
-    permission_required = 'catalog.can_mark_returned'
+    permission_required = 'catalog.add_book'
 
 
 class BookUpdate(PermissionRequiredMixin, UpdateView):
     model = Book
     fields = ['title', 'author', 'summary', 'isbn', 'genre', 'language']
-    permission_required = 'catalog.can_mark_returned'
+    permission_required = 'catalog.change_book'
 
 
 class BookDelete(PermissionRequiredMixin, DeleteView):
     model = Book
     success_url = reverse_lazy('books')
-    permission_required = 'catalog.can_mark_returned'
+    permission_required = 'catalog.delete_book'
 
     def form_valid(self, form):
         try:
@@ -213,53 +211,53 @@ class BookDelete(PermissionRequiredMixin, DeleteView):
 class GenreCreate(PermissionRequiredMixin, CreateView):
     model = Genre
     fields = ['name', ]
-    permission_required = 'catalog.can_mark_returned'
+    permission_required = 'catalog.add_genre'
 
 
 class GenreUpdate(PermissionRequiredMixin, UpdateView):
     model = Genre
     fields = ['name', ]
-    permission_required = 'catalog.can_mark_returned'
+    permission_required = 'catalog.change_genre'
 
 
 class GenreDelete(PermissionRequiredMixin, DeleteView):
     model = Genre
     success_url = reverse_lazy('genres')
-    permission_required = 'catalog.can_mark_returned'
+    permission_required = 'catalog.delete_genre'
 
 
 class LanguageCreate(PermissionRequiredMixin, CreateView):
     model = Language
     fields = ['name', ]
-    permission_required = 'catalog.can_mark_returned'
+    permission_required = 'catalog.add_language'
 
 
 class LanguageUpdate(PermissionRequiredMixin, UpdateView):
     model = Language
     fields = ['name', ]
-    permission_required = 'catalog.can_mark_returned'
+    permission_required = 'catalog.change_language'
 
 
 class LanguageDelete(PermissionRequiredMixin, DeleteView):
     model = Language
     success_url = reverse_lazy('languages')
-    permission_required = 'catalog.can_mark_returned'
+    permission_required = 'catalog.delete_language'
 
 
 class BookInstanceCreate(PermissionRequiredMixin, CreateView):
     model = BookInstance
     fields = ['book', 'imprint', 'due_back', 'borrower', 'status']
-    permission_required = 'catalog.can_mark_returned'
+    permission_required = 'catalog.add_bookinstance'
 
 
 class BookInstanceUpdate(PermissionRequiredMixin, UpdateView):
     model = BookInstance
     # fields = "__all__"
     fields = ['imprint', 'due_back', 'borrower', 'status']
-    permission_required = 'catalog.can_mark_returned'
+    permission_required = 'catalog.change_bookinstance'
 
 
 class BookInstanceDelete(PermissionRequiredMixin, DeleteView):
     model = BookInstance
     success_url = reverse_lazy('bookinstances')
-    permission_required = 'catalog.can_mark_returned'
+    permission_required = 'catalog.delete_bookinstance'
