@@ -167,7 +167,7 @@ class AuthorUpdate(PermissionRequiredMixin, UpdateView):
 class AuthorDelete(PermissionRequiredMixin, DeleteView):
     model = Author
     success_url = reverse_lazy('authors')
-    permission_required = 'catalog._author'
+    permission_required = 'catalog.delete_author'
 
     def form_valid(self, form):
         try:
