@@ -30,7 +30,7 @@
   <ul class="sidebar-nav">
    {% if user.is_authenticated %}
      <li>User: {{ user.get_username }}</li>
-     <li><a href="{% url 'my-borrowed' %}">My Borrowed</a></li>
+     <li><a href="{% url 'my-borrowed' %}">My borrowed</a></li>
      <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
    {% else %}
      <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
@@ -43,11 +43,11 @@
    <li>Staff</li>
    {% if perms.catalog.can_mark_returned %}
    <li><a href="{% url 'all-borrowed' %}">All borrowed</a></li>
-   <li><a href="{% url 'genre-create' %}">Create Genre</a></li>
-   <li><a href="{% url 'language-create' %}">Create Language</a></li>
-   <li><a href="{% url 'author-create' %}">Create Author</a></li>
-   <li><a href="{% url 'book-create' %}">Create Book</a></li>
-   <li><a href="{% url 'bookinstance-create' %}">Create BookInstance</a></li>
+   <li><a href="{% url 'genre-create' %}">Create genre</a></li>
+   <li><a href="{% url 'language-create' %}">Create language</a></li>
+   <li><a href="{% url 'author-create' %}">Create author</a></li>
+   <li><a href="{% url 'book-create' %}">Create book</a></li>
+   <li><a href="{% url 'bookinstance-create' %}">create BookInstance</a></li>
    {% endif %}
 
 
@@ -77,8 +77,6 @@
         </div>
     {% endif %}
   {% endblock %}
-
-
   </div>
 </div>
 
