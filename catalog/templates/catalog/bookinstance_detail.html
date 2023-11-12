@@ -1,0 +1,36 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+<h1>BookInstance: {{ bookinstance.book.title }}</h1>
+
+<p><strong>Author:</strong> <a href="{{ bookinstance.book.author.get_absolute_url }}">{{ bookinstance.book.author }}</a></p>
+
+<p><strong>Imprint:</strong> {{ bookinstance.imprint }}</p>
+<p><strong>Status:</strong> {{ bookinstance.get_status_display }} {% if bookinstance.status != 'a' %} (Due: {{bookinstance.due_back}}){% endif %}</p>
+
+<hr>
+<ul>
+  <li>
+    <a href="{{ bookinstance.book.get_absolute_url }}">All copies</a></p>
+  </li>
+</ul>
+{% endblock %}
+
+
+{% block sidebar %}
+  {{ block.super }}
+
+  {% if perms.catalog.change_bookinstance or perms.catalog.delete_bookinstance %}
+  <hr>
+  <ul class="sidebar-nav">
+    {% if perms.catalog.change_bookinstance %}
+      <li><a href="{% url 'bookinstance-update' bookinstance.id %}">Update BookInstance</a></li>
+    {% endif %}
+    {% if perms.catalog.delete_bookinstance %}
+      <li><a href="{% url 'bookinstance-delete' bookinstance.id %}">Delete BookInstance</a></li>
+    {% endif %}
+  </ul>
+  {% endif %}
+
+{% endblock %}

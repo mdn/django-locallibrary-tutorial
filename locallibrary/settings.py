@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Add our new application 
+    # Add our new application
     'catalog.apps.CatalogConfig', #This object was created for us in /catalog/apps.py
 ]
 
