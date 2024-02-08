@@ -1,0 +1,12 @@
+name: auto-merge
+
+on:
+  pull_request_target:
+
+jobs:
+  auto-merge:
+    uses: mdn/workflows/.github/workflows/auto-merge.yml@main
+    with:
+      target-repo: "mdn/django-locallibrary-tutorial"
+    secrets:
+      GH_TOKEN: ${{ secrets.AUTOMERGE_TOKEN }}
