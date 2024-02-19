@@ -4,3 +4,4 @@ gunicorn==21.2.0
 psycopg2-binary==2.9.6
 wheel==0.38.1
 whitenoise==6.5.0
+python-dotenv==1.0.1
