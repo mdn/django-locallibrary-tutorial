@@ -16,12 +16,17 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
+# Add support for env variables from file if defined
+import os
+from dotenv import load_dotenv
+env_path = load_dotenv(os.path.join(BASE_DIR, '.env'))
+load_dotenv(env_path)
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # SECRET_KEY = 'django-insecure-&psk#na5l=p3q8_a+-$4w1f^lt3lx1c@d*p4x$ymm_rn7pwb87'
-import os
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-&psk#na5l=p3q8_a+-$4w1f^lt3lx1c@d*p4x$ymm_rn7pwb87')
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -29,10 +34,10 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-&psk#na5l=p3q8
 DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
 # Set hosts to allow any app on Railway and the local testing URL
-ALLOWED_HOSTS = ['.railway.app','127.0.0.1']
+ALLOWED_HOSTS = ['.railway.app','.pythonanywhere.com','127.0.0.1']
 
 # Set CSRF trusted origins to allow any app on Railway and the local testing URL
-CSRF_TRUSTED_ORIGINS = ['https://*.railway.app','https://*.127.0.0.1']
+CSRF_TRUSTED_ORIGINS = ['https://*.railway.app','https://*.pythonanywhere.com']
 
 
 # Application definition
