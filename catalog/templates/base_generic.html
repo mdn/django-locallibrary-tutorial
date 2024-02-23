@@ -61,7 +61,7 @@
      <li><a href="{% url 'book-create' %}">Create book</a></li>
    {% endif %}
    {% if perms.catalog.add_bookinstance %}
-     <li><a href="{% url 'bookinstance-create' %}">Create BookInstance</a></li>
+     <li><a href="{% url 'bookinstance-create' %}">Create copy of book</a></li>
    {% endif %}
    </ul>
    {% endif %}
