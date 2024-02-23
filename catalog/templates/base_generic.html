@@ -31,7 +31,13 @@
    {% if user.is_authenticated %}
      <li>User: {{ user.get_username }}</li>
      <li><a href="{% url 'my-borrowed' %}">My borrowed</a></li>
-     <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
+     <li>
+     <form id="logout-form" method="post" action="{% url 'admin:logout' %}">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-link">Logout</button>
+    </form>
+  </li>
+
    {% else %}
      <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
    {% endif %}
@@ -58,7 +64,7 @@
      <li><a href="{% url 'bookinstance-create' %}">create BookInstance</a></li>
    {% endif %}
    </ul>
-   {% endif %} 
+   {% endif %}
 
 {% endblock %}
   </div>
