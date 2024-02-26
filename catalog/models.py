@@ -14,13 +14,13 @@ class Genre(models.Model):
         help_text="Enter a book genre (e.g. Science Fiction, French Poetry etc.)"
     )
 
-    def get_absolute_url(self):
-        """Returns the url to access a particular genre instance."""
-        return reverse('genre-detail', args=[str(self.id)])
-
     def __str__(self):
         """String for representing the Model object (in Admin site etc.)"""
         return self.name
+
+    def get_absolute_url(self):
+        """Returns the url to access a particular genre instance."""
+        return reverse('genre-detail', args=[str(self.id)])
 
     class Meta:
         constraints = [
