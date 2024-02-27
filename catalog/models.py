@@ -3,7 +3,8 @@ from django.db import models
 # Create your models here.
 
 from django.urls import reverse  # To generate URLS by reversing URL patterns
-
+from django.db.models import UniqueConstraint
+from django.db.models.functions import Lower
 
 class Genre(models.Model):
     """Model representing a book genre (e.g. Science Fiction, Non Fiction)."""
@@ -13,14 +14,22 @@ class Genre(models.Model):
         help_text="Enter a book genre (e.g. Science Fiction, French Poetry etc.)"
     )
 
-    def get_absolute_url(self):
-        """Returns the url to access a particular genre instance."""
-        return reverse('genre-detail', args=[str(self.id)])
-
     def __str__(self):
         """String for representing the Model object (in Admin site etc.)"""
         return self.name
 
+    def get_absolute_url(self):
+        """Returns the url to access a particular genre instance."""
+        return reverse('genre-detail', args=[str(self.id)])
+
+    class Meta:
+        constraints = [
+            UniqueConstraint(
+                Lower('name'),
+                name='genre_name_case_insensitive_unique',
+                violation_error_message = "Genre already exists (case insensitive match)"
+            ),
+        ]
 
 class Language(models.Model):
     """Model representing a Language (e.g. English, French, Japanese, etc.)"""
@@ -36,6 +45,14 @@ class Language(models.Model):
         """String for representing the Model object (in Admin site etc.)"""
         return self.name
 
+    class Meta:
+        constraints = [
+            UniqueConstraint(
+                Lower('name'),
+                name='language_name_case_insensitive_unique',
+                violation_error_message = "Language already exists (case insensitive match)"
+            ),
+        ]
 
 class Book(models.Model):
     """Model representing a book (but not a specific copy of a book)."""
