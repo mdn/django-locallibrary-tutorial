@@ -31,7 +31,7 @@
      <li>User: {{ user.get_username }}</li>
      <li><a href="{% url 'my-borrowed' %}">My borrowed</a></li>
      <li>
-       <form id="logout-form" method="post" action="{% url 'admin:logout' %}">
+       <form id="logout-form" method="post" action="{% url 'logout' %}">
          {% csrf_token %}
          <button type="submit" class="btn btn-link">Logout</button>
        </form>
