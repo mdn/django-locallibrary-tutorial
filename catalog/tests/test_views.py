@@ -147,9 +147,9 @@ class LoanedBookInstancesByUserListViewTest(TestCase):
         self.assertTrue('bookinstance_list' in response.context)
 
         # Confirm all books belong to testuser1 and are on loan
-        for bookitem in response.context['bookinstance_list']:
-            self.assertEqual(response.context['user'], bookitem.borrower)
-            self.assertEqual(bookitem.status, 'o')
+        for book_item in response.context['bookinstance_list']:
+            self.assertEqual(response.context['user'], book_item.borrower)
+            self.assertEqual(book_item.status, 'o')
 
     def test_pages_paginated_to_ten(self):
 
