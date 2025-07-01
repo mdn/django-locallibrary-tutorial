@@ -70,7 +70,7 @@ class LoanedBookInstancesByUserListViewTest(TestCase):
 
         # Create a book
         test_author = Author.objects.create(
-            first_name='John', last_name='Smith')
+            first_name='Dominique', last_name='Rousseau')
         test_genre = Genre.objects.create(name='Fantasy')
         test_language = Language.objects.create(name='English')
         test_book = Book.objects.create(
@@ -219,7 +219,7 @@ class RenewBookInstancesViewTest(TestCase):
 
         # Create a book
         test_author = Author.objects.create(
-            first_name='John', last_name='Smith')
+            first_name='Dominique', last_name='Rousseau')
         test_genre = Genre.objects.create(name='Fantasy')
         test_language = Language.objects.create(name='English')
         test_book = Book.objects.create(title='Book Title', summary='My book summary',
@@ -365,7 +365,7 @@ class AuthorCreateViewTest(TestCase):
 
         # Create a book
         test_author = Author.objects.create(
-            first_name='John', last_name='Smith')
+            first_name='Dominique', last_name='Rousseau')
 
     def test_redirect_if_not_logged_in(self):
         response = self.client.get(reverse('author-create'))
