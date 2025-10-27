@@ -42,7 +42,7 @@ If you want to contribute but don't know where to start or can't find a suitable
 
 Once you find an issue you'd like to work on, please post a comment saying you want to work on it.
 Something like "I want to work on this" is fine.
-Also, mention the community team using the `@mdn/mdn-community-engagement` handle to ensure someone will get back to you.
+Also, mention the community team using the `@mdn/community` handle to ensure someone will get back to you.
 
 ## Asking for help
 
@@ -50,7 +50,7 @@ The best way to reach us with a question when contributing is to use the followi
 
 - [Start a discussion](https://github.com/orgs/mdn/discussions)
 - Ask your question or highlight your discussion on [Matrix](https://matrix.to/#/#mdn:mozilla.org).
-- File an issue and tag the community team using the `@mdn/mdn-community-engagement` handle.
+- File an issue and tag the community team using the `@mdn/community` handle.
 
 ## Pull request process
 
