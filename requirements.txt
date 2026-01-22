@@ -2,6 +2,6 @@ Django==5.1.15
 dj-database-url==2.1.0
 gunicorn==22.0.0
 psycopg2-binary==2.9.9
-wheel==0.38.1
+wheel==0.46.2
 whitenoise==6.6.0
 python-dotenv==1.0.1
