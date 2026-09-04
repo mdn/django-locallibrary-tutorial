@@ -137,7 +137,11 @@ USE_TZ = True
 LOGIN_REDIRECT_URL = '/'
 
 # Add to test email:
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+MAILERS = {
+    'default': {
+        'BACKEND': 'django.core.mail.backends.console.EmailBackend',
+    },
+}
 
 # Update database configuration from $DATABASE_URL environment variable (if defined)
 import dj_database_url

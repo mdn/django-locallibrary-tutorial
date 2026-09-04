@@ -112,18 +112,17 @@ class BookInstance(models.Model):
         """Determines if the book is overdue based on due date and current date."""
         return bool(self.due_back and date.today() > self.due_back)
 
-    LOAN_STATUS = (
-        ('d', 'Maintenance'),
-        ('o', 'On loan'),
-        ('a', 'Available'),
-        ('r', 'Reserved'),
-    )
+    class LoanStatus(models.TextChoices):
+        MAINTENANCE = 'm', 'Maintenance'
+        ON_LOAN = 'o', 'On loan'
+        AVAILABLE = 'a', 'Available'
+        RESERVED = 'r', 'Reserved'
 
     status = models.CharField(
         max_length=1,
-        choices=LOAN_STATUS,
+        choices=LoanStatus,
         blank=True,
-        default='d',
+        default=LoanStatus.MAINTENANCE,
         help_text='Book availability')
 
     class Meta:

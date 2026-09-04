@@ -15,8 +15,8 @@
 
 {% for copy in book.bookinstance_set.all %}
   <hr>
-  <p class="{% if copy.status == 'a' %}text-success{% elif copy.status == 'd' %}text-danger{% else %}text-warning{% endif %}">{{ copy.get_status_display }}</p>
-  {% if copy.status != 'a' %}<p><strong>Due to be returned:</strong> {{copy.due_back}}</p>{% endif %}
+  <p class="{% if copy.status == copy.LoanStatus.AVAILABLE %}text-success{% elif copy.status == copy.LoanStatus.MAINTENANCE %}text-danger{% else %}text-warning{% endif %}">{{ copy.get_status_display }}</p>
+  {% if copy.status != copy.LoanStatus.AVAILABLE %}<p><strong>Due to be returned:</strong> {{copy.due_back}}</p>{% endif %}
   <p><strong>Imprint:</strong> {{copy.imprint}}</p>
   <p class="text-muted"><strong>Id:</strong> <a href="{{ copy.get_absolute_url }}">{{copy.id}}</a></p>
 {% empty %}
