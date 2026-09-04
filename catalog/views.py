@@ -11,7 +11,7 @@ def index(request):
     num_instances = BookInstance.objects.all().count()
     # Available copies of books
     num_instances_available = BookInstance.objects.filter(
-        status__exact='a').count()
+        status__exact=BookInstance.LoanStatus.AVAILABLE).count()
     num_authors = Author.objects.count()  # The 'all()' is implied by default.
 
     # Number of visits to this view, as counted in the session variable.
@@ -88,7 +88,7 @@ class LoanedBooksByUserListView(LoginRequiredMixin, generic.ListView):
     def get_queryset(self):
         return (
             BookInstance.objects.filter(borrower=self.request.user)
-            .filter(status__exact='o')
+            .filter(status__exact=BookInstance.LoanStatus.ON_LOAN)
             .order_by('due_back')
         )
 
@@ -104,7 +104,7 @@ class LoanedBooksAllListView(PermissionRequiredMixin, generic.ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        return BookInstance.objects.filter(status__exact='o').order_by('due_back')
+        return BookInstance.objects.filter(status__exact=BookInstance.LoanStatus.ON_LOAN).order_by('due_back')
 
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect

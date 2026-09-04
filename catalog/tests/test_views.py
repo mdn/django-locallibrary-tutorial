@@ -93,7 +93,7 @@ class LoanedBookInstancesByUserListViewTest(TestCase):
                 the_borrower = test_user1
             else:
                 the_borrower = test_user2
-            status = 'm'
+            status = BookInstance.LoanStatus.MAINTENANCE
             BookInstance.objects.create(book=test_book, imprint='Unlikely Imprint, 2016', due_back=return_date,
                                         borrower=the_borrower, status=status)
 
@@ -134,7 +134,7 @@ class LoanedBookInstancesByUserListViewTest(TestCase):
         get_ten_books = BookInstance.objects.all()[:10]
 
         for copy in get_ten_books:
-            copy.status = 'o'
+            copy.status = BookInstance.LoanStatus.ON_LOAN
             copy.save()
 
         # Check that now we have borrowed books in the list
@@ -149,14 +149,14 @@ class LoanedBookInstancesByUserListViewTest(TestCase):
         # Confirm all books belong to testuser1 and are on loan
         for book_item in response.context['bookinstance_list']:
             self.assertEqual(response.context['user'], book_item.borrower)
-            self.assertEqual(book_item.status, 'o')
+            self.assertEqual(book_item.status, BookInstance.LoanStatus.ON_LOAN)
 
     def test_pages_paginated_to_ten(self):
 
         # Change all books to be on loan.
         # This should make 15 test user ones.
         for copy in BookInstance.objects.all():
-            copy.status = 'o'
+            copy.status = BookInstance.LoanStatus.ON_LOAN
             copy.save()
 
         login = self.client.login(
@@ -176,7 +176,7 @@ class LoanedBookInstancesByUserListViewTest(TestCase):
 
         # Change all books to be on loan
         for copy in BookInstance.objects.all():
-            copy.status = 'o'
+            copy.status = BookInstance.LoanStatus.ON_LOAN
             copy.save()
 
         login = self.client.login(
@@ -233,12 +233,12 @@ class RenewBookInstancesViewTest(TestCase):
         return_date = datetime.date.today() + datetime.timedelta(days=5)
         self.test_bookinstance1 = BookInstance.objects.create(book=test_book,
                                                               imprint='Unlikely Imprint, 2016', due_back=return_date,
-                                                              borrower=test_user1, status='o')
+                                                              borrower=test_user1, status=BookInstance.LoanStatus.ON_LOAN)
 
         # Create a BookInstance object for test_user2
         return_date = datetime.date.today() + datetime.timedelta(days=5)
         self.test_bookinstance2 = BookInstance.objects.create(book=test_book, imprint='Unlikely Imprint, 2016',
-                                                              due_back=return_date, borrower=test_user2, status='o')
+                                                              due_back=return_date, borrower=test_user2, status=BookInstance.LoanStatus.ON_LOAN)
 
     def test_redirect_if_not_logged_in(self):
         response = self.client.get(
