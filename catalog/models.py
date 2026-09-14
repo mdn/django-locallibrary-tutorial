@@ -27,7 +27,7 @@ class Genre(models.Model):
             UniqueConstraint(
                 Lower('name'),
                 name='genre_name_case_insensitive_unique',
-                violation_error_message = "Genre already exists (case insensitive match)"
+                violation_error_message = "Genre already exists (case-insensitive match)"
             ),
         ]
 
@@ -50,7 +50,7 @@ class Language(models.Model):
             UniqueConstraint(
                 Lower('name'),
                 name='language_name_case_insensitive_unique',
-                violation_error_message = "Language already exists (case insensitive match)"
+                violation_error_message = "Language already exists (case-insensitive match)"
             ),
         ]
 
