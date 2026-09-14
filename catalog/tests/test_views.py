@@ -14,7 +14,7 @@ class AuthorListViewTest(TestCase):
         # Create authors for pagination tests
         number_of_authors = 13
         for author_id in range(number_of_authors):
-            Author.objects.create(first_name='Christian {0}'.format(author_id),
+            Author.objects.create(first_name=f'Dominique {author_id}',
                                   last_name='Surname {0}'.format(author_id))
 
     def test_view_url_exists_at_desired_location(self):
@@ -82,13 +82,13 @@ class LoanedBookInstancesByUserListViewTest(TestCase):
         )
         # Create genre as a post-step
         genre_objects_for_book = Genre.objects.all()
-        test_book.genre.set(genre_objects_for_book)
+        test_book.genre.set(genre_objects_for_book)  # Direct assignment of many-to-many types not allowed.
         test_book.save()
 
         # Create 30 BookInstance objects
         number_of_book_copies = 30
         for book_copy in range(number_of_book_copies):
-            return_date = timezone.now() + datetime.timedelta(days=book_copy % 5)
+            return_date = timezone.localtime() + datetime.timedelta(days=book_copy % 5)
             if book_copy % 2:
                 the_borrower = test_user1
             else:
@@ -226,7 +226,7 @@ class RenewBookInstancesViewTest(TestCase):
                                         isbn='ABCDEFG', author=test_author, language=test_language,)
         # Create genre as a post-step
         genre_objects_for_book = Genre.objects.all()
-        test_book.genre.set(genre_objects_for_book)
+        test_book.genre.set(genre_objects_for_book)  # Direct assignment of many-to-many types not allowed.
         test_book.save()
 
         # Create a BookInstance object for test_user1
