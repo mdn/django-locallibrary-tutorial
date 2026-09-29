@@ -39,7 +39,7 @@ class AuthorListViewTest(TestCase):
 
     def test_lists_all_authors(self):
         # Get second page and confirm it has (exactly) the remaining 3 items
-        response = self.client.get(reverse('authors')+'?page=2')
+        response = self.client.get(reverse('authors'), query_params={'page': 2})
         self.assertEqual(response.status_code, 200)
         self.assertTrue('is_paginated' in response.context)
         self.assertTrue(response.context['is_paginated'] is True)
@@ -47,7 +47,6 @@ class AuthorListViewTest(TestCase):
 
 
 import datetime
-from django.utils import timezone
 
 from catalog.models import BookInstance, Book, Genre, Language
 
@@ -88,7 +87,7 @@ class LoanedBookInstancesByUserListViewTest(TestCase):
         # Create 30 BookInstance objects
         number_of_book_copies = 30
         for book_copy in range(number_of_book_copies):
-            return_date = timezone.localtime() + datetime.timedelta(days=book_copy % 5)
+            return_date = datetime.date.today() + datetime.timedelta(days=book_copy % 5)
             if book_copy % 2:
                 the_borrower = test_user1
             else:
