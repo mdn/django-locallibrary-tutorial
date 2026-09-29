@@ -7,12 +7,12 @@
 <p><strong>Author:</strong> <a href="{{ bookinstance.book.author.get_absolute_url }}">{{ bookinstance.book.author }}</a></p>
 
 <p><strong>Imprint:</strong> {{ bookinstance.imprint }}</p>
-<p><strong>Status:</strong> {{ bookinstance.get_status_display }} {% if bookinstance.status != 'a' %} (Due: {{bookinstance.due_back}}){% endif %}</p>
+<p><strong>Status:</strong> {{ bookinstance.get_status_display }} {% if bookinstance.status != bookinstance.LoanStatus.AVAILABLE %} (Due: {{bookinstance.due_back}}){% endif %}</p>
 
 <hr>
 <ul>
   <li>
-    <a href="{{ bookinstance.book.get_absolute_url }}">All copies</a></p>
+    <a href="{{ bookinstance.book.get_absolute_url }}">All copies</a>
   </li>
 </ul>
 {% endblock %}

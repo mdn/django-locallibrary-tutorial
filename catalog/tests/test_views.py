@@ -14,7 +14,7 @@ class AuthorListViewTest(TestCase):
         # Create authors for pagination tests
         number_of_authors = 13
         for author_id in range(number_of_authors):
-            Author.objects.create(first_name='Christian {0}'.format(author_id),
+            Author.objects.create(first_name=f'Dominique {author_id}',
                                   last_name='Surname {0}'.format(author_id))
 
     def test_view_url_exists_at_desired_location(self):
@@ -39,7 +39,7 @@ class AuthorListViewTest(TestCase):
 
     def test_lists_all_authors(self):
         # Get second page and confirm it has (exactly) the remaining 3 items
-        response = self.client.get(reverse('authors')+'?page=2')
+        response = self.client.get(reverse('authors'), query_params={'page': 2})
         self.assertEqual(response.status_code, 200)
         self.assertTrue('is_paginated' in response.context)
         self.assertTrue(response.context['is_paginated'] is True)
@@ -47,7 +47,6 @@ class AuthorListViewTest(TestCase):
 
 
 import datetime
-from django.utils import timezone
 
 from catalog.models import BookInstance, Book, Genre, Language
 
@@ -82,18 +81,18 @@ class LoanedBookInstancesByUserListViewTest(TestCase):
         )
         # Create genre as a post-step
         genre_objects_for_book = Genre.objects.all()
-        test_book.genre.set(genre_objects_for_book)
+        test_book.genre.set(genre_objects_for_book)  # Direct assignment of many-to-many types not allowed.
         test_book.save()
 
         # Create 30 BookInstance objects
         number_of_book_copies = 30
         for book_copy in range(number_of_book_copies):
-            return_date = timezone.now() + datetime.timedelta(days=book_copy % 5)
+            return_date = datetime.date.today() + datetime.timedelta(days=book_copy % 5)
             if book_copy % 2:
                 the_borrower = test_user1
             else:
                 the_borrower = test_user2
-            status = 'm'
+            status = BookInstance.LoanStatus.MAINTENANCE
             BookInstance.objects.create(book=test_book, imprint='Unlikely Imprint, 2016', due_back=return_date,
                                         borrower=the_borrower, status=status)
 
@@ -134,7 +133,7 @@ class LoanedBookInstancesByUserListViewTest(TestCase):
         get_ten_books = BookInstance.objects.all()[:10]
 
         for copy in get_ten_books:
-            copy.status = 'o'
+            copy.status = BookInstance.LoanStatus.ON_LOAN
             copy.save()
 
         # Check that now we have borrowed books in the list
@@ -149,14 +148,14 @@ class LoanedBookInstancesByUserListViewTest(TestCase):
         # Confirm all books belong to testuser1 and are on loan
         for book_item in response.context['bookinstance_list']:
             self.assertEqual(response.context['user'], book_item.borrower)
-            self.assertEqual(book_item.status, 'o')
+            self.assertEqual(book_item.status, BookInstance.LoanStatus.ON_LOAN)
 
     def test_pages_paginated_to_ten(self):
 
         # Change all books to be on loan.
         # This should make 15 test user ones.
         for copy in BookInstance.objects.all():
-            copy.status = 'o'
+            copy.status = BookInstance.LoanStatus.ON_LOAN
             copy.save()
 
         login = self.client.login(
@@ -176,7 +175,7 @@ class LoanedBookInstancesByUserListViewTest(TestCase):
 
         # Change all books to be on loan
         for copy in BookInstance.objects.all():
-            copy.status = 'o'
+            copy.status = BookInstance.LoanStatus.ON_LOAN
             copy.save()
 
         login = self.client.login(
@@ -226,19 +225,19 @@ class RenewBookInstancesViewTest(TestCase):
                                         isbn='ABCDEFG', author=test_author, language=test_language,)
         # Create genre as a post-step
         genre_objects_for_book = Genre.objects.all()
-        test_book.genre.set(genre_objects_for_book)
+        test_book.genre.set(genre_objects_for_book)  # Direct assignment of many-to-many types not allowed.
         test_book.save()
 
         # Create a BookInstance object for test_user1
         return_date = datetime.date.today() + datetime.timedelta(days=5)
         self.test_bookinstance1 = BookInstance.objects.create(book=test_book,
                                                               imprint='Unlikely Imprint, 2016', due_back=return_date,
-                                                              borrower=test_user1, status='o')
+                                                              borrower=test_user1, status=BookInstance.LoanStatus.ON_LOAN)
 
         # Create a BookInstance object for test_user2
         return_date = datetime.date.today() + datetime.timedelta(days=5)
         self.test_bookinstance2 = BookInstance.objects.create(book=test_book, imprint='Unlikely Imprint, 2016',
-                                                              due_back=return_date, borrower=test_user2, status='o')
+                                                              due_back=return_date, borrower=test_user2, status=BookInstance.LoanStatus.ON_LOAN)
 
     def test_redirect_if_not_logged_in(self):
         response = self.client.get(
@@ -399,8 +398,6 @@ class AuthorCreateViewTest(TestCase):
 
         expected_initial_date = datetime.date(2023, 11, 11)
         response_date = response.context['form'].initial['date_of_death']
-        response_date = datetime.datetime.strptime(
-            response_date, "%d/%m/%Y").date()
         self.assertEqual(response_date, expected_initial_date)
 
     def test_redirects_to_detail_view_on_success(self):
@@ -411,3 +408,37 @@ class AuthorCreateViewTest(TestCase):
         # Manually check redirect because we don't know what author was created
         self.assertEqual(response.status_code, 302)
         self.assertTrue(response.url.startswith('/catalog/author/'))
+
+
+class AuthorDeleteViewTest(TestCase):
+    """Test case for the AuthorDelete view."""
+
+    def setUp(self):
+        test_user = User.objects.create_user(
+            username='testuser1', password='1X<ISRUkw+tuK')
+        permDeleteAuthor = Permission.objects.get(
+            codename='delete_author',
+            content_type=ContentType.objects.get_for_model(Author),
+        )
+        test_user.user_permissions.add(permDeleteAuthor)
+
+        self.author_with_book = Author.objects.create(
+            first_name='John', last_name='Smith')
+        Book.objects.create(title='Book Title', summary='My book summary',
+                            isbn='ABCDEFG', author=self.author_with_book)
+        self.author_without_book = Author.objects.create(
+            first_name='Jane', last_name='Doe')
+
+    def test_deletes_author_without_books(self):
+        self.client.login(username='testuser1', password='1X<ISRUkw+tuK')
+        response = self.client.post(
+            reverse('author-delete', kwargs={'pk': self.author_without_book.pk}))
+        self.assertRedirects(response, reverse('authors'))
+        self.assertFalse(Author.objects.filter(pk=self.author_without_book.pk).exists())
+
+    def test_does_not_delete_author_with_books(self):
+        self.client.login(username='testuser1', password='1X<ISRUkw+tuK')
+        url = reverse('author-delete', kwargs={'pk': self.author_with_book.pk})
+        response = self.client.post(url)
+        self.assertRedirects(response, url)
+        self.assertTrue(Author.objects.filter(pk=self.author_with_book.pk).exists())
