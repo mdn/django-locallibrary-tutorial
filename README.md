@@ -22,7 +22,7 @@ The main features that have currently been implemented are:
 To get this project up and running locally on your computer:
 
 1. Set up the [Python development environment](https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Server-side/Django/development_environment).
-   > **Note:** This has been tested against Python 3.10 (and may not work or be "optimal" for other versions).
+   > **Note:** This has been tested against Django 6.1, which requires Python 3.12 or later.
 2. Create and activate a Python virtual environment for the project using [venv](https://docs.python.org/3/library/venv.html), the virtual environment tool built into Python:
 
    ```

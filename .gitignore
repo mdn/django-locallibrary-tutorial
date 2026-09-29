@@ -88,6 +88,7 @@ celerybeat-schedule
 
 # virtualenv
 venv/
+django6_env/
 ENV/
 
 # Spyder project settings
