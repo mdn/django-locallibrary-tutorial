@@ -19,14 +19,16 @@ def index(request):
     num_visits += 1
     request.session['num_visits'] = num_visits
 
+    context = {
+        'num_books': num_books,
+        'num_instances': num_instances,
+        'num_instances_available': num_instances_available,
+        'num_authors': num_authors,
+        'num_visits': num_visits,
+    }
+
     # Render the HTML template index.html with the data in the context variable.
-    return render(
-        request,
-        'index.html',
-        context={'num_books': num_books, 'num_instances': num_instances,
-                 'num_instances_available': num_instances_available, 'num_authors': num_authors,
-                 'num_visits': num_visits},
-    )
+    return render(request, 'index.html', context=context)
 
 from django.views import generic
 
