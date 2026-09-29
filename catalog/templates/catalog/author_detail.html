@@ -10,7 +10,7 @@
 
 <dl>
 {% for book in author.book_set.all %}
-  <dt><a href="{% url 'book-detail' book.pk %}">{{book}}</a> ({{book.bookinstance_set.all.count}})</dt>
+  <dt><a href="{% url 'book-detail' book.pk %}">{{book}}</a> ({{ book.bookinstance_set.count }})</dt>
   <dd>{{book.summary}}</dd>
   {% empty %}
   <p>This author has no books.</p>
