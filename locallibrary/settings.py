@@ -20,11 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 import os
 from dotenv import load_dotenv
 
-env_file = os.path.join(BASE_DIR, ".env")
-
-# Load .env only if it exists
-if os.path.exists(env_file):
-    load_dotenv(env_file)
+load_dotenv(BASE_DIR / ".env")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.1/howto/deployment/checklist/
@@ -35,8 +31,8 @@ SECRET_KEY = os.environ.get(
     'DJANGO_SECRET_KEY', 'django-insecure-&psk#na5l=p3q8_a+-$4w1f^lt3lx1c@d*p4x$ymm_rn7pwb87')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-# DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
+# DEBUG = True
+DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
 # Set hosts to allow any app on Railway and the local testing URL
 ALLOWED_HOSTS = ['.railway.app', '.pythonanywhere.com', '127.0.0.1']
@@ -162,7 +158,9 @@ STATIC_URL = '/static/'
 # Static file serving.
 # https://whitenoise.readthedocs.io/en/stable/django.html#add-compression-and-caching-support
 STORAGES = {
-    # ...
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
     "staticfiles": {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
