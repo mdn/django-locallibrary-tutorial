@@ -399,8 +399,6 @@ class AuthorCreateViewTest(TestCase):
 
         expected_initial_date = datetime.date(2023, 11, 11)
         response_date = response.context['form'].initial['date_of_death']
-        response_date = datetime.datetime.strptime(
-            response_date, "%d/%m/%Y").date()
         self.assertEqual(response_date, expected_initial_date)
 
     def test_redirects_to_detail_view_on_success(self):
@@ -411,3 +409,37 @@ class AuthorCreateViewTest(TestCase):
         # Manually check redirect because we don't know what author was created
         self.assertEqual(response.status_code, 302)
         self.assertTrue(response.url.startswith('/catalog/author/'))
+
+
+class AuthorDeleteViewTest(TestCase):
+    """Test case for the AuthorDelete view."""
+
+    def setUp(self):
+        test_user = User.objects.create_user(
+            username='testuser1', password='1X<ISRUkw+tuK')
+        permDeleteAuthor = Permission.objects.get(
+            codename='delete_author',
+            content_type=ContentType.objects.get_for_model(Author),
+        )
+        test_user.user_permissions.add(permDeleteAuthor)
+
+        self.author_with_book = Author.objects.create(
+            first_name='John', last_name='Smith')
+        Book.objects.create(title='Book Title', summary='My book summary',
+                            isbn='ABCDEFG', author=self.author_with_book)
+        self.author_without_book = Author.objects.create(
+            first_name='Jane', last_name='Doe')
+
+    def test_deletes_author_without_books(self):
+        self.client.login(username='testuser1', password='1X<ISRUkw+tuK')
+        response = self.client.post(
+            reverse('author-delete', kwargs={'pk': self.author_without_book.pk}))
+        self.assertRedirects(response, reverse('authors'))
+        self.assertFalse(Author.objects.filter(pk=self.author_without_book.pk).exists())
+
+    def test_does_not_delete_author_with_books(self):
+        self.client.login(username='testuser1', password='1X<ISRUkw+tuK')
+        url = reverse('author-delete', kwargs={'pk': self.author_with_book.pk})
+        response = self.client.post(url)
+        self.assertRedirects(response, url)
+        self.assertTrue(Author.objects.filter(pk=self.author_with_book.pk).exists())

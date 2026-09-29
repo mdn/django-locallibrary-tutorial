@@ -152,13 +152,14 @@ def renew_book_librarian(request, pk):
 
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
+from django.db.models import RestrictedError
 from .models import Author
 
 
 class AuthorCreate(PermissionRequiredMixin, CreateView):
     model = Author
     fields = ['first_name', 'last_name', 'date_of_birth', 'date_of_death']
-    initial = {'date_of_death': '11/11/2023'}
+    initial = {'date_of_death': datetime.date(2023, 11, 11)}
     permission_required = 'catalog.add_author'
 
 class AuthorUpdate(PermissionRequiredMixin, UpdateView):
@@ -176,7 +177,7 @@ class AuthorDelete(PermissionRequiredMixin, DeleteView):
         try:
             self.object.delete()
             return HttpResponseRedirect(self.success_url)
-        except Exception as e:
+        except RestrictedError:
             return HttpResponseRedirect(
                 reverse("author-delete", kwargs={"pk": self.object.pk})
             )
@@ -205,7 +206,7 @@ class BookDelete(PermissionRequiredMixin, DeleteView):
         try:
             self.object.delete()
             return HttpResponseRedirect(self.success_url)
-        except Exception as e:
+        except RestrictedError:
             return HttpResponseRedirect(
                 reverse("book-delete", kwargs={"pk": self.object.pk})
             )
