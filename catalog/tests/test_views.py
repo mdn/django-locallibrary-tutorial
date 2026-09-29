@@ -442,3 +442,13 @@ class AuthorDeleteViewTest(TestCase):
         response = self.client.post(url)
         self.assertRedirects(response, url)
         self.assertTrue(Author.objects.filter(pk=self.author_with_book.pk).exists())
+
+
+class ContentSecurityPolicyTest(TestCase):
+    """Test that pages are served with the Content Security Policy header."""
+
+    def test_csp_header_is_set(self):
+        response = self.client.get(reverse('index'))
+        self.assertEqual(
+            response.headers['Content-Security-Policy'],
+            "default-src 'self'; style-src 'self' https://cdn.jsdelivr.net")

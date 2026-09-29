@@ -41,6 +41,15 @@ ALLOWED_HOSTS = ['.railway.app', '.pythonanywhere.com', '127.0.0.1']
 CSRF_TRUSTED_ORIGINS = ['https://*.railway.app',
                         'https://*.pythonanywhere.com']
 
+# Content Security Policy: only allow resources from this site,
+# plus the Bootstrap stylesheet from the jsDelivr CDN.
+from django.utils.csp import CSP
+
+SECURE_CSP = {
+    "default-src": [CSP.SELF],
+    "style-src": [CSP.SELF, "https://cdn.jsdelivr.net"],
+}
+
 
 # Application definition
 
@@ -64,6 +73,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.csp.ContentSecurityPolicyMiddleware',
 ]
 
 ROOT_URLCONF = 'locallibrary.urls'
