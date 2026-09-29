@@ -9,7 +9,7 @@
 <p>You can't delete this author until all their books have been deleted:</p>
 <ul>
   {% for book in author.book_set.all %}
-    <li><a href="{% url 'book-detail' book.pk %}">{{book}}</a> ({{book.bookinstance_set.all.count}})</li>
+    <li><a href="{% url 'book-detail' book.pk %}">{{book}}</a> ({{ book.bookinstance_set.count }})</li>
   {% endfor %}
 </ul>
 
