@@ -23,6 +23,7 @@ class Genre(models.Model):
         return reverse('genre-detail', args=[str(self.id)])
 
     class Meta:
+        ordering = ['name']
         constraints = [
             UniqueConstraint(
                 Lower('name'),
@@ -46,6 +47,7 @@ class Language(models.Model):
         return self.name
 
     class Meta:
+        ordering = ['name']
         constraints = [
             UniqueConstraint(
                 Lower('name'),
