@@ -153,6 +153,7 @@ def renew_book_librarian(request, pk):
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.db.models import RestrictedError
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from .models import Author
 
 
