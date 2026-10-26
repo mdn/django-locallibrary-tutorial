@@ -7,8 +7,8 @@
       {% for bookinst in bookinstance_list %}
       <li class="{% if bookinst.is_overdue %}text-danger{% endif %}">
         <a href="{% url 'bookinstance-detail' bookinst.pk %}">{{bookinst.book.title}}</a> ({{ bookinst.get_status_display }})
-        {% if bookinst.status != 'a' %}: {{ bookinst.due_back }} {% endif %}
-        {% if bookinst.status == 'o' %}
+        {% if bookinst.status != bookinst.LoanStatus.AVAILABLE %}: {{ bookinst.due_back }} {% endif %}
+        {% if bookinst.status == bookinst.LoanStatus.ON_LOAN %}
           {% if user.is_staff %}- {{ bookinst.borrower }}{% endif %} {% if perms.catalog.can_mark_returned %}- <a href="{% url 'renew-book-librarian' bookinst.id %}">Renew</a> {% endif %}
         {% endif %}
       </li>
