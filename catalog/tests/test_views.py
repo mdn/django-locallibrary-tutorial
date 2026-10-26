@@ -196,6 +196,7 @@ class LoanedBookInstancesByUserListViewTest(TestCase):
                 last_date = copy.due_back
             else:
                 self.assertTrue(last_date <= copy.due_back)
+                last_date = copy.due_back
 
 
 from django.contrib.auth.models import Permission  # Required to grant the permission needed to set a book as returned.
